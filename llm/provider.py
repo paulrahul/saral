@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import os
+import string
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,54 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 TOPICS_FILE = Path(__file__).with_name("topics.json")
 TOPICS_EVAL_FILE = Path(__file__).with_name("topics_eval.json")
+
+
+def _read_latest_json_entry(path: Path) -> dict:
+    with path.open() as fp:
+        data = json.load(fp)
+
+    if isinstance(data, list):
+        return data[-1] if data else {}
+
+    return data
+
+
+def _read_json_entries(path: Path) -> list[dict]:
+    with path.open() as fp:
+        data = json.load(fp)
+
+    if isinstance(data, list):
+        return data
+
+    return [data]
+
+
+def _append_json_entry(path: Path, entry: dict) -> None:
+    entries = []
+    try:
+        with path.open() as fp:
+            data = json.load(fp)
+            entries = data if isinstance(data, list) else [data]
+    except FileNotFoundError:
+        pass
+    except json.JSONDecodeError:
+        logger.info("Existing JSON file at %s is invalid; starting a new history", path)
+
+    entries.append(entry)
+    with path.open("w") as fp:
+        json.dump(entries, fp, indent=2)
+
+
+def _normalize_topic(topic: str) -> str:
+    return topic.lower().strip().translate(str.maketrans("", "", string.punctuation))
+
+
+def _read_cached_topic_values(path: Path) -> list[str]:
+    topics = []
+    for entry in _read_json_entries(path):
+        topics.extend(entry.values())
+
+    return topics
 
 
 def _loadenv(name, check=True):
@@ -327,10 +376,13 @@ class EasyTutorAgent(object):
 
         MAIN_TOPIC = "Teaching AI"
 
+        cached_topics = []
         topic_results = {}
         try:
-            with TOPICS_FILE.open() as fp:
-                topic_results = json.load(fp)
+            topic_results = _read_latest_json_entry(TOPICS_FILE)
+            cached_topics = _read_cached_topic_values(TOPICS_FILE)
+            if topic_results and not new:
+                logger.info("Using latest cached topics entry from %s", TOPICS_FILE)
         except FileNotFoundError:
             logger.info(
                 "No existing topics file found at %s; generating new topics",
@@ -343,12 +395,40 @@ class EasyTutorAgent(object):
 
         if new or len(topic_results) == 0:
             # Generate topics
+            existing_topics = "\n".join(f"- {topic}" for topic in cached_topics)
+            topic_prompt = f"Suggest a topic for {MAIN_TOPIC}"
+            if existing_topics:
+                topic_prompt = f"""
+                Suggest a topic for {MAIN_TOPIC}
+
+                Do not suggest any of these already-used topics:
+                {existing_topics}
+                """
+
             topic_results = await self._topic_generator.generate(
-                message=f"Suggest a topic for {MAIN_TOPIC}",
+                message=topic_prompt,
                 trace="EasyTutor: Topic Generation")
 
-            with TOPICS_FILE.open("w") as fp:
-                json.dump(topic_results, fp)
+            existing_topic_set = {
+                _normalize_topic(topic)
+                for topic in cached_topics
+            }
+            unique_topic_results = {
+                model: topic
+                for model, topic in topic_results.items()
+                if _normalize_topic(topic) not in existing_topic_set
+            }
+            skipped_count = len(topic_results) - len(unique_topic_results)
+            if skipped_count:
+                logger.info("Skipped %d repeated generated topics", skipped_count)
+
+            topic_results = unique_topic_results
+            if len(topic_results) == 0:
+                logger.info("No new unique topics were generated")
+                logger.info("Finished EasyTutorAgent run")
+                return
+
+            _append_json_entry(TOPICS_FILE, topic_results)
 
         # Print topics
         for k, v in topic_results.items():
@@ -357,8 +437,7 @@ class EasyTutorAgent(object):
         normalized_eval_results = {}
         if not new:
             try:
-                with TOPICS_EVAL_FILE.open() as fp:
-                    normalized_eval_results = json.load(fp)
+                normalized_eval_results = _read_latest_json_entry(TOPICS_EVAL_FILE)
             except FileNotFoundError:
                 logger.info(
                     "No existing evaluation file found at %s; evaluating topics",
@@ -373,6 +452,10 @@ class EasyTutorAgent(object):
                 logger.info("Error reading evaluation file: %s", e)
 
         if normalized_eval_results:
+            logger.info(
+                "Using latest cached evaluation entry from %s",
+                TOPICS_EVAL_FILE,
+            )
             print(normalized_eval_results)
             logger.info("Finished EasyTutorAgent run")
             return
@@ -413,8 +496,7 @@ class EasyTutorAgent(object):
                 "reason": reason,
             }
 
-        with TOPICS_EVAL_FILE.open("w") as fp:
-            json.dump(normalized_eval_results, fp)
+        _append_json_entry(TOPICS_EVAL_FILE, normalized_eval_results)
 
         print(normalized_eval_results)
         logger.info("Finished EasyTutorAgent run")
