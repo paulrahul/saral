@@ -1,7 +1,9 @@
 import asyncio
+import json
 import logging
 import os
 from collections.abc import Iterable, Mapping
+from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
@@ -22,6 +24,8 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
 )
 logger = logging.getLogger(__name__)
+TOPICS_FILE = Path(__file__).with_name("topics.json")
+TOPICS_EVAL_FILE = Path(__file__).with_name("topics_eval.json")
 
 
 def _loadenv(name, check=True):
@@ -221,8 +225,52 @@ class Generator(object):
         return self._results
 
 class Evaluator(object):
-    def __init__(self):
-        pass
+    INSTRUCTIONS = """
+    Your current role is to evaluate the quality, relevance and eligibility
+    of any content provided to you that could potentially be used for
+    teaching. You might also be asked to rank a given set of content based
+    on these criteria.
+
+    Always respond with valid JSON in one of these formats:
+    {"result": "yes", "reason": ""}
+    {"result": "no", "reason": "string"}
+    {"result": [0, 1, 2], "reason": ""}
+    When asked to evaluate a content, result should contain yes or no, yes
+    indicating content passed the evaluation and vice versa. When asked to
+    rank a given set of contents, result should contain a list of content
+    indices (0 indexed) in descending order of ranking i.e. first index in
+    result should point to the highest ranked content and so on. Each content
+    a set of contents will be separated by a new line. Reason is to be
+    populated when there is a negative evaluation of any content providing the
+    reason it was deemed negative.
+    """
+    def __init__(self, context):
+        logger.info("Initializing %s", self.__class__.__name__)
+
+        instructions = f"""
+        {context}
+
+        {Evaluator.INSTRUCTIONS}
+        """
+        self._results = []
+        self._models = {
+            "MoonshotAI: Kimi K3": "moonshotai/kimi-k3",
+        }
+
+        self._agents = AgentHelper.create_agents(
+            models=self._models, instructions=instructions,
+            name_prefix="Easytutor: Evaluator"
+        )
+
+    async def evaluate(self, message, trace):
+        logger.info("Starting %s evaluation", self.__class__.__name__)
+        self._results = await AgentHelper.run(
+            self._agents,
+            message=message,
+            trace_name=trace,
+        )
+        logger.info("Finished %s evaluation", self.__class__.__name__)
+        return self._results
 
 class TopicGenerator(Generator):
     INSTRUCTIONS = """
@@ -272,20 +320,111 @@ class EasyTutorAgent(object):
     def __init__(self):
         logger.info("Initializing EasyTutorAgent")
         self._topic_generator = TopicGenerator(context=EasyTutorAgent.CONTEXT)
-        self._evaluator = Evaluator()
+        self._evaluator = Evaluator(context=EasyTutorAgent.CONTEXT)
 
-    async def run(self):
+    async def run(self, new=False):
         logger.info("Starting EasyTutorAgent run")
-        # Generate topics
-        results = await self._topic_generator.generate(
-            message="Suggest a topic for teaching AI",
-            trace="EasyTutor: Topic Generation")
+
+        MAIN_TOPIC = "Teaching AI"
+
+        topic_results = {}
+        try:
+            with TOPICS_FILE.open() as fp:
+                topic_results = json.load(fp)
+        except FileNotFoundError:
+            logger.info(
+                "No existing topics file found at %s; generating new topics",
+                TOPICS_FILE,
+            )
+        except json.JSONDecodeError as e:
+            logger.info("Could not parse topics file; generating new topics: %s", e)
+        except (PermissionError, OSError) as e:
+            logger.info("Error reading topics file: %s", e)
+
+        if new or len(topic_results) == 0:
+            # Generate topics
+            topic_results = await self._topic_generator.generate(
+                message=f"Suggest a topic for {MAIN_TOPIC}",
+                trace="EasyTutor: Topic Generation")
+
+            with TOPICS_FILE.open("w") as fp:
+                json.dump(topic_results, fp)
+
+        # Print topics
+        for k, v in topic_results.items():
+            print(f"Model {k}'s topic: {v}")
+
+        normalized_eval_results = {}
+        if not new:
+            try:
+                with TOPICS_EVAL_FILE.open() as fp:
+                    normalized_eval_results = json.load(fp)
+            except FileNotFoundError:
+                logger.info(
+                    "No existing evaluation file found at %s; evaluating topics",
+                    TOPICS_EVAL_FILE,
+                )
+            except json.JSONDecodeError as e:
+                logger.info(
+                    "Could not parse evaluation file; evaluating topics: %s",
+                    e,
+                )
+            except (PermissionError, OSError) as e:
+                logger.info("Error reading evaluation file: %s", e)
+
+        if normalized_eval_results:
+            print(normalized_eval_results)
+            logger.info("Finished EasyTutorAgent run")
+            return
 
         # Evaluate topics
-        for k, v in results.items():
-            print(f"Model {k}'s topic: {v}")
+        topics = "\n".join(topic_results.values())
+        eval_message=f"""
+        Rank the following sub-topics for the main topic {MAIN_TOPIC}
+
+        {topics}
+        """
+        # print(f"{eval_message=}")
+
+        eval_results = await self._evaluator.evaluate(
+            message=eval_message,
+            trace="EasyTutor: Topic Evaluation"
+        )
+
+        topics_by_index = list(topic_results.items())
+        for eval_key, eval_output in eval_results.items():
+            eval_json = json.loads(eval_output)
+            eval_result = eval_json["result"]
+            reason = eval_json.get("reason", "")
+
+            if isinstance(eval_result, list):
+                normalized_result = {
+                    topics_by_index[index][0]: topics_by_index[index][1]
+                    for index in eval_result
+                }
+            else:
+                normalized_result = {
+                    topic: eval_result
+                    for topic in topic_results.values()
+                }
+
+            normalized_eval_results[eval_key] = {
+                "result": normalized_result,
+                "reason": reason,
+            }
+
+        with TOPICS_EVAL_FILE.open("w") as fp:
+            json.dump(normalized_eval_results, fp)
+
+        print(normalized_eval_results)
         logger.info("Finished EasyTutorAgent run")
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--new', '-n', action='store_true', help='Generate new')
+    args = parser.parse_args()
+
     agent = EasyTutorAgent()
-    asyncio.run(agent.run())
+    asyncio.run(agent.run(args.new))
