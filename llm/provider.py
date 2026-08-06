@@ -26,43 +26,40 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 TOPICS_FILE = Path(__file__).with_name("topics.json")
-TOPICS_EVAL_FILE = Path(__file__).with_name("topics_eval.json")
 
 
-def _read_latest_json_entry(path: Path) -> dict:
+def _read_evaluations(path: Path) -> dict[str, dict]:
     with path.open() as fp:
         data = json.load(fp)
 
-    if isinstance(data, list):
-        return data[-1] if data else {}
-
-    return data
-
-
-def _read_json_entries(path: Path) -> list[dict]:
-    with path.open() as fp:
-        data = json.load(fp)
-
-    if isinstance(data, list):
+    if isinstance(data, dict):
         return data
 
-    return [data]
+    evaluations = {}
+    for entry in reversed(data):
+        for model_name, evaluation in entry.items():
+            evaluations.setdefault(model_name, evaluation)
+
+    return evaluations
 
 
-def _append_json_entry(path: Path, entry: dict) -> None:
-    entries = []
+def _write_evaluations(path: Path, new_evaluations: dict[str, dict]) -> None:
+    evaluations = {}
     try:
-        with path.open() as fp:
-            data = json.load(fp)
-            entries = data if isinstance(data, list) else [data]
+        evaluations = _read_evaluations(path)
     except FileNotFoundError:
         pass
     except json.JSONDecodeError:
         logger.info("Existing JSON file at %s is invalid; starting a new history", path)
 
-    entries.append(entry)
+    # Put the newest results first and replace any older result from that model.
+    for model_name in new_evaluations:
+        evaluations.pop(model_name, None)
+    evaluations = {**new_evaluations, **evaluations}
+
     with path.open("w") as fp:
-        json.dump(entries, fp, indent=2)
+        json.dump(evaluations, fp, indent=2)
+        fp.write("\n")
 
 
 def _normalize_topic(topic: str) -> str:
@@ -70,11 +67,19 @@ def _normalize_topic(topic: str) -> str:
 
 
 def _read_cached_topic_values(path: Path) -> list[str]:
-    topics = []
-    for entry in _read_json_entries(path):
-        topics.extend(entry.values())
+    return [topic for _, topic in _read_cached_topic_items(path)]
 
-    return topics
+
+def _read_cached_topic_items(path: Path) -> list[tuple[str, str]]:
+    evaluations = _read_evaluations(path)
+    if not evaluations:
+        return []
+
+    latest_evaluation = next(iter(evaluations.values()))
+    return [
+        (model, topic)
+        for topic, model in latest_evaluation.get("result", {}).items()
+    ]
 
 
 def _loadenv(name, check=True):
@@ -255,7 +260,8 @@ class Generator(object):
         self._results = []
         self._models = {
             "Z.ai: GLM 5.2": "z-ai/glm-5.2",
-            "DeepSeek V4 Flash 0731": "deepseek/deepseek-v4-flash-0731"
+            "DeepSeek V4 Flash 0731": "deepseek/deepseek-v4-flash-0731",
+            "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna"
         }
 
         self._agents = AgentHelper.create_agents(
@@ -280,18 +286,27 @@ class Evaluator(object):
     teaching. You might also be asked to rank a given set of content based
     on these criteria.
 
+    Deduplicate topics, including semantic duplicates. If multiple topics
+    mean the same thing, keep only the best one. Also discard any topic
+    that has a negative evaluation for quality, relevance, eligibility, or
+    usefulness for the target learners.
+
     Always respond with valid JSON in one of these formats:
     {"result": "yes", "reason": ""}
     {"result": "no", "reason": "string"}
-    {"result": [0, 1, 2], "reason": ""}
+    {"result": [0, 1, 2], "reason": "string"}
     When asked to evaluate a content, result should contain yes or no, yes
     indicating content passed the evaluation and vice versa. When asked to
     rank a given set of contents, result should contain a list of content
     indices (0 indexed) in descending order of ranking i.e. first index in
     result should point to the highest ranked content and so on. Each content
-    a set of contents will be separated by a new line. Reason is to be
-    populated when there is a negative evaluation of any content providing the
-    reason it was deemed negative.
+    in a set of contents will be separated by a new line. Reason is to be
+    populated when there is a negative evaluation of any content. Include the
+    reason for every excluded topic in one string, with each reason separated
+    by a newline.
+
+    The result list must contain the 0-indexed topic indices in descending
+    rank order after deduplication and negative filtering.
     """
     def __init__(self, context):
         logger.info("Initializing %s", self.__class__.__name__)
@@ -369,23 +384,80 @@ class EasyTutorAgent(object):
     def __init__(self):
         logger.info("Initializing EasyTutorAgent")
         self._topic_generator = TopicGenerator(context=EasyTutorAgent.CONTEXT)
+        self._content_generator = ContentGenerator(context=EasyTutorAgent.CONTEXT)
         self._evaluator = Evaluator(context=EasyTutorAgent.CONTEXT)
 
-    async def run(self, new=False):
-        logger.info("Starting EasyTutorAgent run")
+    async def _rank_topics(
+        self,
+        main_topic: str,
+        topic_items: list[tuple[str, str]],
+    ) -> None:
+        topics_to_rank = "\n".join(f"- {topic}"
+            for _, (_, topic) in enumerate(topic_items)
+        )
 
-        MAIN_TOPIC = "Teaching AI"
+        eval_message = f"""
+        Rank the following sub-topics for the main topic {main_topic}.
 
+        {topics_to_rank}
+        """
+        eval_results = await self._evaluator.evaluate(
+            message=eval_message,
+            trace="EasyTutor: Topic Evaluation"
+        )
+
+        normalized_eval_results = {}
+        for eval_key, eval_output in eval_results.items():
+            eval_json = json.loads(eval_output)
+            ranked_indices = eval_json["result"]
+            reason = eval_json.get("reason", "")
+            if isinstance(reason, list):
+                reason = "\n".join(str(item) for item in reason)
+            else:
+                reason = str(reason)
+
+            if not isinstance(ranked_indices, list):
+                raise ValueError(
+                    f"Evaluator {eval_key!r} returned a non-ranking result: "
+                    f"{ranked_indices!r}"
+                )
+
+            normalized_result = {}
+            for index in ranked_indices:
+                model, topic = topic_items[index]
+                normalized_result[topic] = model
+
+            normalized_eval_results[eval_key] = {
+                "result": normalized_result,
+                "reason": reason,
+            }
+
+        _write_evaluations(TOPICS_FILE, normalized_eval_results)
+        print(normalized_eval_results)
+
+    def _get_next_topic(self) -> tuple[str, str] | None:
+        try:
+            topic_items = _read_cached_topic_items(TOPICS_FILE)
+        except FileNotFoundError:
+            return None
+
+        return topic_items[0] if topic_items else None
+
+    def _remove_used_topic(self, topic: str) -> None:
+        evaluations = _read_evaluations(TOPICS_FILE)
+        evaluator_model, latest_evaluation = next(iter(evaluations.items()))
+        latest_evaluation["result"].pop(topic, None)
+        _write_evaluations(TOPICS_FILE, {evaluator_model: latest_evaluation})
+        logger.info("Removed used topic '%s' from the topic cache", topic)
+
+    async def generate_topics(self, main_topic):
         cached_topics = []
         topic_results = {}
         try:
-            topic_results = _read_latest_json_entry(TOPICS_FILE)
             cached_topics = _read_cached_topic_values(TOPICS_FILE)
-            if topic_results and not new:
-                logger.info("Using latest cached topics entry from %s", TOPICS_FILE)
         except FileNotFoundError:
             logger.info(
-                "No existing topics file found at %s; generating new topics",
+                "No existing topics file found at %s",
                 TOPICS_FILE,
             )
         except json.JSONDecodeError as e:
@@ -393,120 +465,71 @@ class EasyTutorAgent(object):
         except (PermissionError, OSError) as e:
             logger.info("Error reading topics file: %s", e)
 
-        if new or len(topic_results) == 0:
-            # Generate topics
-            existing_topics = "\n".join(f"- {topic}" for topic in cached_topics)
-            topic_prompt = f"Suggest a topic for {MAIN_TOPIC}"
-            if existing_topics:
-                topic_prompt = f"""
-                Suggest a topic for {MAIN_TOPIC}
+        # Generate topics
+        existing_topics = "\n".join(f"- {topic}" for topic in cached_topics)
+        topic_prompt = f"Suggest a topic for {main_topic}"
+        if existing_topics:
+            topic_prompt = f"""
+            Suggest a topic for {main_topic}
 
-                Do not suggest any of these already-used topics:
-                {existing_topics}
-                """
+            Do not suggest any of these already-used topics:
+            {existing_topics}
+            """
 
-            topic_results = await self._topic_generator.generate(
-                message=topic_prompt,
-                trace="EasyTutor: Topic Generation")
+        topic_results = await self._topic_generator.generate(
+            message=topic_prompt,
+            trace="EasyTutor: Topic Generation")
 
-            existing_topic_set = {
-                _normalize_topic(topic)
-                for topic in cached_topics
-            }
-            unique_topic_results = {
-                model: topic
-                for model, topic in topic_results.items()
-                if _normalize_topic(topic) not in existing_topic_set
-            }
-            skipped_count = len(topic_results) - len(unique_topic_results)
-            if skipped_count:
-                logger.info("Skipped %d repeated generated topics", skipped_count)
+        existing_topic_set = {
+            _normalize_topic(topic)
+            for topic in cached_topics
+        }
+        unique_topic_results = {
+            model: topic
+            for model, topic in topic_results.items()
+            if _normalize_topic(topic) not in existing_topic_set
+        }
+        skipped_count = len(topic_results) - len(unique_topic_results)
+        if skipped_count:
+            logger.info("Skipped %d repeated generated topics", skipped_count)
 
-            topic_results = unique_topic_results
-            if len(topic_results) == 0:
-                logger.info("No new unique topics were generated")
-                logger.info("Finished EasyTutorAgent run")
-                return
-
-            _append_json_entry(TOPICS_FILE, topic_results)
-
-        # Print topics
-        for k, v in topic_results.items():
-            print(f"Model {k}'s topic: {v}")
-
-        normalized_eval_results = {}
-        if not new:
-            try:
-                normalized_eval_results = _read_latest_json_entry(TOPICS_EVAL_FILE)
-            except FileNotFoundError:
-                logger.info(
-                    "No existing evaluation file found at %s; evaluating topics",
-                    TOPICS_EVAL_FILE,
-                )
-            except json.JSONDecodeError as e:
-                logger.info(
-                    "Could not parse evaluation file; evaluating topics: %s",
-                    e,
-                )
-            except (PermissionError, OSError) as e:
-                logger.info("Error reading evaluation file: %s", e)
-
-        if normalized_eval_results:
-            logger.info(
-                "Using latest cached evaluation entry from %s",
-                TOPICS_EVAL_FILE,
-            )
-            print(normalized_eval_results)
-            logger.info("Finished EasyTutorAgent run")
+        topic_results = unique_topic_results
+        if len(topic_results) == 0:
+            logger.info("No new unique topics were generated")
             return
 
-        # Evaluate topics
-        topics = "\n".join(topic_results.values())
-        eval_message=f"""
-        Rank the following sub-topics for the main topic {MAIN_TOPIC}
-
-        {topics}
-        """
-        # print(f"{eval_message=}")
-
-        eval_results = await self._evaluator.evaluate(
-            message=eval_message,
-            trace="EasyTutor: Topic Evaluation"
+        logger.info("New topics generated: %s", topic_results)
+        all_topic_items = _read_cached_topic_items(TOPICS_FILE) + list(
+            topic_results.items()
         )
+        await self._rank_topics(main_topic, all_topic_items)
 
-        topics_by_index = list(topic_results.items())
-        for eval_key, eval_output in eval_results.items():
-            eval_json = json.loads(eval_output)
-            eval_result = eval_json["result"]
-            reason = eval_json.get("reason", "")
 
-            if isinstance(eval_result, list):
-                normalized_result = {
-                    topics_by_index[index][0]: topics_by_index[index][1]
-                    for index in eval_result
-                }
-            else:
-                normalized_result = {
-                    topic: eval_result
-                    for topic in topic_results.values()
-                }
+    async def run(self):
+        logger.info("Starting EasyTutorAgent run")
 
-            normalized_eval_results[eval_key] = {
-                "result": normalized_result,
-                "reason": reason,
-            }
+        MAIN_TOPIC = "Teaching AI"
 
-        _append_json_entry(TOPICS_EVAL_FILE, normalized_eval_results)
+        next_topic = self._get_next_topic()
+        if next_topic is None:
+            logger.info("No ranked topics remain; generating and ranking new topics")
+            await self.generate_topics(MAIN_TOPIC)
+            next_topic = self._get_next_topic()
 
-        print(normalized_eval_results)
+        if next_topic is None:
+            logger.info("No topic is available for content generation")
+            return
+
+        model, topic = next_topic
+        logger.info("Generating content for top-ranked topic '%s' from '%s'", topic, model)
+        # await self._content_generator.generate(
+        #     message=topic,
+        #     trace="EasyTutor: Content Generation",
+        # )
+        # self._remove_used_topic(topic)
+
         logger.info("Finished EasyTutorAgent run")
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--new', '-n', action='store_true', help='Generate new')
-    args = parser.parse_args()
-
     agent = EasyTutorAgent()
-    asyncio.run(agent.run(args.new))
+    asyncio.run(agent.run())
