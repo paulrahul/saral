@@ -26,6 +26,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 TOPICS_FILE = Path(__file__).with_name("topics.json")
+CONTENT_FILE = Path(__file__).with_name("content.json")
 
 
 def _read_evaluations(path: Path) -> dict[str, dict]:
@@ -62,12 +63,37 @@ def _write_evaluations(path: Path, new_evaluations: dict[str, dict]) -> None:
         fp.write("\n")
 
 
+def _write_content(topic: str, content: dict[str, str]) -> None:
+    content_by_topic = {}
+    try:
+        with CONTENT_FILE.open() as fp:
+            content_by_topic = json.load(fp)
+    except FileNotFoundError:
+        pass
+    except json.JSONDecodeError:
+        logger.info("Existing JSON file at %s is invalid; starting a new cache", CONTENT_FILE)
+
+    content_by_topic.setdefault(topic, {}).update(content)
+    with CONTENT_FILE.open("w") as fp:
+        json.dump(content_by_topic, fp, indent=2)
+        fp.write("\n")
+
+
 def _normalize_topic(topic: str) -> str:
     return topic.lower().strip().translate(str.maketrans("", "", string.punctuation))
 
 
 def _read_cached_topic_values(path: Path) -> list[str]:
     return [topic for _, topic in _read_cached_topic_items(path)]
+
+
+def _read_used_topic_values(path: Path) -> list[str]:
+    evaluations = _read_evaluations(path)
+    if not evaluations:
+        return []
+
+    latest_evaluation = next(iter(evaluations.values()))
+    return latest_evaluation.get("used", [])
 
 
 def _read_cached_topic_items(path: Path) -> list[tuple[str, str]]:
@@ -255,14 +281,10 @@ class AgentHelper:
         }
 
 class Generator(object):
-    def __init__(self, instructions, prefix):
+    def __init__(self, models, instructions, prefix):
         logger.info("Initializing %s", self.__class__.__name__)
         self._results = []
-        self._models = {
-            "Z.ai: GLM 5.2": "z-ai/glm-5.2",
-            "DeepSeek V4 Flash 0731": "deepseek/deepseek-v4-flash-0731",
-            "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna"
-        }
+        self._models = models
 
         self._agents = AgentHelper.create_agents(
             models=self._models, instructions=instructions,
@@ -353,11 +375,27 @@ class TopicGenerator(Generator):
 
         {TopicGenerator.INSTRUCTIONS}
         """
-
-        Generator.__init__(self, instructions=instructions, prefix="Topic Generator")
+        Generator.__init__(
+            self,
+            models = {
+                "Z.ai: GLM 5.2": "z-ai/glm-5.2",
+                "DeepSeek V4 Flash 0731": "deepseek/deepseek-v4-flash-0731",
+                "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna"
+            },
+            instructions=instructions,
+            prefix="Topic Generator"
+        )
 
 class ContentGenerator(Generator):
     INSTRUCTIONS = """
+    You will be given a broad tech topic, your goal is to come up with a short
+    byte sized explanation on that broad topic. You will use only simple
+    English, avoid acronyms and tech terms as much as possible, explain the
+    concepts like the user is 5 years old. If you do have to use an acronym or
+    tech topic, make sure you provide a link to that term. Your entire content
+    is to be provided in MD (Markdown) format.
+
+    Your response should contain only the Markdown content and nothing else.
     """
     def __init__(self, context):
         instructions = f"""
@@ -365,8 +403,14 @@ class ContentGenerator(Generator):
 
         {ContentGenerator.INSTRUCTIONS}
         """
-
-        Generator.__init__(self, instructions=instructions, prefix="Content Generator")
+        Generator.__init__(
+            self,
+            models = {
+                "Z.ai: GLM 5.2": "z-ai/glm-5.2",
+                "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna"
+            },
+            instructions=instructions,
+            prefix="Content Generator")
 
 class EasyTutorAgent(object):
     CONTEXT = """
@@ -392,8 +436,9 @@ class EasyTutorAgent(object):
         main_topic: str,
         topic_items: list[tuple[str, str]],
     ) -> None:
-        topics_to_rank = "\n".join(f"- {topic}"
-            for _, (_, topic) in enumerate(topic_items)
+        topics_to_rank = "\n".join(
+            f"{index}. {topic}"
+            for index, (_, topic) in enumerate(topic_items)
         )
 
         eval_message = f"""
@@ -407,6 +452,10 @@ class EasyTutorAgent(object):
         )
 
         normalized_eval_results = {}
+        try:
+            existing_evaluations = _read_evaluations(TOPICS_FILE)
+        except FileNotFoundError:
+            existing_evaluations = {}
         for eval_key, eval_output in eval_results.items():
             eval_json = json.loads(eval_output)
             ranked_indices = eval_json["result"]
@@ -430,6 +479,7 @@ class EasyTutorAgent(object):
             normalized_eval_results[eval_key] = {
                 "result": normalized_result,
                 "reason": reason,
+                "used": existing_evaluations.get(eval_key, {}).get("used", []),
             }
 
         _write_evaluations(TOPICS_FILE, normalized_eval_results)
@@ -446,15 +496,18 @@ class EasyTutorAgent(object):
     def _remove_used_topic(self, topic: str) -> None:
         evaluations = _read_evaluations(TOPICS_FILE)
         evaluator_model, latest_evaluation = next(iter(evaluations.items()))
-        latest_evaluation["result"].pop(topic, None)
+        if latest_evaluation["result"].pop(topic, None) is not None:
+            latest_evaluation.setdefault("used", []).append(topic)
         _write_evaluations(TOPICS_FILE, {evaluator_model: latest_evaluation})
         logger.info("Removed used topic '%s' from the topic cache", topic)
 
     async def generate_topics(self, main_topic):
         cached_topics = []
+        used_topics = []
         topic_results = {}
         try:
             cached_topics = _read_cached_topic_values(TOPICS_FILE)
+            used_topics = _read_used_topic_values(TOPICS_FILE)
         except FileNotFoundError:
             logger.info(
                 "No existing topics file found at %s",
@@ -466,7 +519,8 @@ class EasyTutorAgent(object):
             logger.info("Error reading topics file: %s", e)
 
         # Generate topics
-        existing_topics = "\n".join(f"- {topic}" for topic in cached_topics)
+        all_existing_topics = cached_topics + used_topics
+        existing_topics = "\n".join(f"- {topic}" for topic in all_existing_topics)
         topic_prompt = f"Suggest a topic for {main_topic}"
         if existing_topics:
             topic_prompt = f"""
@@ -482,7 +536,7 @@ class EasyTutorAgent(object):
 
         existing_topic_set = {
             _normalize_topic(topic)
-            for topic in cached_topics
+            for topic in all_existing_topics
         }
         unique_topic_results = {
             model: topic
@@ -522,11 +576,12 @@ class EasyTutorAgent(object):
 
         model, topic = next_topic
         logger.info("Generating content for top-ranked topic '%s' from '%s'", topic, model)
-        # await self._content_generator.generate(
-        #     message=topic,
-        #     trace="EasyTutor: Content Generation",
-        # )
-        # self._remove_used_topic(topic)
+        content_results = await self._content_generator.generate(
+            message=topic,
+            trace="EasyTutor: Content Generation",
+        )
+        _write_content(topic, content_results)
+        self._remove_used_topic(topic)
 
         logger.info("Finished EasyTutorAgent run")
 
