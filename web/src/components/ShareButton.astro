@@ -1,0 +1,32 @@
+---
+import { Check, Share2 } from "lucide-astro";
+const { title } = Astro.props;
+---
+
+<button class="share-button" type="button" data-share-button data-share-title={title}>
+  <Share2 data-share-icon aria-hidden="true" size={18} />
+  <Check data-check-icon aria-hidden="true" size={18} hidden />
+  <span data-share-label>Share</span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-share-button]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const title = button.dataset.shareTitle ?? document.title;
+      const url = window.location.href;
+      if (navigator.share) {
+        await navigator.share({ title, url });
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      button.querySelector("[data-share-label]")!.textContent = "Link copied";
+      button.querySelector("[data-share-icon]")?.setAttribute("hidden", "true");
+      button.querySelector("[data-check-icon]")?.removeAttribute("hidden");
+      window.setTimeout(() => {
+        button.querySelector("[data-share-label]")!.textContent = "Share";
+        button.querySelector("[data-share-icon]")?.removeAttribute("hidden");
+        button.querySelector("[data-check-icon]")?.setAttribute("hidden", "true");
+      }, 1800);
+    });
+  });
+</script>

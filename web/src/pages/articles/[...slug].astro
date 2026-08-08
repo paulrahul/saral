@@ -1,0 +1,20 @@
+---
+import { getCollection, render } from "astro:content";
+import ShareButton from "../../components/ShareButton.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articleSlug } from "../../lib/articles";
+
+export async function getStaticPaths() {
+  return (await getCollection("articles")).map((article) => ({ params: { slug: articleSlug(article) }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const formattedDate = article.data.publishedAt.toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" });
+---
+
+<BaseLayout title={`${article.data.title} | EasyTutor`} description={article.data.summary}>
+  <SiteHeader />
+  <main class="shell article-shell"><a class="back-link" href="/">← All lessons</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}</div><h1>{article.data.title}</h1><div class="article-meta"><span>Updated {formattedDate}</span><ShareButton title={article.data.title} /></div></header><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>Remember</strong><p>It is okay to learn one step at a time. Take a pause whenever you need one.</p></aside></article></main>
+</BaseLayout>

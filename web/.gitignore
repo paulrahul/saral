@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.next/
+.vinext/
+.wrangler/
+.vercel/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+.DS_Store
+npm-debug.log*

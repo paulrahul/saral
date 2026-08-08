@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../../components/ArticleCard.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const articles = await getCollection("articles");
+export async function getStaticPaths() {
+  const entries = await getCollection("articles");
+  const tags = [...new Set(entries.flatMap((article) => article.data.tags))];
+  return tags.map((tag) => ({ params: { tag: encodeURIComponent(tag) } }));
+}
+const tag = decodeURIComponent(Astro.params.tag ?? "");
+const matchingArticles = articles.filter((article) => article.data.tags.includes(tag));
+---
+
+<BaseLayout title={`${tag} | EasyTutor`}><SiteHeader /><main class="shell tag-page"><a class="back-link" href="/">← All lessons</a><p class="kicker">Topic</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>

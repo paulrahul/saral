@@ -1,0 +1,23 @@
+---
+title: "What is AI?"
+summary: "AI means artificial intelligence."
+publishedAt: 2026-08-08
+tags:
+  - "AI Basics"
+  - "Everyday Technology"
+sourceModel: "OpenAI: GPT-5.6 Luna"
+---
+**AI** means **artificial intelligence**.
+
+It is when a computer or machine is made to do tasks that usually need human thinking.
+
+For example, AI can:
+
+- Answer questions
+- Recognise a face or a voice
+- Suggest a video or song
+- Translate languages
+- Help write a message
+- Find information
+
+AI does not think and feel like a person. It learns from many examples and finds patterns. It can also make mistakes, so important information should be checked.

@@ -5,3 +5,8 @@ __pycache__
 .env
 
 *.json
+!llm/approved_content.json
+
+.openai
+
+/review/

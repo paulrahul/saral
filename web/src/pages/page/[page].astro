@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../../components/ArticleCard.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PAGE_SIZE, sortArticles } from "../../lib/articles";
+
+export async function getStaticPaths() {
+  const articles = sortArticles(await getCollection("articles"));
+  const pageCount = Math.ceil(articles.length / PAGE_SIZE);
+  return Array.from({ length: Math.max(0, pageCount - 1) }, (_, index) => ({ params: { page: String(index + 2) } }));
+}
+
+const articles = sortArticles(await getCollection("articles"));
+const page = Number(Astro.params.page);
+const pageCount = Math.ceil(articles.length / PAGE_SIZE);
+const pageArticles = articles.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+---
+
+<BaseLayout title={`Lessons, page ${page} | EasyTutor`}><SiteHeader /><main class="shell lesson-section page-list"><a class="back-link" href="/">← Latest lessons</a><div class="section-heading"><div><p class="kicker">More lessons</p><h1>Learn at your pace.</h1></div><span>Page {page} of {pageCount}</span></div><div class="article-list">{pageArticles.map((article) => <ArticleCard {article} />)}</div><nav class="pagination" aria-label="Pagination">{page > 2 ? <a href={`/page/${page - 1}/`}>Previous</a> : <a href="/">Previous</a>} {page < pageCount ? <a href={`/page/${page + 1}/`}>Next</a> : <span class="pagination-disabled">Next</span>}</nav></main></BaseLayout>

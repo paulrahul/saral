@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { articleSlug } from "../lib/articles";
+const { article } = Astro.props as { article: CollectionEntry<"articles"> };
+const formattedDate = article.data.publishedAt.toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" });
+---
+
+<article class="article-card">
+  <div class="eyebrow-row"><span>Start here</span><span>{formattedDate}</span></div>
+  <h2><a href={`/articles/${articleSlug(article)}/`}>{article.data.title}</a></h2>
+  <p>{article.data.summary}</p>
+  <div class="tag-row" aria-label="Article tags">
+    {article.data.tags.map((tag) => <a class="tag" href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}
+  </div>
+  <a class="read-link" href={`/articles/${articleSlug(article)}/`}>Read lesson <span aria-hidden="true">→</span></a>
+</article>
