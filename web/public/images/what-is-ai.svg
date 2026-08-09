@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fff5d8"/>
+  <circle cx="330" cy="260" r="105" fill="#f4c95d"/>
+  <path d="M175 535c12-135 78-202 155-202s143 67 155 202" fill="#176b4d"/>
+  <circle cx="300" cy="248" r="8" fill="#18251f"/><circle cx="360" cy="248" r="8" fill="#18251f"/>
+  <path d="M302 290c20 18 38 18 58 0" fill="none" stroke="#18251f" stroke-width="7" stroke-linecap="round"/>
+  <rect x="635" y="130" width="340" height="330" rx="32" fill="#fff" stroke="#176b4d" stroke-width="9"/>
+  <circle cx="805" cy="265" r="72" fill="#eaf4ee" stroke="#176b4d" stroke-width="7"/>
+  <path d="M770 265h70M805 230v70" stroke="#176b4d" stroke-width="12" stroke-linecap="round"/>
+  <path d="M558 195c-72-8-117 18-145 73M558 195l-28-25M558 195l-30 24" fill="none" stroke="#176b4d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M635 380c-75 16-130 4-163-38" fill="none" stroke="#176b4d" stroke-width="8" stroke-linecap="round" stroke-dasharray="15 16"/>
+  <text x="805" y="520" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#18251f">Ask • Learn • Check</text>
+</svg>

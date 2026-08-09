@@ -1,11 +1,49 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
+import { Moon, Sun } from "lucide-astro";
 ---
 
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="EasyTutor home">EasyTutor</a>
-    <nav aria-label="Main navigation"><a href="/">Learn</a><a href="/#topics">Topics</a></nav>
-    <ThemeToggle />
+    <a class="brand" href="/" aria-label="Saral home"><span>Saral</span><small>Small lessons for everyday digital life.</small></a>
+    <nav aria-label="Main navigation"><a href="/">Home</a><a href="/#topics">All topics</a></nav>
+    <div class="language-list" role="group" aria-label="Choose language">
+      <button type="button" data-language="en" aria-pressed="true">English</button>
+      <button type="button" data-language="hi" aria-pressed="false">हिन्दी</button>
+      <button type="button" data-language="bn" aria-pressed="false">বাংলা</button>
+    </div>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+      <Sun data-sun aria-hidden="true" size={20} />
+      <Moon data-moon aria-hidden="true" size={20} />
+    </button>
   </div>
 </header>
+
+<script>
+  const languageButtons = document.querySelectorAll<HTMLButtonElement>("[data-language]");
+  const setLanguage = (language: string) => {
+    document.documentElement.lang = language;
+    languageButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
+  };
+  setLanguage(localStorage.getItem("saral-language") ?? "en");
+  languageButtons.forEach((button) => button.addEventListener("click", () => {
+    const language = button.dataset.language ?? "en";
+    localStorage.setItem("saral-language", language);
+    setLanguage(language);
+    document.dispatchEvent(new CustomEvent("saral:language", { detail: language }));
+  }));
+
+  const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  const setTheme = (theme: "light" | "dark") => {
+    document.documentElement.dataset.theme = theme;
+    const label = theme === "dark" ? "Use light theme" : "Use dark theme";
+    themeButton?.setAttribute("aria-label", label);
+    themeButton?.setAttribute("title", label);
+  };
+  const savedTheme = localStorage.getItem("saral-theme");
+  setTheme(savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+  themeButton?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    localStorage.setItem("saral-theme", next);
+    setTheme(next);
+  });
+</script>

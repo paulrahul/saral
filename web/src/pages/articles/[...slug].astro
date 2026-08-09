@@ -14,7 +14,7 @@ const { Content } = await render(article);
 const formattedDate = article.data.publishedAt.toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" });
 ---
 
-<BaseLayout title={`${article.data.title} | EasyTutor`} description={article.data.summary}>
+<BaseLayout title={`${article.data.title} | Saral`} description={article.data.summary} image={article.data.image}>
   <SiteHeader />
-  <main class="shell article-shell"><a class="back-link" href="/">← All lessons</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}</div><h1>{article.data.title}</h1><div class="article-meta"><span>Updated {formattedDate}</span><ShareButton title={article.data.title} /></div></header><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>Remember</strong><p>It is okay to learn one step at a time. Take a pause whenever you need one.</p></aside></article></main>
+  <main class="shell article-shell"><a class="back-link" href="/">← All lessons</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>Updated {formattedDate}</span><ShareButton title={article.data.title} /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>Remember</strong><p>It is okay to learn one step at a time. Take a pause whenever you need one.</p></aside></article></main>
 </BaseLayout>

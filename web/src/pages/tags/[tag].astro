@@ -14,4 +14,4 @@ const tag = decodeURIComponent(Astro.params.tag ?? "");
 const matchingArticles = articles.filter((article) => article.data.tags.includes(tag));
 ---
 
-<BaseLayout title={`${tag} | EasyTutor`}><SiteHeader /><main class="shell tag-page"><a class="back-link" href="/">← All lessons</a><p class="kicker">Topic</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>
+<BaseLayout title={`${tag} | Saral`}><SiteHeader /><main class="shell tag-page"><a class="back-link" href="/">← All lessons</a><p class="kicker">Topic</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>

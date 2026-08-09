@@ -1,6 +1,6 @@
-# EasyTutor Web
+# Saral Web
 
-Static Astro site for EasyTutor articles.
+Static Astro site for Saral articles.
 
 ## Content publishing
 

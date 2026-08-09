@@ -3,20 +3,27 @@ import { getCollection } from "astro:content";
 import ArticleCard from "../components/ArticleCard.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { PAGE_SIZE, sortArticles } from "../lib/articles";
+import { articleSlug, sortArticles } from "../lib/articles";
 
 const articles = sortArticles(await getCollection("articles"));
+const [latest, ...older] = articles;
 const tags = [...new Set(articles.flatMap((article) => article.data.tags))];
-const pageCount = Math.ceil(articles.length / PAGE_SIZE);
 ---
 
-<BaseLayout>
+<BaseLayout pageClass="home-page">
   <SiteHeader />
-  <main>
-    <section class="intro shell"><p class="kicker">Technology, at your pace</p><h1>Small lessons for everyday digital life.</h1><p class="intro-copy">Clear, practical guides to the technology that matters. No jargon. No rush.</p></section>
-    <figure class="welcome-visual shell"><img src="/og.png" alt="EasyTutor: Simple technology, made clear" /></figure>
-    <section class="shell lesson-section" aria-labelledby="latest-lessons"><div class="section-heading"><div><p class="kicker">Latest lesson</p><h2 id="latest-lessons">Learn one useful thing today</h2></div><span>{articles.length} lesson{articles.length === 1 ? "" : "s"}</span></div><div class="article-list">{articles.slice(0, PAGE_SIZE).map((article) => <ArticleCard {article} />)}</div><nav class="pagination" aria-label="Pagination"><span>Page 1 of {pageCount || 1}</span><span class="pagination-disabled">Previous</span>{pageCount > 1 ? <a href="/page/2/">Next</a> : <span class="pagination-disabled">Next</span>}</nav></section>
-    <section class="topics-band" id="topics"><div class="shell"><p class="kicker">Browse by topic</p><h2>Useful basics, explained simply.</h2><div class="topic-links">{tags.map((tag) => <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}</div></div></section>
+  <main class="home-main shell">
+    <section class="topic-strip" id="topics" aria-labelledby="topics-title">
+      <div class="topic-heading"><p id="topics-title">Choose a topic</p><span>What would you like help with?</span></div>
+      <nav class="topic-links" aria-label="Topics"><a class="active" href="/">Latest</a>{tags.map((tag) => <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>)}</nav>
+    </section>
+    {latest && <section class="latest" aria-labelledby="latest-title">
+      <div class="section-label"><strong id="latest-title">Newest lesson</strong><span>Start here</span></div>
+      <ArticleCard article={latest} />
+    </section>}
+    {older.length > 0 && <section class="more-lessons" aria-labelledby="more-title">
+      <div class="section-label"><strong id="more-title">More lessons</strong><span>Choose another</span></div>
+      <div class="compact-list">{older.slice(0, 3).map((article) => <a href={`/articles/${articleSlug(article)}/`}><span>{article.data.tags[0]}</span><strong>{article.data.title}</strong><b aria-hidden="true">→</b></a>)}</div>
+    </section>}
   </main>
-  <footer class="site-footer"><div class="shell"><span>EasyTutor</span><span>Simple technology, made clear.</span></div></footer>
 </BaseLayout>

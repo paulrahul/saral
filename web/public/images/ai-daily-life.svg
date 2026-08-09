@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#eaf4ee"/>
+  <circle cx="600" cy="315" r="184" fill="#fff" stroke="#176b4d" stroke-width="8"/>
+  <rect x="515" y="170" width="170" height="290" rx="28" fill="#176b4d"/>
+  <rect x="532" y="200" width="136" height="210" rx="10" fill="#fffdf7"/>
+  <circle cx="600" cy="434" r="10" fill="#f4c95d"/>
+  <path d="M560 272h80M560 310h60M560 348h72" stroke="#176b4d" stroke-width="14" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#176b4d" stroke-width="6">
+    <circle cx="280" cy="195" r="82"/><circle cx="920" cy="195" r="82"/><circle cx="280" cy="455" r="82"/><circle cx="920" cy="455" r="82"/>
+  </g>
+  <g fill="none" stroke="#176b4d" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M245 205l25 25 48-62"/><path d="M885 212h70M900 183h40M900 241h40"/>
+    <path d="M247 455h66M280 422v66"/><path d="M890 438c18-32 55-32 60 0 4 27-30 45-30 45s-34-18-30-45z"/>
+  </g>
+  <g stroke="#176b4d" stroke-width="5" stroke-dasharray="12 14"><path d="M350 218L500 270"/><path d="M850 218L700 270"/><path d="M350 430L500 365"/><path d="M850 430L700 365"/></g>
+  <text x="600" y="565" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#18251f">Everyday help, in one place</text>
+</svg>

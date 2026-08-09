@@ -1,11 +1,13 @@
 ---
 title: "How AI helps daily life"
-summary: "You might hear people talk about \"AI\" on the news. AI stands for [Artificial Intelligence](https://simple.wikipedia.org/wiki/Artificialintelligence)."
+summary: "See five simple ways AI can help with directions, messages, weather, shopping, and phone calls."
 publishedAt: 2026-08-09
 tags:
   - "AI Basics"
   - "Everyday Technology"
   - "AI in Daily Life"
+image: "/images/ai-daily-life.png"
+imageAlt: "A simple diagram showing a phone helping with directions, messages, weather, and shopping"
 sourceModel: "Z.ai: GLM 5.2"
 ---
 You might hear people talk about "AI" on the news. AI stands for [Artificial Intelligence](https://simple.wikipedia.org/wiki/Artificial_intelligence). 
