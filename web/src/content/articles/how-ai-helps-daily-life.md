@@ -1,7 +1,7 @@
 ---
 title: "How AI helps daily life"
 summary: "See five simple ways AI can help with directions, messages, weather, shopping, and phone calls."
-publishedAt: 2026-08-09
+publishedAt: "2026-08-09T13:47:02+00:00"
 tags:
   - "AI Basics"
   - "Everyday Technology"

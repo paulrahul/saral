@@ -1,7 +1,7 @@
 ---
 title: "What is AI?"
 summary: "AI means artificial intelligence."
-publishedAt: 2026-08-08
+publishedAt: "2026-08-09T13:41:12+00:00"
 tags:
   - "AI Basics"
   - "Everyday Technology"

@@ -12,6 +12,7 @@ TOPICS_FILE = GENERATED_DIR / "topics.json"
 CONTENT_FILE = GENERATED_DIR / "content.json"
 APPROVAL_FILE = GENERATED_DIR / "approved_content.json"
 TAGS_FILE = GENERATED_DIR / "tags.json"
+IMAGES_FILE = GENERATED_DIR / "images.json"
 BROAD_TAGS = (
     "AI Basics",
     "Everyday Technology",
@@ -151,6 +152,60 @@ def write_approved_content(topic: str, model: str, tags: list[str]) -> None:
     APPROVAL_FILE.parent.mkdir(parents=True, exist_ok=True)
     with APPROVAL_FILE.open("w") as file:
         json.dump(approvals, file, indent=2)
+        file.write("\n")
+
+
+def read_generated_image(topic: str) -> dict[str, str] | None:
+    """Return cached public image metadata for a topic, if present."""
+    try:
+        images = _read_json(IMAGES_FILE)
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        logger.info("Existing JSON file at %s is invalid; ignoring the image cache", IMAGES_FILE)
+        return None
+
+    image = images.get(topic)
+    if image is None:
+        return None
+    if not isinstance(image, dict) or not all(
+        isinstance(image.get(field), str) and image[field]
+        for field in ("path", "altText", "model", "mediaType")
+    ):
+        raise ValueError(f"Expected valid generated-image metadata for topic {topic!r}")
+    return {
+        "path": image["path"],
+        "altText": image["altText"],
+        "model": image["model"],
+        "mediaType": image["mediaType"],
+    }
+
+
+def write_generated_image(
+    topic: str,
+    path: str,
+    alt_text: str,
+    model: str,
+    media_type: str,
+) -> None:
+    """Persist image metadata after its asset has been written to public/images."""
+    try:
+        images = _read_json(IMAGES_FILE)
+    except FileNotFoundError:
+        images = {}
+    except json.JSONDecodeError:
+        logger.info("Existing JSON file at %s is invalid; starting a new image cache", IMAGES_FILE)
+        images = {}
+
+    images[topic] = {
+        "path": path,
+        "altText": alt_text,
+        "model": model,
+        "mediaType": media_type,
+    }
+    IMAGES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with IMAGES_FILE.open("w") as file:
+        json.dump(images, file, indent=2)
         file.write("\n")
 
 

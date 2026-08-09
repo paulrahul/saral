@@ -3,10 +3,11 @@
 import asyncio
 import json
 import logging
+from pathlib import Path
 
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
 from llm.exporter import export_approved_topic, is_topic_exported
-from llm.generator import ContentGenerator, TagGenerator, TopicGenerator
+from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
 from llm.util import (
     BROAD_TAGS,
     TOPICS_FILE,
@@ -16,11 +17,13 @@ from llm.util import (
     read_cached_topic_items,
     read_content,
     read_evaluations,
+    read_generated_image,
     read_specific_tags,
     read_used_topic_values,
     write_approved_content,
     write_content,
     write_evaluations,
+    write_generated_image,
 )
 
 
@@ -64,6 +67,11 @@ class EasyTutorAgent:
             context=self.CONTEXT,
             broad_tags=BROAD_TAGS,
             models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"}
+        )
+        self._image_generator = ImageGenerator(
+            context=self.CONTEXT,
+            models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
+            output_dir=Path(__file__).resolve().parents[1] / "web" / "public" / "images",
         )
 
         self._topic_evaluator = TopicEvaluator(
@@ -413,7 +421,26 @@ class EasyTutorAgent:
             write_approved_content(topic, selected_model, tags)
         else:
             logger.info("Using approved content cache for topic '%s'", topic)
-        # 4. Generate image/diagram.
+            selected_model = approval.get("model")
+            if not isinstance(selected_model, str) or selected_model not in content_results:
+                raise ValueError(f"Approved model for topic {topic!r} is unavailable")
+
+        # 4. Generate image/diagram from the selected Markdown before exporting it.
+        image = read_generated_image(topic)
+        if image is None:
+            generated_image = await self._image_generator.generate(
+                topic=topic,
+                content=content_results[selected_model],
+            )
+            write_generated_image(
+                topic=topic,
+                path=generated_image.path,
+                alt_text=generated_image.alt_text,
+                model=generated_image.model,
+                media_type=generated_image.media_type,
+            )
+        else:
+            logger.info("Using generated image cache for topic '%s'", topic)
 
         # 5. Export for publishing.
         if is_topic_exported(topic):

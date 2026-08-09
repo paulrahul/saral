@@ -2,10 +2,10 @@
 
 import json
 import re
-from datetime import date
+from datetime import datetime, timezone
 from pathlib import Path
 
-from llm.util import read_approved_content, read_content
+from llm.util import read_approved_content, read_content, read_generated_image
 
 
 ARTICLES_DIR = Path(__file__).resolve().parents[1] / "web" / "src" / "content" / "articles"
@@ -23,7 +23,11 @@ def article_path(topic: str) -> Path:
 
 
 def is_topic_exported(topic: str) -> bool:
-    return article_path(topic).is_file()
+    output = article_path(topic)
+    if not output.is_file():
+        return False
+    frontmatter = output.read_text(encoding="utf-8").split("---", 2)
+    return len(frontmatter) >= 3 and "image:" in frontmatter[1] and "imageAlt:" in frontmatter[1]
 
 
 def _summary_from(markdown: str) -> str:
@@ -60,15 +64,20 @@ def export_approved_topic(topic: str) -> Path:
     if not isinstance(tags, list) or not tags or not all(isinstance(tag, str) for tag in tags):
         raise ValueError(f"Topic {topic!r} needs at least one valid tag before publishing")
 
-    published_at = approval.get("publishedAt", date.today().isoformat())
+    published_at = datetime.now(timezone.utc).isoformat()
+    image = read_generated_image(topic)
+    if image is None:
+        raise ValueError(f"Topic {topic!r} needs a generated image before publishing")
     body = _without_title(draft)
     frontmatter = "\n".join([
         "---",
         f"title: {_yaml_quote(topic)}",
         f"summary: {_yaml_quote(_summary_from(body))}",
-        f"publishedAt: {published_at}",
+        f"publishedAt: {_yaml_quote(published_at)}",
         "tags:",
         *[f"  - {_yaml_quote(tag)}" for tag in tags],
+        f"image: {_yaml_quote(image['path'])}",
+        f"imageAlt: {_yaml_quote(image['altText'])}",
         f"sourceModel: {_yaml_quote(model)}",
         "---",
         "",
