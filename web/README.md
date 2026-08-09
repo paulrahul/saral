@@ -4,13 +4,7 @@ Static Astro site for EasyTutor articles.
 
 ## Content publishing
 
-The agent writes raw drafts to `../llm/content.json`. Choose one draft and its metadata in `../llm/approved_content.json`, then run:
-
-```bash
-python ../scripts/export_articles.py
-```
-
-The exporter writes Markdown to `src/content/articles/`. Commit those changes with a message beginning `content(publish):` to trigger the deployment workflow.
+The agent writes raw drafts and approvals to `../llm/generated/`, then exports approved Markdown to `src/content/articles/`. Commit those changes with a message beginning `content(publish):` to trigger the deployment workflow.
 
 ## Commands
 
