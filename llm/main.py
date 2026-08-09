@@ -70,7 +70,10 @@ class EasyTutorAgent:
         )
         self._image_generator = ImageGenerator(
             context=self.CONTEXT,
-            models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
+
+            models={"Recraft: Recraft V4.1 Utility Pro": "recraft/recraft-v4.1-utility-pro"},
+            # models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
+
             output_dir=Path(__file__).resolve().parents[1] / "web" / "public" / "images",
         )
 
