@@ -8,6 +8,7 @@ from pathlib import Path
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
 from llm.exporter import export_approved_topic, is_topic_exported
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
+from llm.translator import Translator
 from llm.util import (
     BROAD_TAGS,
     TOPICS_FILE,
@@ -75,6 +76,11 @@ class EasyTutorAgent:
             # models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
 
             output_dir=Path(__file__).resolve().parents[1] / "web" / "public" / "images",
+        )
+        self._translator = Translator(
+            context=self.CONTEXT,
+            models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"},
+            prefix="Lesson Translator",
         )
 
         self._topic_evaluator = TopicEvaluator(
@@ -442,19 +448,40 @@ class EasyTutorAgent:
                 model=generated_image.model,
                 media_type=generated_image.media_type,
             )
+            image = read_generated_image(topic)
         else:
             logger.info("Using generated image cache for topic '%s'", topic)
+        if image is None:
+            raise ValueError(f"Could not read generated image metadata for topic {topic!r}")
 
-        # 5. Export for publishing.
+        # 5. Translate and export. The translated Markdown files are the
+        # published translation records; no JSON cache is needed or written.
         if is_topic_exported(topic):
             logger.info("Using exported Markdown cache for topic '%s'", topic)
         else:
-            output = export_approved_topic(topic)
-            logger.info("Exported topic '%s' to %s", topic, output)
+            translation_results = await self._translator.generate(
+                message=(
+                    f"{content_results[selected_model].strip()}\n\n"
+                    f"<!-- saral-image-alt: {image['altText']} -->"
+                ),
+                trace="EasyTutor: Translation",
+            )
+            translator_models = tuple(self._translator.models())
+            if len(translator_models) != 1:
+                raise ValueError(
+                    "Translation export needs exactly one translation model until a translation evaluator is added"
+                )
+            translator_model = translator_models[0]
+            translations = {
+                language: results[translator_model]
+                for language, results in translation_results.items()
+            }
+            outputs = export_approved_topic(topic, translations)
+            logger.info("Exported topic '%s' to %s", topic, ", ".join(map(str, outputs)))
 
         self._remove_used_topic(main_topic, topic)
 
-        # 6. Check if publishing is completed.
+        # 7. Check if publishing is completed.
 
         logger.info("Finished EasyTutorAgent run")
 

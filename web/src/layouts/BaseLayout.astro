@@ -6,6 +6,7 @@ const {
   socialImage = "/og.png",
   socialImageAlt = description,
   pageClass = "",
+  language = "en",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImageUrl = new URL(socialImage, Astro.site);
@@ -13,7 +14,7 @@ const socialImageType = socialImage.endsWith(".png") ? "image/png" : socialImage
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

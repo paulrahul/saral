@@ -3,15 +3,16 @@ import { getCollection } from "astro:content";
 import ArticleCard from "../../components/ArticleCard.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articlesForLanguage, sortArticles } from "../../lib/articles";
 
-const articles = await getCollection("articles");
+const articles = articlesForLanguage(await getCollection("articles"), "en");
 export async function getStaticPaths() {
   const entries = await getCollection("articles");
   const tags = [...new Set(entries.flatMap((article) => article.data.tags))];
   return tags.map((tag) => ({ params: { tag } }));
 }
 const tag = Astro.params.tag ?? "";
-const matchingArticles = articles.filter((article) => article.data.tags.includes(tag));
+const matchingArticles = sortArticles(articles.filter((article) => article.data.tags.includes(tag)));
 ---
 
-<BaseLayout title={`${tag} | Saral`}><SiteHeader /><main class="shell tag-page"><a class="back-link" href="/">← All lessons</a><p class="kicker">Topic</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>
+<BaseLayout title={`${tag} | Saral`}><SiteHeader language="en" currentPath={Astro.url.pathname} /><main class="shell tag-page"><a class="back-link" href="/">← All lessons</a><p class="kicker">Topic</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>

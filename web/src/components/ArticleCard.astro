@@ -1,9 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { articleSlug } from "../lib/articles";
+import { articleUrl } from "../lib/articles";
 const { article } = Astro.props as { article: CollectionEntry<"articles"> };
-const formattedDate = article.data.publishedAt.toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" });
-const href = `/articles/${articleSlug(article)}/`;
+const locale = article.data.language === "hi" ? "hi-IN" : article.data.language === "bn" ? "bn-BD" : "en";
+const formattedDate = article.data.publishedAt.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" });
+const href = articleUrl(article);
 ---
 
 <article class="article-card">

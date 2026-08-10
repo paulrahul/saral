@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../../../components/ArticleCard.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { articlesForLanguage, sortArticles, SUPPORTED_LANGUAGES, type Language } from "../../../lib/articles";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return SUPPORTED_LANGUAGES.filter((language) => language !== "en").flatMap((language) => {
+    const tags = [...new Set(articlesForLanguage(articles, language).flatMap((article) => article.data.tags))];
+    return tags.map((tag) => ({ params: { language, tag } }));
+  });
+}
+
+const language = Astro.params.language as Exclude<Language, "en">;
+const tag = Astro.params.tag ?? "";
+const articles = articlesForLanguage(await getCollection("articles"), language);
+const matchingArticles = sortArticles(articles.filter((article) => article.data.tags.includes(tag)));
+---
+
+<BaseLayout title={`${tag} | Saral`} {language}><SiteHeader {language} currentPath={Astro.url.pathname} /><main class="shell tag-page"><a class="back-link" href={`/${language}/`}>← {language === "hi" ? "सभी पाठ" : "সব পাঠ"}</a><p class="kicker">{language === "hi" ? "विषय" : "বিষয়"}</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>

@@ -4,11 +4,13 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from collections.abc import Mapping
 
 from llm.util import read_approved_content, read_content, read_generated_image
 
 
 ARTICLES_DIR = Path(__file__).resolve().parents[1] / "web" / "src" / "content" / "articles"
+TRANSLATION_LANGUAGES = ("bn", "hi")
 
 
 def slugify(value: str) -> str:
@@ -18,16 +20,26 @@ def slugify(value: str) -> str:
     return slug
 
 
-def article_path(topic: str) -> Path:
-    return ARTICLES_DIR / f"{slugify(topic)}.md"
+def article_path(topic: str, language: str = "en") -> Path:
+    filename = f"{slugify(topic)}.md"
+    return ARTICLES_DIR / filename if language == "en" else ARTICLES_DIR / language / filename
 
 
 def is_topic_exported(topic: str) -> bool:
-    output = article_path(topic)
+    return _is_article_complete(article_path(topic, "en"), language="en") and all(
+        _is_article_complete(article_path(topic, language), language=language)
+        for language in TRANSLATION_LANGUAGES
+    )
+
+
+def _is_article_complete(output: Path, *, language: str) -> bool:
     if not output.is_file():
         return False
     frontmatter = output.read_text(encoding="utf-8").split("---", 2)
-    return len(frontmatter) >= 3 and "image:" in frontmatter[1] and "imageAlt:" in frontmatter[1]
+    required_fields = ("image:", "imageAlt:")
+    if language != "en":
+        required_fields = (*required_fields, "language:", "translationOf:")
+    return len(frontmatter) >= 3 and all(field in frontmatter[1] for field in required_fields)
 
 
 def _summary_from(markdown: str) -> str:
@@ -43,11 +55,72 @@ def _without_title(markdown: str) -> str:
     return re.sub(r"^#\s+.+\n+", "", markdown.strip(), count=1)
 
 
+def _title_from(markdown: str, fallback: str) -> str:
+    match = re.match(r"^#\s+(.+?)\s*$", markdown.strip(), flags=re.MULTILINE)
+    return match.group(1).strip() if match else fallback
+
+
 def _yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def export_approved_topic(topic: str) -> Path:
+def _translation_parts(markdown: str) -> tuple[str, str]:
+    """Extract the translated image alt text kept in the translation input."""
+    match = re.search(
+        r"\n?<!--\s*saral-image-alt:\s*(.*?)\s*-->\s*$",
+        markdown,
+        flags=re.DOTALL,
+    )
+    if match is None:
+        raise ValueError("Translated Markdown did not include the saral-image-alt marker")
+    alt_text = " ".join(match.group(1).split())
+    if not alt_text:
+        raise ValueError("Translated Markdown has an empty image alt text")
+    return markdown[:match.start()].strip(), alt_text
+
+
+def _published_at(output: Path) -> str:
+    if output.is_file():
+        match = re.search(r'^publishedAt:\s*["\'](.+?)["\']\s*$', output.read_text(encoding="utf-8"), re.MULTILINE)
+        if match:
+            return match.group(1)
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _write_article(
+    *,
+    output: Path,
+    title: str,
+    markdown: str,
+    tags: list[str],
+    image: Mapping[str, str],
+    source_model: str,
+    language: str,
+    translation_of: str | None = None,
+) -> Path:
+    body = _without_title(markdown)
+    frontmatter = [
+        "---",
+        f"title: {_yaml_quote(title)}",
+        f"summary: {_yaml_quote(_summary_from(body))}",
+        f"publishedAt: {_yaml_quote(_published_at(output))}",
+        f"language: {_yaml_quote(language)}",
+        "tags:",
+        *[f"  - {_yaml_quote(tag)}" for tag in tags],
+        f"image: {_yaml_quote(image['path'])}",
+        f"imageAlt: {_yaml_quote(image['altText'])}",
+        f"sourceModel: {_yaml_quote(source_model)}",
+    ]
+    if translation_of is not None:
+        frontmatter.append(f"translationOf: {_yaml_quote(translation_of)}")
+    frontmatter.extend(("---", ""))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    document = "\n".join(frontmatter)
+    output.write_text(f"{document}{body}\n", encoding="utf-8")
+    return output
+
+
+def export_approved_topic(topic: str, translations: Mapping[str, str]) -> list[Path]:
     approval = read_approved_content(topic)
     if approval is None:
         raise ValueError(f"Topic {topic!r} has not been approved for publishing")
@@ -64,26 +137,44 @@ def export_approved_topic(topic: str) -> Path:
     if not isinstance(tags, list) or not tags or not all(isinstance(tag, str) for tag in tags):
         raise ValueError(f"Topic {topic!r} needs at least one valid tag before publishing")
 
-    published_at = datetime.now(timezone.utc).isoformat()
     image = read_generated_image(topic)
     if image is None:
         raise ValueError(f"Topic {topic!r} needs a generated image before publishing")
-    body = _without_title(draft)
-    frontmatter = "\n".join([
-        "---",
-        f"title: {_yaml_quote(topic)}",
-        f"summary: {_yaml_quote(_summary_from(body))}",
-        f"publishedAt: {_yaml_quote(published_at)}",
-        "tags:",
-        *[f"  - {_yaml_quote(tag)}" for tag in tags],
-        f"image: {_yaml_quote(image['path'])}",
-        f"imageAlt: {_yaml_quote(image['altText'])}",
-        f"sourceModel: {_yaml_quote(model)}",
-        "---",
-        "",
-    ])
 
-    output = article_path(topic)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(f"{frontmatter}{body}\n", encoding="utf-8")
-    return output
+    missing_languages = set(TRANSLATION_LANGUAGES) - set(translations)
+    if missing_languages:
+        raise ValueError(f"Missing translations for: {', '.join(sorted(missing_languages))}")
+
+    english_output = article_path(topic)
+    outputs: list[Path] = []
+    if english_output.is_file():
+        # Existing English Markdown is the source of truth. Translation-only
+        # runs must not rewrite it or change its original publication date.
+        outputs.append(english_output)
+    else:
+        outputs.append(
+            _write_article(
+                output=english_output,
+                title=topic,
+                markdown=draft,
+                tags=tags,
+                image=image,
+                source_model=model,
+                language="en",
+            )
+        )
+    for language in TRANSLATION_LANGUAGES:
+        translated_markdown, translated_alt = _translation_parts(translations[language])
+        outputs.append(
+            _write_article(
+                output=article_path(topic, language),
+                title=_title_from(translated_markdown, topic),
+                markdown=translated_markdown,
+                tags=tags,
+                image={**image, "altText": translated_alt},
+                source_model=model,
+                language=language,
+                translation_of=slugify(topic),
+            )
+        )
+    return outputs

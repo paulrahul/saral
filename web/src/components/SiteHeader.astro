@@ -1,15 +1,24 @@
 ---
 import { Moon, Sun } from "lucide-astro";
+
+interface Props {
+  language?: "en" | "hi" | "bn";
+  currentPath?: string;
+}
+
+const { language = "en", currentPath = "/" } = Astro.props;
+const contentPath = currentPath.replace(/^\/(?:hi|bn)(?=\/|$)/, "") || "/";
+const languagePath = (targetLanguage: "en" | "hi" | "bn") => targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`;
 ---
 
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Saral home"><span>Saral</span><small>Small lessons for everyday digital life.</small></a>
-    <nav aria-label="Main navigation"><a href="/">Home</a><a href="/#topics">All topics</a></nav>
+    <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label="Saral home"><span>Saral</span><small>Small lessons for everyday digital life.</small></a>
+    <nav aria-label="Main navigation"><a href={language === "en" ? "/" : `/${language}/`}>Home</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}>All topics</a></nav>
     <div class="language-list" role="group" aria-label="Choose language">
-      <button type="button" data-language="en" aria-pressed="true">English</button>
-      <button type="button" data-language="hi" aria-pressed="false">हिन्दी</button>
-      <button type="button" data-language="bn" aria-pressed="false">বাংলা</button>
+      <a data-language="en" aria-current={language === "en" ? "page" : undefined} href={languagePath("en")}>English</a>
+      <a data-language="hi" aria-current={language === "hi" ? "page" : undefined} href={languagePath("hi")}>हिन्दी</a>
+      <a data-language="bn" aria-current={language === "bn" ? "page" : undefined} href={languagePath("bn")}>বাংলা</a>
     </div>
     <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
       <Sun data-sun aria-hidden="true" size={20} />
@@ -19,17 +28,8 @@ import { Moon, Sun } from "lucide-astro";
 </header>
 
 <script>
-  const languageButtons = document.querySelectorAll<HTMLButtonElement>("[data-language]");
-  const setLanguage = (language: string) => {
-    document.documentElement.lang = language;
-    languageButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
-  };
-  setLanguage(localStorage.getItem("saral-language") ?? "en");
-  languageButtons.forEach((button) => button.addEventListener("click", () => {
-    const language = button.dataset.language ?? "en";
-    localStorage.setItem("saral-language", language);
-    setLanguage(language);
-    document.dispatchEvent(new CustomEvent("saral:language", { detail: language }));
+  document.querySelectorAll<HTMLAnchorElement>("[data-language]").forEach((link) => link.addEventListener("click", () => {
+    localStorage.setItem("saral-language", link.dataset.language ?? "en");
   }));
 
   const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");

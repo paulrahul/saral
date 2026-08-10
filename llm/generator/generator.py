@@ -147,6 +147,9 @@ class ImageGenerator:
     interface screenshots, or tiny details in the image. Do not depict a real
     person as a recognisable individual.
 
+    Return a raster image only: PNG or WebP. Do not return SVG or any other
+    vector format. The image will also be used as a social-media preview.
+
     The lesson content below may contain Markdown. Use its meaning only; do
     not reproduce Markdown syntax, links, or text from it in the image.
     """
