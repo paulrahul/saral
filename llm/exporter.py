@@ -200,7 +200,7 @@ def export_approved_topic(topic: str, translations: Mapping[str, str]) -> list[P
         outputs.append(
             _write_article(
                 output=article_path(topic, language),
-                title=_title_from(translated_markdown, topic),
+                title=_title_from(_without_summary_marker(translated_markdown), topic),
                 markdown=translated_markdown,
                 tags=translated_tags,
                 image={**image, "altText": translated_alt},

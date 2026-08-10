@@ -152,9 +152,11 @@ class ImageGenerator:
 
     Use clear, high-contrast shapes, a quiet uncluttered background, and one
     central idea. Prefer a flat diagram or simple illustration over a realistic
-    photograph. Do not put words, labels, letters, numbers, logos, watermarks,
-    interface screenshots, or tiny details in the image. Do not depict a real
-    person as a recognisable individual.
+    photograph. Never render the lesson title, headings, logos, watermarks, or
+    interface text. Use text only when it is essential to make the diagram
+    understandable; keep it to a few short, large, high-contrast labels and
+    avoid decorative text, paragraphs, tiny lettering, or unnecessary numbers.
+    Do not depict a real person as a recognisable individual.
 
     Match the website's calm visual palette. Prefer very light warm sand or
     pale yellow backgrounds with muted, natural greens as the main colors.
@@ -170,6 +172,7 @@ class ImageGenerator:
 
     The lesson content below may contain Markdown. Use its meaning only; do
     not reproduce Markdown syntax, links, or text from it in the image.
+
     """
 
     API_URL = "https://openrouter.ai/api/v1/images"
