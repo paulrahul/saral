@@ -7,7 +7,7 @@ tags:
   - "এআই মৌলিক"
   - "মোবাইল ডিভাইস"
   - "দৈনন্দিন জীবনে এআই"
-image: "/images/how-phones-use-ai.webp"
+image: "/images/how-phones-use-ai.jpg"
 imageAlt: "পাঠের জন্য সহজ শিক্ষামূলক চিত্র: ফোনগুলি কীভাবে এআই ব্যবহার করে।"
 sourceModel: "OpenAI: GPT-5.6 Luna"
 translationOf: "how-phones-use-ai"

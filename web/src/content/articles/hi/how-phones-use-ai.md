@@ -7,7 +7,7 @@ tags:
   - "एआई की मूल बातें"
   - "मोबाइल उपकरण"
   - "दैनिक जीवन में एआई"
-image: "/images/how-phones-use-ai.webp"
+image: "/images/how-phones-use-ai.jpg"
 imageAlt: "पाठ के लिए सरल शैक्षिक चित्र: फ़ोन एआई का उपयोग कैसे करते हैं।"
 sourceModel: "OpenAI: GPT-5.6 Luna"
 translationOf: "how-phones-use-ai"

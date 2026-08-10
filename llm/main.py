@@ -72,7 +72,8 @@ class EasyTutorAgent:
         self._image_generator = ImageGenerator(
             context=self.CONTEXT,
 
-            models={"Recraft: Recraft V4.1 Utility Pro": "recraft/recraft-v4.1-utility-pro"},
+            models={"Google: Nano Banana 2 Lite": "google/gemini-3.1-flash-lite-image"},
+            # models={"Recraft: Recraft V4.1 Utility Pro": "recraft/recraft-v4.1-utility-pro"},
             # models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
 
             output_dir=Path(__file__).resolve().parents[1] / "web" / "public" / "images",

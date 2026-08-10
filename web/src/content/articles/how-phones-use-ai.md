@@ -7,7 +7,7 @@ tags:
   - "AI Basics"
   - "Mobile Devices"
   - "AI in Daily Life"
-image: "/images/how-phones-use-ai.webp"
+image: "/images/how-phones-use-ai.jpg"
 imageAlt: "Simple educational illustration for the lesson: How phones use AI."
 sourceModel: "OpenAI: GPT-5.6 Luna"
 ---
