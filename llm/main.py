@@ -80,8 +80,8 @@ class EasyTutorAgent:
         self._translator = Translator(
             context=self.CONTEXT,
 
-            # models={"DeepSeek: DeepSeek V4 Flash 0423": "deepseek/deepseek-v4-flash"},
-            models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"},
+            models={"DeepSeek: DeepSeek V4 Flash 0423": "deepseek/deepseek-v4-flash"},
+            # models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"},
 
             prefix="Lesson Translator",
         )

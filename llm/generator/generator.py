@@ -156,6 +156,15 @@ class ImageGenerator:
     interface screenshots, or tiny details in the image. Do not depict a real
     person as a recognisable individual.
 
+    Match the website's calm visual palette. Prefer very light warm sand or
+    pale yellow backgrounds with muted, natural greens as the main colors.
+    Useful reference colors are warm sand #FFFDF7, soft green #EAF4EE, muted
+    green #247356, and deep green #185B43. If other colors are necessary for
+    meaning or contrast, keep them soft, restrained, and harmonious with this
+    palette. Avoid neon, highly saturated, harsh, or clashing colors. The
+    illustration must remain clear and attractive against both the site's
+    light sand theme and its dark green theme.
+
     Return a raster image only: PNG or WebP. Do not return SVG or any other
     vector format. The image will also be used as a social-media preview.
 

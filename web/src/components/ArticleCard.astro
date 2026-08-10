@@ -5,6 +5,7 @@ const { article } = Astro.props as { article: CollectionEntry<"articles"> };
 const locale = article.data.language === "hi" ? "hi-IN" : article.data.language === "bn" ? "bn-BD" : "en";
 const formattedDate = article.data.publishedAt.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" });
 const href = articleUrl(article);
+const readLabel = article.data.language === "hi" ? "यह पाठ पढ़ें" : article.data.language === "bn" ? "এই পাঠটি পড়ুন" : "Read this lesson";
 ---
 
 <article class="article-card">
@@ -13,6 +14,6 @@ const href = articleUrl(article);
     <div class="eyebrow-row"><span>{article.data.tags[0]}</span><span>{formattedDate}</span></div>
     <h2><a href={href}>{article.data.title}</a></h2>
     <p>{article.data.summary}</p>
-    <a class="read-link" href={href}>Read this lesson <span aria-hidden="true">→</span></a>
+    <a class="read-link" href={href}>{readLabel} <span aria-hidden="true">→</span></a>
   </div>
 </article>

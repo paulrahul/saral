@@ -3,18 +3,22 @@ import { getCollection, render } from "astro:content";
 import ShareButton from "../../components/ShareButton.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { articleSlug, articlesForLanguage, tagUrl } from "../../lib/articles";
+import { articleSlug, articleUrl, articlesForLanguage, sortArticles, tagUrl } from "../../lib/articles";
 
 export async function getStaticPaths() {
-  return articlesForLanguage(await getCollection("articles"), "en").map((article) => ({ params: { slug: articleSlug(article) }, props: { article } }));
+  const articles = sortArticles(articlesForLanguage(await getCollection("articles"), "en"));
+  return articles.map((article, index) => ({
+    params: { slug: articleSlug(article) },
+    props: { article, previousArticle: articles[index - 1], nextArticle: articles[index + 1] },
+  }));
 }
 
-const { article } = Astro.props;
+const { article, previousArticle, nextArticle } = Astro.props;
 const { Content } = await render(article);
 const formattedDate = article.data.publishedAt.toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" });
 ---
 
 <BaseLayout title={`${article.data.title} | Saral`} description={article.data.summary} socialImage={article.data.socialImage ?? article.data.image} socialImageAlt={article.data.imageAlt}>
   <SiteHeader language="en" currentPath={Astro.url.pathname} />
-  <main class="shell article-shell"><a class="back-link" href="/">← All lessons</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, "en")}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>Updated {formattedDate}</span><ShareButton title={article.data.title} /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>Remember</strong><p>It is okay to learn one step at a time. Take a pause whenever you need one.</p></aside></article></main>
+  <main class="shell article-shell"><a class="back-link" href="/">← All lessons</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, "en")}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>Updated {formattedDate}</span><ShareButton title={article.data.title} language="en" /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>Remember</strong><p>It is okay to learn one step at a time. Take a pause whenever you need one.</p></aside><nav class="lesson-navigation" aria-label="Other lessons">{previousArticle ? <a href={articleUrl(previousArticle)}><span>← Previous lesson</span><strong>{previousArticle.data.title}</strong></a> : <span></span>}{nextArticle && <a class="next-lesson" href={articleUrl(nextArticle)}><span>Next lesson →</span><strong>{nextArticle.data.title}</strong></a>}</nav></article></main>
 </BaseLayout>

@@ -10,8 +10,9 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
 .site-header { height:84px;border-bottom:1px solid var(--line);background:var(--surface); }
 .header-inner { height:100%;display:flex;align-items:center;gap:32px; }
 .brand { display:flex;flex-direction:column;text-decoration:none;margin-right:auto;line-height:1.05; }
-.brand span { font:700 1.45rem Georgia,serif;color:var(--green-dark); }
+.brand img { display:block;width:154px;height:auto; }
 .brand small { margin-top:5px;color:var(--muted);font-size:.74rem;font-weight:500; }
+:root[data-theme="dark"] .brand img { filter:brightness(1.55) saturate(.8); }
 .site-header nav { display:flex;gap:24px; }
 .site-header nav a { font-weight:600;text-decoration:none;padding:10px 2px; }
 .site-header nav a:hover { color:var(--green);text-decoration:underline;text-underline-offset:5px; }
@@ -74,13 +75,19 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
 .lesson-content { max-width:720px;font-size:1.08rem; } .lesson-content h3 { margin-top:34px;font-size:1.35rem; }
 .lesson-content p { margin:0 0 22px; } .lesson-content li { margin:8px 0; }
 .gentle-note { max-width:720px;margin-top:38px;padding:20px 22px;background:#fff5d8;border-left:6px solid var(--yellow); } .gentle-note p { margin:4px 0 0; }
+.lesson-navigation { max-width:720px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:34px;padding-top:24px;border-top:1px solid var(--line); }
+.lesson-navigation a { min-width:0;display:flex;flex-direction:column;gap:5px;border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:15px 17px;text-decoration:none; }
+.lesson-navigation a:hover { border-color:var(--green);background:var(--green-soft); }
+.lesson-navigation span { color:var(--green-dark);font-size:.85rem;font-weight:650; }
+.lesson-navigation strong { overflow-wrap:anywhere;color:var(--heading);font-size:1rem;font-weight:650;line-height:1.3; }
+.lesson-navigation .next-lesson { text-align:right; }
 @media (max-width:760px) {
  body { font-size:17px; } .shell { width:min(100% - 28px,1120px); } .site-header { height:76px; } .header-inner { gap:12px; }
  .site-header { height:118px; } .header-inner { height:118px;display:grid;grid-template-columns:1fr auto;grid-template-rows:54px 52px;gap:0 10px;padding-block:6px; }
- .brand { grid-column:1;grid-row:1; } .brand small,.site-header nav { display:none; }
+ .brand { grid-column:1;grid-row:1; } .brand img { width:136px; } .brand small,.site-header nav { display:none; }
  .theme-toggle { grid-column:2;grid-row:1;justify-self:end; }
  .language-list { grid-column:1/-1;grid-row:2;width:100%; } .language-list a { flex:1;min-height:46px;font-size:.92rem; }
- .home-page { min-height:620px; } .home-main { height:calc(100svh - 118px);min-height:502px;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) 104px;gap:10px;padding-block:10px; }
+ .home-page { height:auto;min-height:100svh;overflow:visible; } .home-main { height:auto;min-height:calc(100svh - 118px);grid-template-columns:1fr;grid-template-rows:auto minmax(340px,1fr) auto;gap:10px;padding-block:10px 24px; }
  .topic-strip { grid-column:1;display:block;padding-bottom:10px; } .topic-heading { display:flex;align-items:baseline;gap:10px;margin-bottom:6px; }
  .topic-heading p { font-size:1rem; } .topic-heading span { font-size:.76rem; } .topic-links { margin-inline:-3px; }
  .topic-links a { min-height:40px;padding:6px 12px;font-size:.88rem; } .section-label { min-height:27px; }
@@ -90,6 +97,8 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
  .compact-list { min-height:0;display:flex;overflow-x:auto; } .compact-list>a { min-width:235px;padding:9px 13px; }
  .article-list .article-card { grid-template-columns:1fr;min-height:auto; } .article-list .card-image { height:220px; }
  .lesson h1 { font-size:2.45rem; } .lesson-visual { margin-inline:-14px;border-radius:0; }
+ .lesson-navigation { grid-template-columns:1fr; } .lesson-navigation>span:empty { display:none; } .lesson-navigation .next-lesson { text-align:left; }
 }
+@media (max-height:620px) { .home-page { height:auto;min-height:100svh;overflow:visible; } .home-main { height:auto;min-height:calc(100svh - 70px);grid-template-rows:auto minmax(360px,auto) auto; } }
 @media (max-height:700px) and (min-width:761px) { .site-header { height:70px; } .home-main { height:calc(100svh - 70px);padding-block:10px;gap:10px 20px; } .topic-strip { padding-bottom:8px; } .card-copy { padding:20px 26px; } .article-card h2 { font-size:2rem; } .read-link { margin-top:14px; } }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

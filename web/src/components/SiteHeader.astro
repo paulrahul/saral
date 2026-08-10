@@ -10,22 +10,22 @@ const { language = "en", currentPath = "/" } = Astro.props;
 const contentPath = currentPath.replace(/^\/(?:hi|bn)(?=\/|$)/, "") || "/";
 const languagePath = (targetLanguage: "en" | "hi" | "bn") => targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`;
 const labels = {
-  en: { home: "Home", topics: "All topics", language: "Choose language" },
-  hi: { home: "मुख्य पृष्ठ", topics: "सभी विषय", language: "भाषा चुनें" },
-  bn: { home: "মূল পাতা", topics: "সব বিষয়", language: "ভাষা বেছে নিন" },
+  en: { home: "Home", topics: "All topics", language: "Choose language", light: "Use light theme", dark: "Use dark theme" },
+  hi: { home: "मुख्य पृष्ठ", topics: "सभी विषय", language: "भाषा चुनें", light: "हल्की थीम इस्तेमाल करें", dark: "गहरी थीम इस्तेमाल करें" },
+  bn: { home: "মূল পাতা", topics: "সব বিষয়", language: "ভাষা বেছে নিন", light: "হালকা থিম ব্যবহার করুন", dark: "গাঢ় থিম ব্যবহার করুন" },
 }[language];
 ---
 
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label="Saral home"><span>Saral</span><small>Small lessons for everyday digital life.</small></a>
+    <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label="Saral home"><img src="/saral-logo.png" alt="" width="640" height="183" /><small>Small lessons for everyday digital life.</small></a>
     <nav aria-label="Main navigation"><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}>{labels.topics}</a></nav>
     <div class="language-list" role="group" aria-label={labels.language}>
       <a data-language="en" aria-current={language === "en" ? "page" : undefined} href={languagePath("en")}>English</a>
       <a data-language="hi" aria-current={language === "hi" ? "page" : undefined} href={languagePath("hi")}>हिन्दी</a>
       <a data-language="bn" aria-current={language === "bn" ? "page" : undefined} href={languagePath("bn")}>বাংলা</a>
     </div>
-    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
+    <button class="theme-toggle" type="button" data-theme-toggle data-light-label={labels.light} data-dark-label={labels.dark} aria-label={labels.dark} title={labels.dark}>
       <Sun data-sun aria-hidden="true" size={20} />
       <Moon data-moon aria-hidden="true" size={20} />
     </button>
@@ -40,7 +40,7 @@ const labels = {
   const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
   const setTheme = (theme: "light" | "dark") => {
     document.documentElement.dataset.theme = theme;
-    const label = theme === "dark" ? "Use light theme" : "Use dark theme";
+    const label = theme === "dark" ? themeButton?.dataset.lightLabel ?? "Use light theme" : themeButton?.dataset.darkLabel ?? "Use dark theme";
     themeButton?.setAttribute("aria-label", label);
     themeButton?.setAttribute("title", label);
   };

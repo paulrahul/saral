@@ -1,12 +1,17 @@
 ---
 import { Check, Share2 } from "lucide-astro";
-const { title } = Astro.props;
+const { title, language = "en" } = Astro.props;
+const labels = {
+  en: { share: "Share this lesson", copied: "Link copied" },
+  hi: { share: "यह पाठ साझा करें", copied: "लिंक कॉपी हो गया" },
+  bn: { share: "এই পাঠটি শেয়ার করুন", copied: "লিঙ্ক কপি হয়েছে" },
+}[language as "en" | "hi" | "bn"];
 ---
 
-<button class="share-button" type="button" data-share-button data-share-title={title}>
+<button class="share-button" type="button" data-share-button data-share-title={title} data-share-label-text={labels.share} data-copied-label-text={labels.copied}>
   <Share2 data-share-icon aria-hidden="true" size={18} />
   <Check data-check-icon aria-hidden="true" size={18} hidden />
-  <span data-share-label>Share this lesson</span>
+  <span data-share-label>{labels.share}</span>
 </button>
 
 <script>
@@ -19,11 +24,11 @@ const { title } = Astro.props;
         return;
       }
       await navigator.clipboard.writeText(`${title} — ${url}`);
-      button.querySelector("[data-share-label]")!.textContent = "Link copied";
+      button.querySelector("[data-share-label]")!.textContent = button.dataset.copiedLabelText ?? "Link copied";
       button.querySelector("[data-share-icon]")?.setAttribute("hidden", "true");
       button.querySelector("[data-check-icon]")?.removeAttribute("hidden");
       window.setTimeout(() => {
-        button.querySelector("[data-share-label]")!.textContent = "Share this lesson";
+        button.querySelector("[data-share-label]")!.textContent = button.dataset.shareLabelText ?? "Share this lesson";
         button.querySelector("[data-share-icon]")?.removeAttribute("hidden");
         button.querySelector("[data-check-icon]")?.setAttribute("hidden", "true");
       }, 1800);
