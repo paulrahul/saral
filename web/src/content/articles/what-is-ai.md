@@ -7,6 +7,7 @@ tags:
   - "Everyday Technology"
 image: "/images/what-is-ai.png"
 imageAlt: "A simple diagram showing a person asking a smart device for help"
+socialImage: "/images/what-is-ai.png"
 sourceModel: "OpenAI: GPT-5.6 Luna"
 ---
 **AI** means **artificial intelligence**.
