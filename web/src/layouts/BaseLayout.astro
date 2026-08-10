@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 const {
-  title = "Saral — Small lessons for everyday digital life",
+  title = "Saral — AI made simple, so no one is left behind",
   description = "Clear, useful technology lessons for everyday life.",
   socialImage = "/og.png",
   socialImageAlt = description,
@@ -14,6 +14,11 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImageUrl = new URL(socialImage, Astro.site);
 const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png") ? "image/png" : socialImage.endsWith(".jpg") || socialImage.endsWith(".jpeg") ? "image/jpeg" : socialImage.endsWith(".webp") ? "image/webp" : undefined);
+const disclosure = {
+  en: "All lessons, translations, and illustrations on this website are generated using AI.",
+  hi: "इस वेबसाइट के सभी पाठ, अनुवाद और चित्र एआई का उपयोग करके बनाए गए हैं।",
+  bn: "এই ওয়েবসাইটের সব পাঠ, অনুবাদ ও ছবি এআই ব্যবহার করে তৈরি করা হয়েছে।",
+}[language as "en" | "hi" | "bn"];
 ---
 
 <!doctype html>
@@ -42,5 +47,8 @@ const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png")
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>{title}</title>
   </head>
-  <body class={pageClass}><slot /></body>
+  <body class={pageClass}>
+    <slot />
+    <footer class="site-footer"><div class="shell">{disclosure}</div></footer>
+  </body>
 </html>
