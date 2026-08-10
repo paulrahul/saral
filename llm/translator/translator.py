@@ -38,9 +38,12 @@ class Translator:
 
     For an acronym or technical term that has no natural translation, use the
     target-language transliteration followed by the original English term in
-    parentheses on its first occurrence. For example, in Hindi: एआई (AI).
-    Use only the target-language transliteration for later occurrences. Apply
-    this rule separately to each such term, and do not alter link URLs.
+    parentheses on its first occurrence in the visible lesson body. For
+    example, in Hindi: एआई (AI). Use only the target-language transliteration
+    for later occurrences. Apply this rule separately to each such term, and
+    do not alter link URLs.
+    In the article title and summary, always use only the target-language
+    transliteration; never add the original English term in parentheses there.
 
     The input may begin with an HTML comment in this exact form:
     <!-- saral-summary: lesson summary -->.
@@ -53,6 +56,11 @@ class Translator:
     Keep that comment at the end, preserve `saral-image-alt` exactly, and
     translate only its image-description value. It is metadata and must not be
     turned into visible text.
+
+    Immediately before the image-alt comment, the input includes this HTML
+    comment: <!-- saral-tags: ["tag"] -->. Keep `saral-tags` exactly, preserve
+    the valid JSON array syntax, and translate every tag string inside it. Do
+    not turn this metadata into visible text.
 
     Return only the translated Markdown body. Do not add frontmatter, a title
     outside the source content, a language label, notes, or an explanation.
@@ -77,10 +85,18 @@ class Translator:
                 name_prefix=f"{prefix} {language_name}",
             )
 
-    async def generate(self, message: str, trace: str) -> dict[str, dict[str, str]]:
+    async def generate(
+        self,
+        message: str,
+        trace: str,
+        languages: tuple[str, ...] | None = None,
+    ) -> dict[str, dict[str, str]]:
         """Return ``{language_code: {model_name: translated_markdown}}``."""
         logger.info("Starting %s translation", self.__class__.__name__)
-        language_codes = tuple(self.LANGUAGES)
+        language_codes = languages or tuple(self.LANGUAGES)
+        unknown_languages = set(language_codes) - set(self.LANGUAGES)
+        if unknown_languages:
+            raise ValueError(f"Unsupported translation languages: {sorted(unknown_languages)!r}")
         translations = await asyncio.gather(
             *(
                 AgentHelper.run(

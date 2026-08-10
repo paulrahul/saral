@@ -9,13 +9,18 @@ interface Props {
 const { language = "en", currentPath = "/" } = Astro.props;
 const contentPath = currentPath.replace(/^\/(?:hi|bn)(?=\/|$)/, "") || "/";
 const languagePath = (targetLanguage: "en" | "hi" | "bn") => targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`;
+const labels = {
+  en: { home: "Home", topics: "All topics", language: "Choose language" },
+  hi: { home: "मुख्य पृष्ठ", topics: "सभी विषय", language: "भाषा चुनें" },
+  bn: { home: "মূল পাতা", topics: "সব বিষয়", language: "ভাষা বেছে নিন" },
+}[language];
 ---
 
 <header class="site-header">
   <div class="shell header-inner">
     <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label="Saral home"><span>Saral</span><small>Small lessons for everyday digital life.</small></a>
-    <nav aria-label="Main navigation"><a href={language === "en" ? "/" : `/${language}/`}>Home</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}>All topics</a></nav>
-    <div class="language-list" role="group" aria-label="Choose language">
+    <nav aria-label="Main navigation"><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}>{labels.topics}</a></nav>
+    <div class="language-list" role="group" aria-label={labels.language}>
       <a data-language="en" aria-current={language === "en" ? "page" : undefined} href={languagePath("en")}>English</a>
       <a data-language="hi" aria-current={language === "hi" ? "page" : undefined} href={languagePath("hi")}>हिन्दी</a>
       <a data-language="bn" aria-current={language === "bn" ? "page" : undefined} href={languagePath("bn")}>বাংলা</a>

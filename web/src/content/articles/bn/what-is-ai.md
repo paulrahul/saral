@@ -4,8 +4,8 @@ summary: "AI কী করতে পারে, কেন এটি ভুল ক
 publishedAt: "2026-08-10T11:45:26.215278+00:00"
 language: "bn"
 tags:
-  - "AI Basics"
-  - "Everyday Technology"
+  - "AI-এর প্রাথমিক ধারণা"
+  - "দৈনন্দিন প্রযুক্তি"
 image: "/images/what-is-ai.png"
 imageAlt: "একটি সাধারণ চিত্র যেখানে একজন ব্যক্তি একটি স্মার্ট ডিভাইসের কাছে সাহায্য চাইছেন"
 sourceModel: "OpenAI: GPT-5.6 Luna"

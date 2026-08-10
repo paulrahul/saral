@@ -4,8 +4,8 @@ summary: "जानें कि AI क्या कर सकता है, य
 publishedAt: "2026-08-10T11:45:26.215952+00:00"
 language: "hi"
 tags:
-  - "AI Basics"
-  - "Everyday Technology"
+  - "एआई की बुनियादी बातें"
+  - "रोज़मर्रा की तकनीक"
 image: "/images/what-is-ai.png"
 imageAlt: "एक आसान चित्र जिसमें एक व्यक्ति स्मार्ट डिवाइस से मदद मांग रहा है"
 sourceModel: "OpenAI: GPT-5.6 Luna"

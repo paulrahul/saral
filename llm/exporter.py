@@ -27,9 +27,14 @@ def article_path(topic: str, language: str = "en") -> Path:
 
 
 def is_topic_exported(topic: str) -> bool:
-    return _is_article_complete(article_path(topic, "en"), language="en") and all(
-        _is_article_complete(article_path(topic, language), language=language)
+    return _is_article_complete(article_path(topic, "en"), language="en") and not missing_translation_languages(topic)
+
+
+def missing_translation_languages(topic: str) -> tuple[str, ...]:
+    return tuple(
+        language
         for language in TRANSLATION_LANGUAGES
+        if not _is_article_complete(article_path(topic, language), language=language)
     )
 
 
@@ -78,19 +83,31 @@ def _yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def _translation_parts(markdown: str) -> tuple[str, str]:
-    """Extract the translated image alt text kept in the translation input."""
-    match = re.search(
+def _translation_parts(markdown: str) -> tuple[str, str, list[str]]:
+    """Extract translated image and tag metadata kept in the translation input."""
+    image_match = re.search(
         r"\n?<!--\s*saral-image-alt:\s*(.*?)\s*-->\s*$",
         markdown,
         flags=re.DOTALL,
     )
-    if match is None:
+    if image_match is None:
         raise ValueError("Translated Markdown did not include the saral-image-alt marker")
-    alt_text = " ".join(match.group(1).split())
+    alt_text = " ".join(image_match.group(1).split())
     if not alt_text:
         raise ValueError("Translated Markdown has an empty image alt text")
-    return markdown[:match.start()].strip(), alt_text
+    markdown_without_image = markdown[:image_match.start()].strip()
+    tags_match = re.search(r"\n?<!--\s*saral-tags:\s*(\[.*\])\s*-->\s*$", markdown_without_image, re.DOTALL)
+    if tags_match is None:
+        raise ValueError("Translated Markdown did not include the saral-tags marker")
+    try:
+        translated_tags = json.loads(tags_match.group(1))
+    except json.JSONDecodeError as error:
+        raise ValueError("Translated Markdown contains invalid saral-tags JSON") from error
+    if not isinstance(translated_tags, list) or not translated_tags or not all(
+        isinstance(tag, str) and tag.strip() for tag in translated_tags
+    ):
+        raise ValueError("Translated Markdown contains invalid saral-tags values")
+    return markdown_without_image[:tags_match.start()].strip(), alt_text, translated_tags
 
 
 def _published_at(output: Path) -> str:
@@ -156,8 +173,8 @@ def export_approved_topic(topic: str, translations: Mapping[str, str]) -> list[P
     if image is None:
         raise ValueError(f"Topic {topic!r} needs a generated image before publishing")
 
-    missing_languages = set(TRANSLATION_LANGUAGES) - set(translations)
-    if missing_languages:
+    missing_languages = missing_translation_languages(topic)
+    if set(translations) != set(missing_languages):
         raise ValueError(f"Missing translations for: {', '.join(sorted(missing_languages))}")
 
     english_output = article_path(topic)
@@ -178,14 +195,14 @@ def export_approved_topic(topic: str, translations: Mapping[str, str]) -> list[P
                 language="en",
             )
         )
-    for language in TRANSLATION_LANGUAGES:
-        translated_markdown, translated_alt = _translation_parts(translations[language])
+    for language in missing_languages:
+        translated_markdown, translated_alt, translated_tags = _translation_parts(translations[language])
         outputs.append(
             _write_article(
                 output=article_path(topic, language),
                 title=_title_from(translated_markdown, topic),
                 markdown=translated_markdown,
-                tags=tags,
+                tags=translated_tags,
                 image={**image, "altText": translated_alt},
                 source_model=model,
                 language=language,

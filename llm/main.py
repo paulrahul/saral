@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
-from llm.exporter import export_approved_topic, is_topic_exported
+from llm.exporter import export_approved_topic, is_topic_exported, missing_translation_languages
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
 from llm.translator import Translator
 from llm.util import (
@@ -431,6 +431,7 @@ class EasyTutorAgent:
             selected_model = await self._select_content(topic, content_results)
             tags = await self._generate_tags(topic, content_results[selected_model])
             write_approved_content(topic, selected_model, tags)
+            approval = {"model": selected_model, "tags": tags}
         else:
             logger.info("Using approved content cache for topic '%s'", topic)
             selected_model = approval.get("model")
@@ -462,12 +463,15 @@ class EasyTutorAgent:
         if is_topic_exported(topic):
             logger.info("Using exported Markdown cache for topic '%s'", topic)
         else:
+            missing_languages = missing_translation_languages(topic)
             translation_results = await self._translator.generate(
                 message=(
                     f"{content_results[selected_model].strip()}\n\n"
+                    f"<!-- saral-tags: {json.dumps(approval['tags'], ensure_ascii=False)} -->\n"
                     f"<!-- saral-image-alt: {image['altText']} -->"
                 ),
                 trace="EasyTutor: Translation",
+                languages=missing_languages,
             )
             translator_models = tuple(self._translator.models())
             if len(translator_models) != 1:
