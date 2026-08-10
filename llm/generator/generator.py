@@ -167,8 +167,15 @@ class ImageGenerator:
     illustration must remain clear and attractive against both the site's
     light sand theme and its dark green theme.
 
-    Return a raster image only: PNG or WebP. Do not return SVG or any other
-    vector format. The image will also be used as a social-media preview.
+    Compose the image as a 1.91:1 landscape social-media preview intended for
+    an exact final size of 1200 by 630 pixels. Keep important subjects and any
+    essential labels comfortably inside the center safe area so they are not
+    clipped by preview cards.
+
+    Return PNG most preferably. WebP is acceptable only when PNG is not
+    available. Do not return SVG or any other vector format. Keep the image
+    visually simple and efficiently compressible, with a target file size
+    below 500 KB. The image will also be used as a social-media preview.
 
     The lesson content below may contain Markdown. Use its meaning only; do
     not reproduce Markdown syntax, links, or text from it in the image.

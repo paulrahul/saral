@@ -6,7 +6,7 @@ tags:
   - "AI Basics"
   - "Everyday Technology"
   - "AI in Daily Life"
-image: "/images/how-to-talk-to-ai.svg"
+image: "/images/how-to-talk-to-ai.webp"
 imageAlt: "Simple educational illustration for the lesson: How to talk to AI."
 sourceModel: "Z.ai: GLM 5.2"
 ---
