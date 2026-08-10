@@ -155,7 +155,7 @@ def write_approved_content(topic: str, model: str, tags: list[str]) -> None:
         file.write("\n")
 
 
-def read_generated_image(topic: str) -> dict[str, str] | None:
+def read_generated_image(topic: str) -> dict[str, str | int] | None:
     """Return cached public image metadata for a topic, if present."""
     try:
         images = _read_json(IMAGES_FILE)
@@ -173,11 +173,17 @@ def read_generated_image(topic: str) -> dict[str, str] | None:
         for field in ("path", "altText", "model", "mediaType")
     ):
         raise ValueError(f"Expected valid generated-image metadata for topic {topic!r}")
+    width = image.get("width", 1200)
+    height = image.get("height", 630)
+    if not isinstance(width, int) or width <= 0 or not isinstance(height, int) or height <= 0:
+        raise ValueError(f"Expected valid generated-image dimensions for topic {topic!r}")
     return {
         "path": image["path"],
         "altText": image["altText"],
         "model": image["model"],
         "mediaType": image["mediaType"],
+        "width": width,
+        "height": height,
     }
 
 
@@ -187,6 +193,8 @@ def write_generated_image(
     alt_text: str,
     model: str,
     media_type: str,
+    width: int,
+    height: int,
 ) -> None:
     """Persist image metadata after its asset has been written to public/images."""
     try:
@@ -202,6 +210,8 @@ def write_generated_image(
         "altText": alt_text,
         "model": model,
         "mediaType": media_type,
+        "width": width,
+        "height": height,
     }
     IMAGES_FILE.parent.mkdir(parents=True, exist_ok=True)
     with IMAGES_FILE.open("w") as file:

@@ -7,8 +7,11 @@ tags:
   - "AI Basics"
   - "Mobile Devices"
   - "AI in Daily Life"
-image: "/images/how-phones-use-ai.jpg"
+image: "/images/how-phones-use-ai-ead51006fd.png"
 imageAlt: "Simple educational illustration for the lesson: How phones use AI."
+imageWidth: 1200
+imageHeight: 630
+imageMediaType: "image/png"
 sourceModel: "OpenAI: GPT-5.6 Luna"
 ---
 **Artificial intelligence** means a computer doing tasks that usually need human thinking.

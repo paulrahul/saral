@@ -124,7 +124,7 @@ def _write_article(
     title: str,
     markdown: str,
     tags: list[str],
-    image: Mapping[str, str],
+    image: Mapping[str, str | int],
     source_model: str,
     language: str,
     translation_of: str | None = None,
@@ -141,6 +141,9 @@ def _write_article(
         *[f"  - {_yaml_quote(tag)}" for tag in tags],
         f"image: {_yaml_quote(image['path'])}",
         f"imageAlt: {_yaml_quote(image['altText'])}",
+        f"imageWidth: {image['width']}",
+        f"imageHeight: {image['height']}",
+        f"imageMediaType: {_yaml_quote(image['mediaType'])}",
         f"sourceModel: {_yaml_quote(source_model)}",
     ]
     if translation_of is not None:

@@ -5,12 +5,15 @@ const {
   description = "Clear, useful technology lessons for everyday life.",
   socialImage = "/og.png",
   socialImageAlt = description,
+  socialImageWidth = 1200,
+  socialImageHeight = 630,
+  socialImageType: suppliedSocialImageType,
   pageClass = "",
   language = "en",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImageUrl = new URL(socialImage, Astro.site);
-const socialImageType = socialImage.endsWith(".png") ? "image/png" : socialImage.endsWith(".jpg") || socialImage.endsWith(".jpeg") ? "image/jpeg" : socialImage.endsWith(".webp") ? "image/webp" : undefined;
+const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png") ? "image/png" : socialImage.endsWith(".jpg") || socialImage.endsWith(".jpeg") ? "image/jpeg" : socialImage.endsWith(".webp") ? "image/webp" : undefined);
 ---
 
 <!doctype html>
@@ -28,8 +31,8 @@ const socialImageType = socialImage.endsWith(".png") ? "image/png" : socialImage
     <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:secure_url" content={socialImageUrl} />
     {socialImageType && <meta property="og:image:type" content={socialImageType} />}
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content={String(socialImageWidth)} />
+    <meta property="og:image:height" content={String(socialImageHeight)} />
     <meta property="og:image:alt" content={socialImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

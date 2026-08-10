@@ -452,6 +452,8 @@ class EasyTutorAgent:
                 alt_text=generated_image.alt_text,
                 model=generated_image.model,
                 media_type=generated_image.media_type,
+                width=generated_image.width,
+                height=generated_image.height,
             )
             image = read_generated_image(topic)
         else:

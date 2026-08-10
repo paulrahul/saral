@@ -1,6 +1,9 @@
 """Agents that generate EasyTutor topics, Markdown content, and lesson images."""
 
 import base64
+import binascii
+import hashlib
+import io
 import logging
 import os
 from collections.abc import Mapping
@@ -9,6 +12,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 import httpx
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 from llm.util import AgentHelper
 
@@ -135,6 +139,8 @@ class GeneratedImage:
     alt_text: str
     model: str
     media_type: str
+    width: int
+    height: int
 
 
 class ImageGenerator:
@@ -183,12 +189,9 @@ class ImageGenerator:
     """
 
     API_URL = "https://openrouter.ai/api/v1/images"
-    EXTENSIONS = {
-        "image/jpeg": ".jpg",
-        "image/png": ".png",
-        "image/svg+xml": ".svg",
-        "image/webp": ".webp",
-    }
+    TARGET_SIZE = (1200, 630)
+    MAX_FILE_SIZE = 500 * 1024
+    BACKGROUND_COLOR = (255, 253, 247)
 
     def __init__(
         self,
@@ -237,13 +240,55 @@ class ImageGenerator:
         return f"Simple educational illustration for the lesson: {topic}."
 
     @classmethod
-    def _extension_for(cls, media_type: str | None) -> tuple[str, str]:
-        if media_type is None:
-            return ".png", "image/png"
-        extension = cls.EXTENSIONS.get(media_type)
-        if extension is None:
-            raise ValueError(f"OpenRouter returned an unsupported image type: {media_type}")
-        return extension, media_type
+    def _normalize_image(cls, image_bytes: bytes) -> tuple[bytes, str, str]:
+        """Return a social-preview-safe 1200x630 PNG or baseline JPEG."""
+        try:
+            with Image.open(io.BytesIO(image_bytes)) as source:
+                source.seek(0)
+                source = ImageOps.exif_transpose(source)
+                rgba = source.convert("RGBA")
+        except (UnidentifiedImageError, OSError) as error:
+            raise ValueError(
+                "OpenRouter returned an unsupported or invalid raster image"
+            ) from error
+
+        # Composite transparency onto the site's warm sand color before
+        # resizing. ImageOps.contain preserves the complete illustration;
+        # padding is preferable to cropping instructional details or labels.
+        background = Image.new("RGBA", rgba.size, (*cls.BACKGROUND_COLOR, 255))
+        source_rgb = Image.alpha_composite(background, rgba).convert("RGB")
+        contained = ImageOps.contain(
+            source_rgb,
+            cls.TARGET_SIZE,
+            method=Image.Resampling.LANCZOS,
+        )
+        canvas = Image.new("RGB", cls.TARGET_SIZE, cls.BACKGROUND_COLOR)
+        offset = (
+            (cls.TARGET_SIZE[0] - contained.width) // 2,
+            (cls.TARGET_SIZE[1] - contained.height) // 2,
+        )
+        canvas.paste(contained, offset)
+
+        png = io.BytesIO()
+        canvas.save(png, format="PNG", optimize=True, compress_level=9)
+        if png.tell() <= cls.MAX_FILE_SIZE:
+            return png.getvalue(), ".png", "image/png"
+
+        # Detailed or photographic generations can make PNG unnecessarily
+        # large. A baseline RGB JPEG is widely supported by preview crawlers.
+        for quality in (90, 85, 80, 75, 70, 65, 60, 55):
+            jpeg = io.BytesIO()
+            canvas.save(
+                jpeg,
+                format="JPEG",
+                quality=quality,
+                optimize=True,
+                progressive=False,
+            )
+            if jpeg.tell() <= cls.MAX_FILE_SIZE:
+                return jpeg.getvalue(), ".jpg", "image/jpeg"
+
+        raise ValueError("Could not compress the generated image below 500 KB")
 
     async def generate(self, topic: str, content: str) -> GeneratedImage:
         """Create and store an image asset, returning the export metadata."""
@@ -288,16 +333,23 @@ class ImageGenerator:
         image_data = image.get("b64_json") if isinstance(image, dict) else None
         if not isinstance(image_data, str) or not image_data:
             raise ValueError("OpenRouter image generation returned no image data")
-        extension, media_type = self._extension_for(image.get("media_type"))
+        try:
+            raw_image = base64.b64decode(image_data, validate=True)
+        except (ValueError, binascii.Error) as error:
+            raise ValueError("OpenRouter returned invalid base64 image data") from error
+        normalized_image, extension, media_type = self._normalize_image(raw_image)
 
-        output = self._output_dir / f"{self._slugify(topic)}{extension}"
+        version = hashlib.sha256(normalized_image).hexdigest()[:10]
+        output = self._output_dir / f"{self._slugify(topic)}-{version}{extension}"
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_bytes(base64.b64decode(image_data))
+        output.write_bytes(normalized_image)
         generated = GeneratedImage(
             path=f"/images/{output.name}",
             alt_text=self._alt_text(topic),
             model=model_name,
             media_type=media_type,
+            width=self.TARGET_SIZE[0],
+            height=self.TARGET_SIZE[1],
         )
         logger.info("Finished image generation for topic '%s' at %s", topic, output)
         return generated
