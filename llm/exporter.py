@@ -11,6 +11,7 @@ from llm.util import read_approved_content, read_content, read_generated_image
 
 ARTICLES_DIR = Path(__file__).resolve().parents[1] / "web" / "src" / "content" / "articles"
 TRANSLATION_LANGUAGES = ("bn", "hi")
+SUMMARY_MARKER = re.compile(r"^\s*<!--\s*saral-summary:\s*(.*?)\s*-->\s*", re.DOTALL)
 
 
 def slugify(value: str) -> str:
@@ -43,6 +44,15 @@ def _is_article_complete(output: Path, *, language: str) -> bool:
 
 
 def _summary_from(markdown: str) -> str:
+    marker = SUMMARY_MARKER.match(markdown)
+    if marker is not None:
+        summary = " ".join(marker.group(1).split())
+        if not summary:
+            raise ValueError("Generated Markdown has an empty saral-summary marker")
+        return summary[:180]
+
+    # Compatibility for lessons generated before the summary marker existed.
+    # New content must always supply the model-written marker above.
     for line in markdown.splitlines():
         text = line.strip().lstrip("#").strip()
         text = re.sub(r"[*_`]", "", text)
@@ -53,6 +63,10 @@ def _summary_from(markdown: str) -> str:
 
 def _without_title(markdown: str) -> str:
     return re.sub(r"^#\s+.+\n+", "", markdown.strip(), count=1)
+
+
+def _without_summary_marker(markdown: str) -> str:
+    return SUMMARY_MARKER.sub("", markdown, count=1).strip()
 
 
 def _title_from(markdown: str, fallback: str) -> str:
@@ -98,11 +112,12 @@ def _write_article(
     language: str,
     translation_of: str | None = None,
 ) -> Path:
-    body = _without_title(markdown)
+    summary = _summary_from(markdown)
+    body = _without_title(_without_summary_marker(markdown))
     frontmatter = [
         "---",
         f"title: {_yaml_quote(title)}",
-        f"summary: {_yaml_quote(_summary_from(body))}",
+        f"summary: {_yaml_quote(summary)}",
         f"publishedAt: {_yaml_quote(_published_at(output))}",
         f"language: {_yaml_quote(language)}",
         "tags:",

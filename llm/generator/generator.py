@@ -75,7 +75,16 @@ class ContentGenerator(Generator):
     tech topic, make sure you provide a link to that term. Your entire content
     is to be provided in MD (Markdown) format.
 
-    Your response should contain only the Markdown content and nothing else.
+    Begin your response with exactly one HTML comment in this form:
+    <!-- saral-summary: one short, clear summary of this lesson -->
+    The summary must be a single plain-language sentence, no more than 180
+    characters. It must tell a reader what they will learn, rather than repeat
+    a heading or use a question. The comment is metadata and will not be shown
+    in the lesson.
+
+    After the comment, provide the lesson in Markdown, starting with one level
+    one heading. Do not add frontmatter, a preamble, an explanation, or any
+    other metadata.
     """
 
     def __init__(self, context: str, models: Mapping[str, str]):

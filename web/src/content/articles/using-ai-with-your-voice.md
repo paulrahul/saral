@@ -1,6 +1,6 @@
 ---
 title: "Using AI with your voice"
-summary: "What is AI?"
+summary: "Learn how to use voice assistants to make calls, set alarms, and ask everyday questions."
 publishedAt: "2026-08-09T15:21:50.142109+00:00"
 tags:
   - "AI Basics"

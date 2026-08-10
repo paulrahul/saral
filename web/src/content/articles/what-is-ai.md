@@ -1,6 +1,6 @@
 ---
 title: "What is AI?"
-summary: "AI means artificial intelligence."
+summary: "Learn what AI can do, why it can make mistakes, and how to use it wisely."
 publishedAt: "2026-08-09T13:41:12+00:00"
 tags:
   - "AI Basics"

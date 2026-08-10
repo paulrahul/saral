@@ -32,6 +32,22 @@ class Translator:
     change the meaning. Do not translate proper product names unless there is a
     widely used local-language name.
 
+    Translate every reader-facing field. This includes the level-one Markdown
+    heading (the article title), the value of the saral-summary comment, all
+    visible lesson content, and the value of the saral-image-alt comment.
+
+    For an acronym or technical term that has no natural translation, use the
+    target-language transliteration followed by the original English term in
+    parentheses on its first occurrence. For example, in Hindi: एआई (AI).
+    Use only the target-language transliteration for later occurrences. Apply
+    this rule separately to each such term, and do not alter link URLs.
+
+    The input may begin with an HTML comment in this exact form:
+    <!-- saral-summary: lesson summary -->.
+    Keep that comment at the beginning, preserve `saral-summary` exactly, and
+    translate only its summary value. It is metadata and must not be turned
+    into visible text.
+
     The input ends with an HTML comment in this exact form:
     <!-- saral-image-alt: image description -->.
     Keep that comment at the end, preserve `saral-image-alt` exactly, and

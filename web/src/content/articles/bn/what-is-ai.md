@@ -1,6 +1,6 @@
 ---
 title: "এআই (AI) কী?"
-summary: "এআই (AI) মানে হলো কৃত্রিম বুদ্ধিমত্তা (artificial intelligence)।"
+summary: "AI কী করতে পারে, কেন এটি ভুল করতে পারে এবং কীভাবে এটি বুঝে ব্যবহার করবেন তা জানুন।"
 publishedAt: "2026-08-10T11:45:26.215278+00:00"
 language: "bn"
 tags:

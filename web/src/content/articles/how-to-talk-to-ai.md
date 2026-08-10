@@ -1,6 +1,6 @@
 ---
 title: "How to talk to AI"
-summary: "AI stands for [Artificial Intelligence](https://simple.wikipedia.org/wiki/Artificialintelligence). You can think of AI as a very smart robot that lives inside your phone or compute"
+summary: "Learn how to ask AI clear questions and check important answers safely."
 publishedAt: "2026-08-09T15:03:41+00:00"
 tags:
   - "AI Basics"
