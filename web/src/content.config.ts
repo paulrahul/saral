@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import { LANGUAGE_VALUES } from "./lib/i18n";
 
 const articles = defineCollection({
   type: "content",
@@ -6,7 +7,7 @@ const articles = defineCollection({
     title: z.string(),
     summary: z.string(),
     publishedAt: z.coerce.date(),
-    language: z.enum(["en", "hi", "bn"]).default("en"),
+    language: z.enum(LANGUAGE_VALUES).default("en"),
     translationOf: z.string().optional(),
     tags: z.array(z.string()),
     image: z.string(),

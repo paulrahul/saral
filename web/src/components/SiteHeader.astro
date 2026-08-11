@@ -1,32 +1,27 @@
 ---
 import { Moon, Sun } from "lucide-astro";
+import { locale, SUPPORTED_LANGUAGES, ui, type Language } from "../lib/i18n";
 
 interface Props {
-  language?: "en" | "hi" | "bn";
+  language?: Language;
   currentPath?: string;
-  languagePaths?: Partial<Record<"en" | "hi" | "bn", string>>;
+  languagePaths?: Partial<Record<Language, string>>;
 }
 
 const { language = "en", currentPath = "/", languagePaths = {} } = Astro.props;
-const contentPath = currentPath.replace(/^\/(?:hi|bn)(?=\/|$)/, "") || "/";
-const languagePath = (targetLanguage: "en" | "hi" | "bn") => languagePaths[targetLanguage] ?? (targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`);
-const labels = {
-  en: { home: "Home", topics: "All topics", language: "Choose language", light: "Use light theme", dark: "Use dark theme", tagline: "AI made simple, so no one is left behind." },
-  hi: { home: "मुख्य पृष्ठ", topics: "सभी विषय", language: "भाषा चुनें", light: "हल्की थीम इस्तेमाल करें", dark: "गहरी थीम इस्तेमाल करें", tagline: "एआई आसान भाषा में, ताकि कोई पीछे न छूटे।" },
-  bn: { home: "মূল পাতা", topics: "সব বিষয়", language: "ভাষা বেছে নিন", light: "হালকা থিম ব্যবহার করুন", dark: "গাঢ় থিম ব্যবহার করুন", tagline: "সহজ ভাষায় এআই, যাতে কেউ পিছিয়ে না থাকে।" },
-}[language];
+const contentPath = currentPath.replace(new RegExp(`^/(?:${SUPPORTED_LANGUAGES.filter((code) => code !== "en").join("|")})(?=/|$)`), "") || "/";
+const languagePath = (targetLanguage: Language) => languagePaths[targetLanguage] ?? (targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`);
+const labels = ui(language);
 ---
 
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label="Saral home"><img src="/saral-logo.png" alt="" width="640" height="183" /><small>{labels.tagline}</small></a>
-    <nav aria-label="Main navigation"><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}>{labels.topics}</a></nav>
-    <div class="language-list" role="group" aria-label={labels.language}>
-      <a data-language="en" aria-current={language === "en" ? "page" : undefined} href={languagePath("en")}>English</a>
-      <a data-language="hi" aria-current={language === "hi" ? "page" : undefined} href={languagePath("hi")}>हिन्दी</a>
-      <a data-language="bn" aria-current={language === "bn" ? "page" : undefined} href={languagePath("bn")}>বাংলা</a>
+    <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label={`Saral: ${labels.home}`}><img src="/saral-logo.png" alt="" width="640" height="183" /><small>{labels.tagline}</small></a>
+    <nav aria-label={labels.mainNavigation}><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}></a></nav>
+    <div class="language-list" role="group" aria-label={labels.chooseLanguage}>
+      {SUPPORTED_LANGUAGES.map((targetLanguage) => <a data-language={targetLanguage} aria-current={language === targetLanguage ? "page" : undefined} href={languagePath(targetLanguage)}>{locale(targetLanguage).name}</a>)}
     </div>
-    <button class="theme-toggle" type="button" data-theme-toggle data-light-label={labels.light} data-dark-label={labels.dark} aria-label={labels.dark} title={labels.dark}>
+    <button class="theme-toggle" type="button" data-theme-toggle data-light-label={labels.useLightTheme} data-dark-label={labels.useDarkTheme} aria-label={labels.useDarkTheme} title={labels.useDarkTheme}>
       <Sun data-sun aria-hidden="true" size={20} />
       <Moon data-moon aria-hidden="true" size={20} />
     </button>
@@ -41,7 +36,7 @@ const labels = {
   const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
   const setTheme = (theme: "light" | "dark") => {
     document.documentElement.dataset.theme = theme;
-    const label = theme === "dark" ? themeButton?.dataset.lightLabel ?? "Use light theme" : themeButton?.dataset.darkLabel ?? "Use dark theme";
+    const label = theme === "dark" ? themeButton?.dataset.lightLabel ?? "" : themeButton?.dataset.darkLabel ?? "";
     themeButton?.setAttribute("aria-label", label);
     themeButton?.setAttribute("title", label);
   };

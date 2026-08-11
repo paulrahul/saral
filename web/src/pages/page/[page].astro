@@ -4,6 +4,7 @@ import ArticleCard from "../../components/ArticleCard.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articlesForLanguage, PAGE_SIZE, sortArticles } from "../../lib/articles";
+import { format, ui } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const articles = sortArticles(articlesForLanguage(await getCollection("articles"), "en"));
@@ -15,6 +16,8 @@ const articles = sortArticles(articlesForLanguage(await getCollection("articles"
 const page = Number(Astro.params.page);
 const pageCount = Math.ceil(articles.length / PAGE_SIZE);
 const pageArticles = articles.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+const text = ui("en");
+const pageDescription = format(text.pageOf, { page, count: pageCount });
 ---
 
-<BaseLayout title={`Lessons, page ${page} | Saral`}><SiteHeader language="en" currentPath={Astro.url.pathname} /><main class="shell lesson-section page-list"><a class="back-link" href="/">← Latest lessons</a><div class="section-heading"><div><p class="kicker">More lessons</p><h1>Learn at your pace.</h1></div><span>Page {page} of {pageCount}</span></div><div class="article-list">{pageArticles.map((article) => <ArticleCard {article} />)}</div><nav class="pagination" aria-label="Pagination">{page > 2 ? <a href={`/page/${page - 1}/`}>Previous</a> : <a href="/">Previous</a>} {page < pageCount ? <a href={`/page/${page + 1}/`}>Next</a> : <span class="pagination-disabled">Next</span>}</nav></main></BaseLayout>
+<BaseLayout title={`${text.lessonsPageTitle}, ${pageDescription} | Saral`}><SiteHeader language="en" currentPath={Astro.url.pathname} /><main class="shell lesson-section page-list"><a class="back-link" href="/">← {text.latestLessons}</a><div class="section-heading"><div><p class="kicker">{text.moreLessons}</p><h1>{text.learnAtYourPace}</h1></div><span>{pageDescription}</span></div><div class="article-list">{pageArticles.map((article) => <ArticleCard {article} />)}</div><nav class="pagination" aria-label={text.pagination}>{page > 2 ? <a href={`/page/${page - 1}/`}>{text.previous}</a> : <a href="/">{text.previous}</a>} {page < pageCount ? <a href={`/page/${page + 1}/`}>{text.next}</a> : <span class="pagination-disabled">{text.next}</span>}</nav></main></BaseLayout>

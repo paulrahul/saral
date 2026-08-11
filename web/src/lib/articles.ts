@@ -1,11 +1,12 @@
 import type { CollectionEntry } from "astro:content";
+import { SUPPORTED_LANGUAGES, type Language } from "./i18n";
 
 export const PAGE_SIZE = 6;
-export const SUPPORTED_LANGUAGES = ["en", "hi", "bn"] as const;
-export type Language = (typeof SUPPORTED_LANGUAGES)[number];
+export { SUPPORTED_LANGUAGES, type Language } from "./i18n";
 
 export function articleSlug(article: CollectionEntry<"articles">) {
-  return article.id.replace(/^(?:en|hi|bn)\//, "").replace(/\.md$/, "");
+  const languagePrefix = new RegExp(`^(?:${SUPPORTED_LANGUAGES.join("|")})/`);
+  return article.id.replace(languagePrefix, "").replace(/\.md$/, "");
 }
 
 export function articlesForLanguage(articles: CollectionEntry<"articles">[], language: Language) {

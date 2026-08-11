@@ -1,11 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { articleUrl } from "../lib/articles";
+import { locale, ui } from "../lib/i18n";
 const { article } = Astro.props as { article: CollectionEntry<"articles"> };
-const locale = article.data.language === "hi" ? "hi-IN" : article.data.language === "bn" ? "bn-BD" : "en";
-const formattedDate = article.data.publishedAt.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" });
+const formattedDate = article.data.publishedAt.toLocaleDateString(locale(article.data.language).dateLocale, { month: "short", day: "numeric", year: "numeric" });
 const href = articleUrl(article);
-const readLabel = article.data.language === "hi" ? "यह पाठ पढ़ें" : article.data.language === "bn" ? "এই পাঠটি পড়ুন" : "Read this lesson";
+const readLabel = ui(article.data.language).readLesson;
 ---
 
 <article class="article-card">

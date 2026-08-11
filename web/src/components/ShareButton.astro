@@ -1,17 +1,14 @@
 ---
 import { Check, Share2 } from "lucide-astro";
+import { ui, type Language } from "../lib/i18n";
 const { title, language = "en" } = Astro.props;
-const labels = {
-  en: { share: "Share this lesson", copied: "Link copied" },
-  hi: { share: "यह पाठ साझा करें", copied: "लिंक कॉपी हो गया" },
-  bn: { share: "এই পাঠটি শেয়ার করুন", copied: "লিঙ্ক কপি হয়েছে" },
-}[language as "en" | "hi" | "bn"];
+const labels = ui(language as Language);
 ---
 
-<button class="share-button" type="button" data-share-button data-share-title={title} data-share-label-text={labels.share} data-copied-label-text={labels.copied}>
+<button class="share-button" type="button" data-share-button data-share-title={title} data-share-label-text={labels.shareLesson} data-copied-label-text={labels.linkCopied}>
   <Share2 data-share-icon aria-hidden="true" size={18} />
   <Check data-check-icon aria-hidden="true" size={18} hidden />
-  <span data-share-label>{labels.share}</span>
+  <span data-share-label>{labels.shareLesson}</span>
 </button>
 
 <script>
@@ -24,11 +21,11 @@ const labels = {
         return;
       }
       await navigator.clipboard.writeText(`${title} — ${url}`);
-      button.querySelector("[data-share-label]")!.textContent = button.dataset.copiedLabelText ?? "Link copied";
+      button.querySelector("[data-share-label]")!.textContent = button.dataset.copiedLabelText ?? "";
       button.querySelector("[data-share-icon]")?.setAttribute("hidden", "true");
       button.querySelector("[data-check-icon]")?.removeAttribute("hidden");
       window.setTimeout(() => {
-        button.querySelector("[data-share-label]")!.textContent = button.dataset.shareLabelText ?? "Share this lesson";
+      button.querySelector("[data-share-label]")!.textContent = button.dataset.shareLabelText ?? "";
         button.querySelector("[data-share-icon]")?.removeAttribute("hidden");
         button.querySelector("[data-check-icon]")?.setAttribute("hidden", "true");
       }, 1800);

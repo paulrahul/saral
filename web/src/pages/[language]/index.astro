@@ -4,11 +4,7 @@ import ArticleCard from "../../components/ArticleCard.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articleUrl, articlesForLanguage, sortArticles, SUPPORTED_LANGUAGES, tagUrl, type Language } from "../../lib/articles";
-
-const labels = {
-  hi: { topics: "विषय चुनें", prompt: "आप किस बारे में सीखना चाहते हैं?", latest: "नया पाठ", start: "यहाँ से शुरू करें", more: "और पाठ", choose: "कोई और चुनें" },
-  bn: { topics: "বিষয় বেছে নিন", prompt: "আপনি কী বিষয়ে সাহায্য চান?", latest: "নতুন পাঠ", start: "এখান থেকে শুরু করুন", more: "আরও পাঠ", choose: "আরেকটি বেছে নিন" },
-} as const;
+import { ui } from "../../lib/i18n";
 
 export function getStaticPaths() {
   return SUPPORTED_LANGUAGES.filter((language) => language !== "en").map((language) => ({ params: { language } }));
@@ -18,22 +14,22 @@ const language = Astro.params.language as Exclude<Language, "en">;
 const articles = sortArticles(articlesForLanguage(await getCollection("articles"), language));
 const [latest, ...older] = articles;
 const tags = [...new Set(articles.flatMap((article) => article.data.tags))];
-const text = labels[language];
+const text = ui(language);
 ---
 
 <BaseLayout pageClass="home-page" {language}>
   <SiteHeader {language} currentPath={Astro.url.pathname} />
   <main class="home-main shell">
     <section class="topic-strip" id="topics" aria-labelledby="topics-title">
-      <div class="topic-heading"><p id="topics-title">{text.topics}</p><!--span>{text.prompt}</span--></div>
+      <div class="topic-heading"><p id="topics-title">{text.chooseTopic}</p><span>{text.topicPrompt}</span></div>
       <nav class="topic-links" aria-label={text.topics}><a class="active" href={`/${language}/`}>{text.latest}</a>{tags.map((tag) => <a href={tagUrl(tag, language)}>{tag}</a>)}</nav>
     </section>
     {latest && <section class="latest" aria-labelledby="latest-title">
-      <div class="section-label"><strong id="latest-title">{text.latest}</strong><!--span>{text.start}</span--></div>
+      <div class="section-label"><strong id="latest-title">{text.newestLesson}</strong><!--span>{text.startHere}</span--></div>
       <ArticleCard article={latest} />
     </section>}
     {older.length > 0 && <section class="more-lessons" aria-labelledby="more-title">
-      <div class="section-label"><strong id="more-title">{text.more}</strong><!--span>{text.choose}</span--></div>
+      <div class="section-label"><strong id="more-title">{text.moreLessons}</strong><!--span>{text.chooseAnother}</span--></div>
       <div class="compact-list">{older.slice(0, 3).map((article) => <a href={articleUrl(article)}><span>{article.data.tags[0]}</span><strong>{article.data.title}</strong><b aria-hidden="true">→</b></a>)}</div>
     </section>}
   </main>

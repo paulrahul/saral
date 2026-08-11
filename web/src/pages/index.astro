@@ -4,25 +4,27 @@ import ArticleCard from "../components/ArticleCard.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { articleUrl, articlesForLanguage, sortArticles, tagUrl } from "../lib/articles";
+import { ui } from "../lib/i18n";
 
 const articles = sortArticles(articlesForLanguage(await getCollection("articles"), "en"));
 const [latest, ...older] = articles;
 const tags = [...new Set(articles.flatMap((article) => article.data.tags))];
+const text = ui("en");
 ---
 
 <BaseLayout pageClass="home-page">
   <SiteHeader language="en" currentPath={Astro.url.pathname} />
   <main class="home-main shell">
     <section class="topic-strip" id="topics" aria-labelledby="topics-title">
-      <div class="topic-heading"><p id="topics-title">Choose a topic</p><!--span>What would you like help with?</span--></div>
-      <nav class="topic-links" aria-label="Topics"><a class="active" href="/">Latest</a>{tags.map((tag) => <a href={tagUrl(tag, "en")}>{tag}</a>)}</nav>
+      <div class="topic-heading"><p id="topics-title">{text.chooseTopic}</p><!--span>{text.topicPrompt}</span--></div>
+      <nav class="topic-links" aria-label={text.topics}><a class="active" href="/">{text.latest}</a>{tags.map((tag) => <a href={tagUrl(tag, "en")}>{tag}</a>)}</nav>
     </section>
     {latest && <section class="latest" aria-labelledby="latest-title">
-      <div class="section-label"><strong id="latest-title">Newest lesson</strong><!--span>Start here</span--></div>
+      <div class="section-label"><strong id="latest-title">{text.newestLesson}</strong><!--span>{text.startHere}</span--></div>
       <ArticleCard article={latest} />
     </section>}
     {older.length > 0 && <section class="more-lessons" aria-labelledby="more-title">
-      <div class="section-label"><strong id="more-title">More lessons</strong><!--span>Choose another</span--></div>
+      <div class="section-label"><strong id="more-title">{text.moreLessons}</strong><!--span>{text.chooseAnother}</span--></div>
       <div class="compact-list">{older.slice(0, 3).map((article) => <a href={articleUrl(article)}><span>{article.data.tags[0]}</span><strong>{article.data.title}</strong><b aria-hidden="true">→</b></a>)}</div>
     </section>}
   </main>

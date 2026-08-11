@@ -1,24 +1,21 @@
 ---
 import "../styles/global.css";
+import { ui, type Language } from "../lib/i18n";
+const language = (Astro.props.language ?? "en") as Language;
+const labels = ui(language);
 const {
-  title = "Saral — AI made simple, so no one is left behind",
-  description = "Clear, useful technology lessons for everyday life.",
+  title = labels.siteTitle,
+  description = labels.siteDescription,
   socialImage = "/og.png",
   socialImageAlt = description,
   socialImageWidth = 1200,
   socialImageHeight = 630,
   socialImageType: suppliedSocialImageType,
   pageClass = "",
-  language = "en",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImageUrl = new URL(socialImage, Astro.site);
 const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png") ? "image/png" : socialImage.endsWith(".jpg") || socialImage.endsWith(".jpeg") ? "image/jpeg" : socialImage.endsWith(".webp") ? "image/webp" : undefined);
-const disclosure = {
-  en: "All lessons, translations, and illustrations on this website are generated using AI.",
-  hi: "इस वेबसाइट के सभी पाठ, अनुवाद और चित्र एआई का उपयोग करके बनाए गए हैं।",
-  bn: "এই ওয়েবসাইটের সব পাঠ, অনুবাদ ও ছবি এআই ব্যবহার করে তৈরি করা হয়েছে।",
-}[language as "en" | "hi" | "bn"];
 ---
 
 <!doctype html>
@@ -49,6 +46,6 @@ const disclosure = {
   </head>
   <body class={pageClass}>
     <slot />
-    <footer class="site-footer"><div class="shell">{disclosure}</div></footer>
+    <footer class="site-footer"><div class="shell">{labels.aiDisclosure}</div></footer>
   </body>
 </html>

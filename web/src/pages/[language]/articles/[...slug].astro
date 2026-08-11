@@ -4,6 +4,7 @@ import ShareButton from "../../../components/ShareButton.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { articleSlug, articleUrl, articlesForLanguage, sortArticles, SUPPORTED_LANGUAGES, tagUrl, type Language } from "../../../lib/articles";
+import { locale, ui } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
@@ -19,13 +20,11 @@ export async function getStaticPaths() {
 const { article, previousArticle, nextArticle } = Astro.props;
 const language = Astro.params.language as Exclude<Language, "en">;
 const { Content } = await render(article);
-const formattedDate = article.data.publishedAt.toLocaleDateString(language === "hi" ? "hi-IN" : "bn-BD", { month: "long", day: "numeric", year: "numeric" });
-const navigationLabels = language === "hi"
-  ? { aria: "अन्य पाठ", previous: "पिछला पाठ", next: "अगला पाठ" }
-  : { aria: "অন্যান্য পাঠ", previous: "আগের পাঠ", next: "পরের পাঠ" };
+const text = ui(language);
+const formattedDate = article.data.publishedAt.toLocaleDateString(locale(language).dateLocale, { month: "long", day: "numeric", year: "numeric" });
 ---
 
 <BaseLayout title={`${article.data.title} | Saral`} description={article.data.summary} socialImage={article.data.socialImage ?? article.data.image} socialImageAlt={article.data.imageAlt} socialImageWidth={article.data.imageWidth} socialImageHeight={article.data.imageHeight} socialImageType={article.data.imageMediaType} {language}>
   <SiteHeader {language} currentPath={Astro.url.pathname} />
-  <main class="shell article-shell"><a class="back-link" href={`/${language}/`}>← {language === "hi" ? "सभी पाठ" : "সব পাঠ"}</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, language)}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>{language === "hi" ? "प्रकाशित" : "প্রকাশিত"} {formattedDate}</span><ShareButton title={article.data.title} {language} /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>{language === "hi" ? "याद रखें" : "মনে রাখবেন"}</strong><p>{language === "hi" ? "आप एक समय में एक कदम सीख सकते हैं।" : "আপনি একবারে এক ধাপ শিখতে পারেন।"}</p></aside><nav class="lesson-navigation" aria-label={navigationLabels.aria}>{previousArticle ? <a href={articleUrl(previousArticle)}><span>← {navigationLabels.previous}</span><strong>{previousArticle.data.title}</strong></a> : <span></span>}{nextArticle && <a class="next-lesson" href={articleUrl(nextArticle)}><span>{navigationLabels.next} →</span><strong>{nextArticle.data.title}</strong></a>}</nav></article></main>
+  <main class="shell article-shell"><a class="back-link" href={`/${language}/`}>← {text.allLessons}</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, language)}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>{text.published} {formattedDate}</span><ShareButton title={article.data.title} {language} /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>{text.remember}</strong><p>{text.gentleNote}</p></aside><nav class="lesson-navigation" aria-label={text.otherLessons}>{previousArticle ? <a href={articleUrl(previousArticle)}><span>← {text.previousLesson}</span><strong>{previousArticle.data.title}</strong></a> : <span></span>}{nextArticle && <a class="next-lesson" href={articleUrl(nextArticle)}><span>{text.nextLesson} →</span><strong>{nextArticle.data.title}</strong></a>}</nav></article></main>
 </BaseLayout>
