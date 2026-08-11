@@ -155,6 +155,107 @@ def _write_article(
     return output
 
 
+def _read_exported_translation(output: Path) -> tuple[dict[str, str | list[str]], str]:
+    """Read the metadata and body needed to rebuild a translated article."""
+    parts = output.read_text(encoding="utf-8").split("---", 2)
+    if len(parts) != 3:
+        raise ValueError(f"Translated article {output} does not contain frontmatter")
+
+    frontmatter, body = parts[1], parts[2].lstrip("\n")
+    values: dict[str, str | list[str]] = {}
+    for field in ("title", "summary", "publishedAt", "imageAlt"):
+        match = re.search(rf"^{field}:\s*(.+?)\s*$", frontmatter, re.MULTILINE)
+        if match is None:
+            raise ValueError(f"Translated article {output} is missing {field!r}")
+        try:
+            value = json.loads(match.group(1))
+        except json.JSONDecodeError as error:
+            raise ValueError(f"Translated article {output} has invalid {field!r}") from error
+        if not isinstance(value, str) or not value:
+            raise ValueError(f"Translated article {output} has invalid {field!r}")
+        values[field] = value
+
+    tags_match = re.search(r"^tags:\s*\n((?:\s+-\s+.+\n?)+)", frontmatter, re.MULTILINE)
+    if tags_match is None:
+        raise ValueError(f"Translated article {output} is missing tags")
+    tags: list[str] = []
+    for line in tags_match.group(1).splitlines():
+        _, value = line.split("-", 1)
+        try:
+            tag = json.loads(value.strip())
+        except json.JSONDecodeError as error:
+            raise ValueError(f"Translated article {output} has invalid tags") from error
+        if not isinstance(tag, str) or not tag:
+            raise ValueError(f"Translated article {output} has invalid tags")
+        tags.append(tag)
+    values["tags"] = tags
+    return values, body
+
+
+def rebuild_exported_topic(topic: str) -> list[Path]:
+    """Rebuild existing article files without invoking a translation model.
+
+    English is rendered from its current approved content. Translated article
+    bodies, translated titles, summaries, tags, and alt text are retained from
+    their existing files because they are the only persisted translation data.
+    """
+    approval = read_approved_content(topic)
+    if approval is None:
+        raise ValueError(f"Topic {topic!r} has not been approved for publishing")
+    model = approval.get("model")
+    if not isinstance(model, str):
+        raise ValueError(f"Topic {topic!r} does not have an approved model")
+    draft = read_content(topic).get(model)
+    if not draft:
+        raise ValueError(f"No content for approved model {model!r} on topic {topic!r}")
+    tags = approval.get("tags", [])
+    if not isinstance(tags, list) or not tags or not all(isinstance(tag, str) for tag in tags):
+        raise ValueError(f"Topic {topic!r} needs at least one valid tag before publishing")
+    image = read_generated_image(topic)
+    if image is None:
+        raise ValueError(f"Topic {topic!r} needs a generated image before publishing")
+
+    outputs = [
+        _write_article(
+            output=article_path(topic),
+            title=topic,
+            markdown=draft,
+            tags=tags,
+            image=image,
+            source_model=model,
+            language="en",
+        )
+    ]
+    for language in TRANSLATION_LANGUAGES:
+        output = article_path(topic, language)
+        if not output.is_file():
+            raise ValueError(
+                f"Cannot rebuild {language} article for {topic!r}: translation file is missing"
+            )
+        metadata, body = _read_exported_translation(output)
+        frontmatter = [
+            "---",
+            f"title: {_yaml_quote(metadata['title'])}",
+            f"summary: {_yaml_quote(metadata['summary'])}",
+            f"publishedAt: {_yaml_quote(metadata['publishedAt'])}",
+            f"language: {_yaml_quote(language)}",
+            "tags:",
+            *[f"  - {_yaml_quote(tag)}" for tag in metadata["tags"]],
+            f"image: {_yaml_quote(image['path'])}",
+            f"imageAlt: {_yaml_quote(metadata['imageAlt'])}",
+            f"imageWidth: {image['width']}",
+            f"imageHeight: {image['height']}",
+            f"imageMediaType: {_yaml_quote(image['mediaType'])}",
+            f"sourceModel: {_yaml_quote(model)}",
+            f"translationOf: {_yaml_quote(slugify(topic))}",
+            "---",
+            "",
+        ]
+        output.write_text("\n".join(frontmatter) + body.rstrip() + "\n", encoding="utf-8")
+        outputs.append(output)
+    return outputs
+
+
 def export_approved_topic(topic: str, translations: Mapping[str, str]) -> list[Path]:
     approval = read_approved_content(topic)
     if approval is None:

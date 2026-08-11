@@ -389,25 +389,8 @@ class EasyTutorAgent:
         canonical_tag = await self._select_specific_tag(specific_tag, existing_tags)
         return [*categories, canonical_tag]
 
-    async def run(self) -> None:
-        logger.info("Starting EasyTutorAgent run")
-        main_topic = "Teaching AI"
-
-        # 1. Get next sub-topic
-        next_topic = self._get_next_topic(main_topic)
-        if next_topic is None:
-            logger.info("No ranked topics remain; generating and ranking new topics")
-            await self.generate_topics(main_topic)
-            next_topic = self._get_next_topic(main_topic)
-        else:
-            logger.info(f"Using cached next top-ranked topic '{next_topic[1]}'")
-
-        if next_topic is None:
-            logger.info("No topic is available for content generation")
-            return
-
-        # 2. Generate content for sub-topic.
-        model, topic = next_topic
+    async def _generate_article(self, main_topic: str, topic: str) -> None:
+        # 1. Generate content for sub-topic.
         cached_content = read_content(topic)
         content_models = self._content_generator.models()
         if all(content_model in cached_content for content_model in content_models):
@@ -417,7 +400,7 @@ class EasyTutorAgent:
                 for content_model in content_models
             }
         else:
-            logger.info("Generating content for topic '%s' from '%s'", topic, model)
+            logger.info(f"Generating content for topic {topic}")
             content_results = await self._content_generator.generate(
                 message=f"""
                 Generate content for topic: {topic}
@@ -426,7 +409,7 @@ class EasyTutorAgent:
             )
             write_content(topic, content_results)
 
-        # 3. Evaluate and pick one content.
+        # 2. Evaluate and pick one content.
         approval = read_approved_content(topic)
         if approval is None:
             selected_model = await self._select_content(topic, content_results)
@@ -439,7 +422,7 @@ class EasyTutorAgent:
             if not isinstance(selected_model, str) or selected_model not in content_results:
                 raise ValueError(f"Approved model for topic {topic!r} is unavailable")
 
-        # 4. Generate image/diagram from the selected Markdown before exporting it.
+        # 3. Generate image/diagram from the selected Markdown before exporting it.
         image = read_generated_image(topic)
         if image is None:
             generated_image = await self._image_generator.generate(
@@ -461,7 +444,7 @@ class EasyTutorAgent:
         if image is None:
             raise ValueError(f"Could not read generated image metadata for topic {topic!r}")
 
-        # 5. Translate and export. The translated Markdown files are the
+        # 3. Translate and export. The translated Markdown files are the
         # published translation records; no JSON cache is needed or written.
         if is_topic_exported(topic):
             logger.info("Using exported Markdown cache for topic '%s'", topic)
@@ -491,10 +474,32 @@ class EasyTutorAgent:
 
         self._remove_used_topic(main_topic, topic)
 
-        # 7. Check if publishing is completed.
+        # 4. Check if publishing is completed.
+
+    async def run(self, generate_subtopic=False) -> None:
+        logger.info("Starting EasyTutorAgent run")
+        main_topic = "Teaching AI"
+
+        if generate_subtopic:
+            await self.generate_topics(main_topic)
+        else:
+            # 1. Get next sub-topic
+            next_topic = self._get_next_topic(main_topic)
+            if next_topic is None:
+                logger.info("No ranked topics remain; please re-run with -gt")
+            else:
+                sub_topic = next_topic[1]
+                logger.info(f"Using cached next top-ranked topic '{sub_topic}'")
+                await self._generate_article(main_topic, sub_topic)
 
         logger.info("Finished EasyTutorAgent run")
 
 
 if __name__ == "__main__":
-    asyncio.run(EasyTutorAgent().run())
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--generate_subtopic', '-gt', action='store_true', help='Generate sub-topic')
+    args = parser.parse_args()
+
+    asyncio.run(EasyTutorAgent().run(args.generate_subtopic))
