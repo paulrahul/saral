@@ -24,6 +24,36 @@ export function tagUrl(tag: string, language: Language) {
   return `${languagePrefix(language)}/tags/${encodeURIComponent(tag)}/`;
 }
 
+/**
+ * Finds the equivalent tag in another language by matching translated articles.
+ * Tags are display text, so their translated values cannot safely be reused in
+ * a language-prefixed URL.
+ */
+export function translatedTag(
+  articles: CollectionEntry<"articles">[],
+  sourceLanguage: Language,
+  tag: string,
+  targetLanguage: Language,
+) {
+  if (sourceLanguage === targetLanguage) return tag;
+
+  const sourceArticles = articlesForLanguage(articles, sourceLanguage)
+    .filter((article) => article.data.tags.includes(tag));
+  const targetArticles = articlesForLanguage(articles, targetLanguage);
+
+  for (const sourceArticle of sourceArticles) {
+    const tagIndex = sourceArticle.data.tags.indexOf(tag);
+    const translationId = sourceArticle.data.translationOf ?? articleSlug(sourceArticle);
+    const targetArticle = targetArticles.find(
+      (article) => (article.data.translationOf ?? articleSlug(article)) === translationId,
+    );
+    const targetTag = targetArticle?.data.tags[tagIndex];
+    if (targetTag) return targetTag;
+  }
+
+  return undefined;
+}
+
 export function sortArticles(articles: CollectionEntry<"articles">[]) {
   return articles.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 }

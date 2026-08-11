@@ -4,11 +4,12 @@ import { Moon, Sun } from "lucide-astro";
 interface Props {
   language?: "en" | "hi" | "bn";
   currentPath?: string;
+  languagePaths?: Partial<Record<"en" | "hi" | "bn", string>>;
 }
 
-const { language = "en", currentPath = "/" } = Astro.props;
+const { language = "en", currentPath = "/", languagePaths = {} } = Astro.props;
 const contentPath = currentPath.replace(/^\/(?:hi|bn)(?=\/|$)/, "") || "/";
-const languagePath = (targetLanguage: "en" | "hi" | "bn") => targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`;
+const languagePath = (targetLanguage: "en" | "hi" | "bn") => languagePaths[targetLanguage] ?? (targetLanguage === "en" ? contentPath : `/${targetLanguage}${contentPath}`);
 const labels = {
   en: { home: "Home", topics: "All topics", language: "Choose language", light: "Use light theme", dark: "Use dark theme", tagline: "AI made simple, so no one is left behind." },
   hi: { home: "मुख्य पृष्ठ", topics: "सभी विषय", language: "भाषा चुनें", light: "हल्की थीम इस्तेमाल करें", dark: "गहरी थीम इस्तेमाल करें", tagline: "एआई आसान भाषा में, ताकि कोई पीछे न छूटे।" },

@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import ArticleCard from "../../../components/ArticleCard.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { articlesForLanguage, sortArticles, SUPPORTED_LANGUAGES, type Language } from "../../../lib/articles";
+import { articlesForLanguage, sortArticles, SUPPORTED_LANGUAGES, tagUrl, translatedTag, type Language } from "../../../lib/articles";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
@@ -15,8 +15,13 @@ export async function getStaticPaths() {
 
 const language = Astro.params.language as Exclude<Language, "en">;
 const tag = Astro.params.tag ?? "";
-const articles = articlesForLanguage(await getCollection("articles"), language);
+const allArticles = await getCollection("articles");
+const articles = articlesForLanguage(allArticles, language);
 const matchingArticles = sortArticles(articles.filter((article) => article.data.tags.includes(tag)));
+const languagePaths = Object.fromEntries(SUPPORTED_LANGUAGES.map((targetLanguage) => {
+  const targetTag = translatedTag(allArticles, language, tag, targetLanguage);
+  return [targetLanguage, targetTag ? tagUrl(targetTag, targetLanguage) : targetLanguage === "en" ? "/" : `/${targetLanguage}/`];
+}));
 ---
 
-<BaseLayout title={`${tag} | Saral`} {language}><SiteHeader {language} currentPath={Astro.url.pathname} /><main class="shell tag-page"><a class="back-link" href={`/${language}/`}>← {language === "hi" ? "सभी पाठ" : "সব পাঠ"}</a><p class="kicker">{language === "hi" ? "विषय" : "বিষয়"}</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>
+<BaseLayout title={`${tag} | Saral`} {language}><SiteHeader {language} currentPath={Astro.url.pathname} {languagePaths} /><main class="shell tag-page"><a class="back-link" href={`/${language}/`}>← {language === "hi" ? "सभी पाठ" : "সব পাঠ"}</a><p class="kicker">{language === "hi" ? "विषय" : "বিষয়"}</p><h1>{tag}</h1><div class="article-list">{matchingArticles.map((article) => <ArticleCard {article} />)}</div></main></BaseLayout>

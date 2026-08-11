@@ -25,15 +25,15 @@ const text = labels[language];
   <SiteHeader {language} currentPath={Astro.url.pathname} />
   <main class="home-main shell">
     <section class="topic-strip" id="topics" aria-labelledby="topics-title">
-      <div class="topic-heading"><p id="topics-title">{text.topics}</p><span>{text.prompt}</span></div>
+      <div class="topic-heading"><p id="topics-title">{text.topics}</p><!--span>{text.prompt}</span--></div>
       <nav class="topic-links" aria-label={text.topics}><a class="active" href={`/${language}/`}>{text.latest}</a>{tags.map((tag) => <a href={tagUrl(tag, language)}>{tag}</a>)}</nav>
     </section>
     {latest && <section class="latest" aria-labelledby="latest-title">
-      <div class="section-label"><strong id="latest-title">{text.latest}</strong><span>{text.start}</span></div>
+      <div class="section-label"><strong id="latest-title">{text.latest}</strong><!--span>{text.start}</span--></div>
       <ArticleCard article={latest} />
     </section>}
     {older.length > 0 && <section class="more-lessons" aria-labelledby="more-title">
-      <div class="section-label"><strong id="more-title">{text.more}</strong><span>{text.choose}</span></div>
+      <div class="section-label"><strong id="more-title">{text.more}</strong><!--span>{text.choose}</span--></div>
       <div class="compact-list">{older.slice(0, 3).map((article) => <a href={articleUrl(article)}><span>{article.data.tags[0]}</span><strong>{article.data.title}</strong><b aria-hidden="true">→</b></a>)}</div>
     </section>}
   </main>
