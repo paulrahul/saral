@@ -1,0 +1,29 @@
+---
+import SiteHeader from "../../components/SiteHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SUPPORTED_LANGUAGES, ui, type Language } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return SUPPORTED_LANGUAGES.filter((language) => language !== "en").map((language) => ({ params: { language } }));
+}
+
+const language = Astro.params.language as Exclude<Language, "en">;
+const text = ui(language);
+---
+
+<BaseLayout title={`${text.aboutPageTitle} | Saral`} description={text.aboutPageDescription} pageClass="about-page" {language}>
+  <SiteHeader {language} currentPath={Astro.url.pathname} />
+  <main class="shell about-shell">
+    <p class="kicker">{text.aboutSaral}</p>
+    <p class="about-intro">{text.aboutIntro}</p>
+    <section class="about-goals" aria-labelledby="goals-title">
+      <h2 id="goals-title">{text.aboutGoalHeading}</h2>
+      <ul>
+        <li>{text.aboutGoalOne}</li>
+        <li>{text.aboutGoalTwo}</li>
+        <li>{text.aboutGoalThree}</li>
+        <li>{text.aboutGoalFour}</li>
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

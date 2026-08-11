@@ -17,7 +17,7 @@ const labels = ui(language);
 <header class="site-header">
   <div class="shell header-inner">
     <a class="brand" href={language === "en" ? "/" : `/${language}/`} aria-label={`Saral: ${labels.home}`}><img src="/saral-logo.png" alt="" width="640" height="183" /><small>{labels.tagline}</small></a>
-    <nav aria-label={labels.mainNavigation}><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={`${language === "en" ? "" : `/${language}`}/#topics`}></a></nav>
+    <nav aria-label={labels.mainNavigation}><a href={language === "en" ? "/" : `/${language}/`}>{labels.home}</a><a href={language === "en" ? "/about/" : `/${language}/about/`}>{labels.aboutSaral}</a></nav>
     <div class="language-list" role="group" aria-label={labels.chooseLanguage}>
       {SUPPORTED_LANGUAGES.map((targetLanguage) => <a data-language={targetLanguage} aria-current={language === targetLanguage ? "page" : undefined} href={languagePath(targetLanguage)}>{locale(targetLanguage).name}</a>)}
     </div>

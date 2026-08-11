@@ -12,6 +12,7 @@ from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicG
 from llm.metrics import OpenRouterCostMeter
 from llm.translator import Translator
 from llm.util import (
+    AgentHelper,
     BROAD_TAGS,
     TOPICS_FILE,
     add_specific_tag,
@@ -535,8 +536,14 @@ class EasyTutorAgent:
         meter: OpenRouterCostMeter,
         error: BaseException | None = None,
     ) -> None:
-        report = await meter.finish(api_key=AgentHelper.openrouter_api_key(), error=error)
-        logger.info("Wrote cost report to %s", report)
+        try:
+            report = await meter.finish(api_key=AgentHelper.openrouter_api_key(), error=error)
+        except Exception:
+            # Metering is observability, not a publishing prerequisite. A
+            # completed lesson must remain successful even if reporting fails.
+            logger.exception("Could not write the cost report")
+        else:
+            logger.info("Wrote cost report to %s", report)
 
     async def run(self, generate_subtopic=False) -> None:
         logger.info("Starting EasyTutorAgent run")

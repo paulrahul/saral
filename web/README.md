@@ -6,6 +6,12 @@ Static Astro site for Saral articles.
 
 The agent writes raw drafts and approvals to `../llm/generated/`, then exports approved Markdown to `src/content/articles/`. Commit those changes with a message beginning `content(publish):` to trigger the deployment workflow.
 
+## Languages
+
+See [Adding a language](docs/adding-a-language.md) for the complete UI and
+lesson-translation workflow, including a copyable model prompt and Tamil
+example.
+
 ## Commands
 
 ```bash
