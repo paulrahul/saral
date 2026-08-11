@@ -3,6 +3,7 @@
 from collections.abc import Mapping
 import logging
 
+from llm.metrics import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 
@@ -49,12 +50,20 @@ class Evaluator:
             name_prefix=prefix,
         )
 
-    async def evaluate(self, message: str, trace: str) -> dict[str, str]:
+    async def evaluate(
+        self,
+        message: str,
+        trace: str,
+        meter: OpenRouterCostMeter | None = None,
+        stage: str | None = None,
+    ) -> dict[str, str]:
         logger.info("Starting %s evaluation", self.__class__.__name__)
         self._results = await AgentHelper.run(
             self._agents,
             message=message,
             trace_name=trace,
+            meter=meter,
+            stage=stage,
         )
         logger.info("Finished %s evaluation", self.__class__.__name__)
         return self._results

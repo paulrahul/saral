@@ -6,6 +6,7 @@ from collections.abc import Mapping
 
 from agents import Agent
 
+from llm.metrics import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 
@@ -90,6 +91,7 @@ class Translator:
         message: str,
         trace: str,
         languages: tuple[str, ...] | None = None,
+        meter: OpenRouterCostMeter | None = None,
     ) -> dict[str, dict[str, str]]:
         """Return ``{language_code: {model_name: translated_markdown}}``."""
         logger.info("Starting %s translation", self.__class__.__name__)
@@ -103,6 +105,8 @@ class Translator:
                     self._agents[language_code],
                     message=message,
                     trace_name=f"{trace}: {self.LANGUAGES[language_code]}",
+                    meter=meter,
+                    stage=f"translation_{language_code}",
                 )
                 for language_code in language_codes
             )

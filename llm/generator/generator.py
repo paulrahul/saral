@@ -6,6 +6,7 @@ import hashlib
 import io
 import logging
 import os
+from time import perf_counter
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -14,6 +15,7 @@ from dotenv import load_dotenv
 import httpx
 from PIL import Image, ImageOps, UnidentifiedImageError
 
+from llm.metrics import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 
@@ -31,12 +33,20 @@ class Generator:
             name_prefix=prefix,
         )
 
-    async def generate(self, message: str, trace: str) -> dict[str, str]:
+    async def generate(
+        self,
+        message: str,
+        trace: str,
+        meter: OpenRouterCostMeter | None = None,
+        stage: str | None = None,
+    ) -> dict[str, str]:
         logger.info("Starting %s generation", self.__class__.__name__)
         self._results = await AgentHelper.run(
             self._agents,
             message=message,
             trace_name=trace,
+            meter=meter,
+            stage=stage,
         )
         logger.info("Finished %s generation", self.__class__.__name__)
         return self._results
@@ -290,7 +300,13 @@ class ImageGenerator:
 
         raise ValueError("Could not compress the generated image below 500 KB")
 
-    async def generate(self, topic: str, content: str) -> GeneratedImage:
+    async def generate(
+        self,
+        topic: str,
+        content: str,
+        meter: OpenRouterCostMeter | None = None,
+        stage: str = "image_generation",
+    ) -> GeneratedImage:
         """Create and store an image asset, returning the export metadata."""
         logger.info("Starting image generation for topic '%s'", topic)
         model_name, model = self._selected_model()
@@ -310,15 +326,23 @@ class ImageGenerator:
         if self._output_format:
             request["output_format"] = self._output_format
 
-        async with httpx.AsyncClient(timeout=180) as client:
-            response = await client.post(
-                self.API_URL,
-                headers={
-                    "Authorization": f"Bearer {self._api_key()}",
-                    "Content-Type": "application/json",
-                },
-                json=request,
-            )
+        if meter:
+            meter.start_stage(stage)
+        started_at = perf_counter()
+        try:
+            async with httpx.AsyncClient(timeout=180) as client:
+                response = await client.post(
+                    self.API_URL,
+                    headers={
+                        "Authorization": f"Bearer {self._api_key()}",
+                        "Content-Type": "application/json",
+                    },
+                    json=request,
+                )
+        except BaseException:
+            if meter:
+                meter.finish_stage(stage, "failed")
+            raise
         try:
             response.raise_for_status()
         except httpx.HTTPStatusError as error:
@@ -328,7 +352,16 @@ class ImageGenerator:
                 message = response.text
             raise RuntimeError(f"OpenRouter image generation failed: {message}") from error
 
-        data = response.json().get("data", [])
+        response_data = response.json()
+        if meter:
+            meter.record_image_call(
+                stage=stage,
+                model_name=model_name,
+                model=model,
+                usage=response_data.get("usage") if isinstance(response_data.get("usage"), Mapping) else None,
+                request_wall_time_ms=round((perf_counter() - started_at) * 1000),
+            )
+        data = response_data.get("data", [])
         image = data[0] if data else None
         image_data = image.get("b64_json") if isinstance(image, dict) else None
         if not isinstance(image_data, str) or not image_data:
@@ -352,4 +385,6 @@ class ImageGenerator:
             height=self.TARGET_SIZE[1],
         )
         logger.info("Finished image generation for topic '%s' at %s", topic, output)
+        if meter:
+            meter.finish_stage(stage)
         return generated

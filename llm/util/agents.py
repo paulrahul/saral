@@ -15,7 +15,10 @@ from agents import (
     trace,
 )
 from dotenv import load_dotenv
+import httpx
 from openai import AsyncOpenAI
+
+from llm.metrics import OpenRouterCostMeter
 
 
 logger = logging.getLogger(__name__)
@@ -54,6 +57,11 @@ class AgentHelper:
         return value
 
     @classmethod
+    def openrouter_api_key(cls) -> str:
+        """Return the configured key for cost reconciliation requests."""
+        return cls._load_api_key("OPENROUTER_API_KEY")
+
+    @classmethod
     def _get_openrouter_client(cls, api_key: str | None = None) -> AsyncOpenAI:
         api_key = api_key or cls._load_api_key("OPENROUTER_API_KEY")
 
@@ -63,6 +71,9 @@ class AgentHelper:
                 api_key=api_key,
                 base_url=cls.BASE_URL,
                 default_headers=cls.DEFAULT_HEADERS,
+                http_client=httpx.AsyncClient(
+                    event_hooks={"response": [OpenRouterCostMeter.capture_openrouter_response]},
+                ),
             )
             cls._openrouter_api_key = api_key
         else:
@@ -132,13 +143,32 @@ class AgentHelper:
         agents: Iterable[Agent] | Mapping[Any, Agent],
         message: str,
         trace_name: str = "AgentHelper Run",
+        meter: OpenRouterCostMeter | None = None,
+        stage: str | None = None,
     ) -> dict[Any, Any]:
         agent_items = list(agents.items()) if isinstance(agents, Mapping) else [(agent, agent) for agent in agents]
         logger.info("Running %d agents for trace '%s'", len(agent_items), trace_name)
-        with trace(trace_name):
-            results = await asyncio.gather(
-                *(Runner.run(agent, message) for _, agent in agent_items)
-            )
+        if meter and stage:
+            meter.start_stage(stage)
+
+        async def run_agent(key: Any, agent: Agent) -> Any:
+            model = getattr(agent.model, "model", str(agent.model))
+            if meter and stage:
+                with meter.capture_call(stage=stage, model_name=str(key), model=str(model)):
+                    return await Runner.run(agent, message)
+            return await Runner.run(agent, message)
+
+        try:
+            with trace(trace_name):
+                results = await asyncio.gather(
+                    *(run_agent(key, agent) for key, agent in agent_items)
+                )
+        except BaseException:
+            if meter and stage:
+                meter.finish_stage(stage, "failed")
+            raise
+        if meter and stage:
+            meter.finish_stage(stage)
         logger.info("Completed %d agent runs for trace '%s'", len(results), trace_name)
         return {
             key: result.final_output

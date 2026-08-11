@@ -9,18 +9,32 @@ path as ordinary article runs.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import copy
 import json
+import os
 import shutil
 import subprocess
 import sys
+import time
 import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from llm.metrics import (
+    COST_REPORTS_DIR,
+    OpenRouterCostMeter,
+    append_local_stage,
+    write_rerun_batch,
+)
+
+
 MAIN_TOPIC = "Teaching AI"
 IMAGES_DIR = REPO_ROOT / "web" / "public" / "images"
 ARTICLES_DIR = REPO_ROOT / "web" / "src" / "content" / "articles"
@@ -45,6 +59,10 @@ BROAD_TAGS = {
 }
 BACKUP_ROOT = REPO_ROOT / "tools" / ".rerun-backup"
 LATEST_BACKUP = BACKUP_ROOT / "latest"
+
+
+def datetime_now_iso(timestamp: float) -> str:
+    return datetime.fromtimestamp(timestamp, timezone.utc).isoformat()
 
 
 @dataclass(frozen=True)
@@ -372,14 +390,56 @@ def queue_topic(original_topics: dict[str, Any], topic: str) -> dict[str, Any]:
     return temporary
 
 
-def run_normal_agent(topic: str, original_topics: dict[str, Any]) -> bool:
+def run_normal_agent(
+    topic: str,
+    original_topics: dict[str, Any],
+    *,
+    batch_id: str,
+    options: list[str],
+) -> tuple[bool, str]:
     write_json(TOPICS_FILE, queue_topic(original_topics, topic))
     print(f"\nRunning normal article pipeline for: {topic}")
-    completed = subprocess.run([sys.executable, "-m", "llm.main"], cwd=REPO_ROOT, check=False)
+    run_id = uuid.uuid4().hex
+    environment = os.environ | {
+        "SARAL_RUN_TRIGGER": "rerun_topics",
+        "SARAL_COST_RUN_ID": run_id,
+        "SARAL_RERUN_BATCH_ID": batch_id,
+        "SARAL_RERUN_OPTIONS": ",".join(options),
+    }
+    completed = subprocess.run(
+        [sys.executable, "-m", "llm.main"],
+        cwd=REPO_ROOT,
+        check=False,
+        env=environment,
+    )
     if completed.returncode:
         print(f"FAILED: {topic} (exit code {completed.returncode})", file=sys.stderr)
-        return False
-    return True
+        return False, run_id
+    return True, run_id
+
+
+def report_path(topic: str, run_id: str) -> Path | None:
+    reports = COST_REPORTS_DIR / "articles" / slugify(topic)
+    matches = list(reports.glob(f"*__{run_id}.json"))
+    return matches[0] if len(matches) == 1 else None
+
+
+def rebuild_with_meter(topic: str, batch_id: str, options: list[str]) -> tuple[list[Path], Path]:
+    meter = OpenRouterCostMeter(
+        kind="article",
+        trigger="rerun_topics",
+        main_topic=MAIN_TOPIC,
+        topic=topic,
+        metadata={"rerun_batch_id": batch_id, "rerun_options": options},
+    )
+    meter.start_stage("markdown_rebuild")
+    try:
+        outputs = rebuild_markdown(topic)
+    except BaseException as error:
+        report = asyncio.run(meter.finish(api_key=None, error=error))
+        raise RuntimeError(f"Markdown rebuild cost report: {report}") from error
+    meter.finish_stage("markdown_rebuild")
+    return outputs, asyncio.run(meter.finish(api_key=None))
 
 
 def generated_image_paths(topics: list[str]) -> set[Path]:
@@ -476,10 +536,43 @@ def main() -> int:
         invalidate(topics, selection)
         successful: list[str] = []
         failed: list[str] = []
+        option_names = [
+            name
+            for name, enabled in (
+                ("content", selection.content),
+                ("evaluation", selection.evaluation),
+                ("images", selection.images),
+                ("translations", selection.translations),
+                ("markdown", selection.markdown),
+            )
+            if enabled
+        ]
+        batch_id = f"{int(time.time())}-{uuid.uuid4().hex[:12]}"
+        batch_started_at = time.time()
+        batch_reports: list[dict[str, Any]] = []
+        article_report_paths: dict[str, Path] = {}
         try:
             if selection.requires_agent:
                 for topic in topics:
-                    if run_normal_agent(topic, original_topics):
+                    completed, run_id = run_normal_agent(
+                        topic,
+                        original_topics,
+                        batch_id=batch_id,
+                        options=option_names,
+                    )
+                    output = report_path(topic, run_id)
+                    if output is not None:
+                        article_report_paths[topic] = output
+                    batch_reports.append(
+                        {
+                            "topic": topic,
+                            "slug": slugify(topic),
+                            "runId": run_id,
+                            "report": str(output.relative_to(COST_REPORTS_DIR)) if output else None,
+                            "status": "completed" if completed else "failed",
+                        }
+                    )
+                    if completed:
                         successful.append(topic)
                     else:
                         failed.append(topic)
@@ -489,7 +582,27 @@ def main() -> int:
             if selection.rebuild_articles:
                 for topic in successful:
                     try:
-                        outputs = rebuild_markdown(topic)
+                        if selection.requires_agent:
+                            rebuild_started_at = time.perf_counter()
+                            outputs = rebuild_markdown(topic)
+                            output = article_report_paths.get(topic)
+                            if output is not None:
+                                append_local_stage(
+                                    output,
+                                    key="markdown_rebuild",
+                                    wall_time_ms=round((time.perf_counter() - rebuild_started_at) * 1000),
+                                )
+                        else:
+                            outputs, output = rebuild_with_meter(topic, batch_id, option_names)
+                            batch_reports.append(
+                                {
+                                    "topic": topic,
+                                    "slug": slugify(topic),
+                                    "runId": output.stem.rsplit("__", 1)[-1],
+                                    "report": str(output.relative_to(COST_REPORTS_DIR)),
+                                    "status": "completed",
+                                }
+                            )
                         print(f"Rebuilt Markdown for {topic}: {', '.join(str(path) for path in outputs)}")
                     except Exception as error:
                         failed.append(topic)
@@ -501,6 +614,29 @@ def main() -> int:
 
         add_created_paths_to_backup(generated_image_paths(topics))
         succeeded = [topic for topic in successful if topic not in failed]
+        report_cost = 0.0
+        for entry in batch_reports:
+            if not entry.get("report"):
+                continue
+            try:
+                report_data = read_json(COST_REPORTS_DIR / entry["report"])
+                report_cost += float(report_data.get("totals", {}).get("costUsd", 0))
+            except (ValueError, TypeError):
+                pass
+        batch_output = write_rerun_batch(
+            {
+                "version": 1,
+                "batchId": batch_id,
+                "trigger": "rerun_topics",
+                "options": option_names or ["normal"],
+                "startedAt": datetime_now_iso(batch_started_at),
+                "finishedAt": datetime_now_iso(time.time()),
+                "wallTimeMs": round((time.time() - batch_started_at) * 1000),
+                "topics": batch_reports,
+                "totals": {"costUsd": round(report_cost, 8), "topicCount": len(batch_reports)},
+            }
+        )
+        print(f"Wrote rerun cost manifest to {batch_output}")
         print(f"\nCompleted {len(succeeded)} topic(s); {len(failed)} failed.")
         if failed:
             print("Failed topics: " + ", ".join(dict.fromkeys(failed)), file=sys.stderr)

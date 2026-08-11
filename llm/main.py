@@ -3,11 +3,13 @@
 import asyncio
 import json
 import logging
+import os
 from pathlib import Path
 
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
 from llm.exporter import export_approved_topic, is_topic_exported, missing_translation_languages
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
+from llm.metrics import OpenRouterCostMeter
 from llm.translator import Translator
 from llm.util import (
     BROAD_TAGS,
@@ -122,6 +124,7 @@ class EasyTutorAgent:
         self,
         main_topic: str,
         topic_items: list[tuple[str, str]],
+        meter: OpenRouterCostMeter | None = None,
     ) -> None:
         topics_to_rank = "\n".join(
             f"{index}. {topic}"
@@ -135,6 +138,8 @@ class EasyTutorAgent:
         eval_results = await self._topic_evaluator.evaluate(
             message=eval_message,
             trace="EasyTutor: Topic Evaluation",
+            meter=meter,
+            stage="topic_evaluation",
         )
 
         try:
@@ -183,7 +188,7 @@ class EasyTutorAgent:
         write_evaluations(TOPICS_FILE, main_topic, {evaluator_model: latest_evaluation})
         logger.info("Removed used topic '%s' from the topic cache", topic)
 
-    async def generate_topics(self, main_topic: str) -> None:
+    async def generate_topics(self, main_topic: str, meter: OpenRouterCostMeter | None = None) -> None:
         cached_topic_items = []
         try:
             cached_topic_items = read_cached_topic_items(TOPICS_FILE, main_topic)
@@ -216,6 +221,8 @@ class EasyTutorAgent:
         topic_results = await self._topic_generator.generate(
             message=topic_prompt,
             trace="EasyTutor: Topic Generation",
+            meter=meter,
+            stage="topic_generation",
         )
         existing_topic_set = {normalize_topic(topic) for topic in all_existing_topics}
         unique_topic_results = {
@@ -228,13 +235,20 @@ class EasyTutorAgent:
             logger.info("Skipped %d repeated generated topics", skipped_count)
         if not unique_topic_results:
             logger.info("No new unique topics were generated")
+            if meter:
+                meter.mark_stage("topic_evaluation", "skipped")
             return
 
         logger.info("New topics generated: %s", unique_topic_results)
         all_topic_items = cached_topic_items + list(unique_topic_results.items())
-        await self._rank_topics(main_topic, all_topic_items)
+        await self._rank_topics(main_topic, all_topic_items, meter)
 
-    async def _select_content(self, topic: str, content_results: dict[str, str]) -> str:
+    async def _select_content(
+        self,
+        topic: str,
+        content_results: dict[str, str],
+        meter: OpenRouterCostMeter | None = None,
+    ) -> str:
         content_items = list(content_results.items())
         contents_to_rank = "\n\n".join(
             f"{index}. {content}"
@@ -247,6 +261,8 @@ class EasyTutorAgent:
             {contents_to_rank}
             """,
             trace="EasyTutor: Content Evaluation",
+            meter=meter,
+            stage="content_evaluation",
         )
 
         if not eval_results:
@@ -278,13 +294,18 @@ class EasyTutorAgent:
         self,
         candidate: str,
         existing_tags: list[str],
+        meter: OpenRouterCostMeter | None = None,
     ) -> str:
         if not existing_tags:
             add_specific_tag(candidate)
+            if meter:
+                meter.mark_stage("tag_evaluation", "skipped")
             return candidate
 
         existing_by_name = {tag.casefold(): tag for tag in existing_tags}
         if candidate.casefold() in existing_by_name:
+            if meter:
+                meter.mark_stage("tag_evaluation", "skipped")
             return existing_by_name[candidate.casefold()]
 
         tag_options = [*existing_tags, candidate]
@@ -300,6 +321,8 @@ class EasyTutorAgent:
             {tag_options_text}
             """,
             trace="EasyTutor: Tag Evaluation",
+            meter=meter,
+            stage="tag_evaluation",
         )
         if not eval_results:
             raise ValueError("Tag evaluator did not return any results")
@@ -322,7 +345,12 @@ class EasyTutorAgent:
             add_specific_tag(candidate)
         return selected_tag
 
-    async def _generate_tags(self, topic: str, content: str) -> list[str]:
+    async def _generate_tags(
+        self,
+        topic: str,
+        content: str,
+        meter: OpenRouterCostMeter | None = None,
+    ) -> list[str]:
         existing_tags = read_specific_tags()
         existing_tags_text = "\n".join(f"- {tag}" for tag in existing_tags) or "- None yet"
         tag_message = f"""
@@ -340,6 +368,8 @@ class EasyTutorAgent:
             tag_results = await self._tag_generator.generate(
                 message=tag_message,
                 trace="EasyTutor: Tag Generation",
+                meter=meter,
+                stage="tag_generation",
             )
             if not tag_results:
                 raise ValueError("Tag generator did not return any results")
@@ -386,10 +416,15 @@ class EasyTutorAgent:
                 f"Tag generator {generator_name!r} returned an invalid subject tag: {specific_tag!r}"
             )
 
-        canonical_tag = await self._select_specific_tag(specific_tag, existing_tags)
+        canonical_tag = await self._select_specific_tag(specific_tag, existing_tags, meter)
         return [*categories, canonical_tag]
 
-    async def _generate_article(self, main_topic: str, topic: str) -> None:
+    async def _generate_article(
+        self,
+        main_topic: str,
+        topic: str,
+        meter: OpenRouterCostMeter | None = None,
+    ) -> None:
         # 1. Generate content for sub-topic.
         cached_content = read_content(topic)
         content_models = self._content_generator.models()
@@ -399,6 +434,8 @@ class EasyTutorAgent:
                 content_model: cached_content[content_model]
                 for content_model in content_models
             }
+            if meter:
+                meter.mark_stage("content_generation", "cached")
         else:
             logger.info(f"Generating content for topic {topic}")
             content_results = await self._content_generator.generate(
@@ -406,14 +443,16 @@ class EasyTutorAgent:
                 Generate content for topic: {topic}
                 """,
                 trace="EasyTutor: Content Generation",
+                meter=meter,
+                stage="content_generation",
             )
             write_content(topic, content_results)
 
         # 2. Evaluate and pick one content.
         approval = read_approved_content(topic)
         if approval is None:
-            selected_model = await self._select_content(topic, content_results)
-            tags = await self._generate_tags(topic, content_results[selected_model])
+            selected_model = await self._select_content(topic, content_results, meter)
+            tags = await self._generate_tags(topic, content_results[selected_model], meter)
             write_approved_content(topic, selected_model, tags)
             approval = {"model": selected_model, "tags": tags}
         else:
@@ -421,6 +460,10 @@ class EasyTutorAgent:
             selected_model = approval.get("model")
             if not isinstance(selected_model, str) or selected_model not in content_results:
                 raise ValueError(f"Approved model for topic {topic!r} is unavailable")
+            if meter:
+                meter.mark_stage("content_evaluation", "cached")
+                meter.mark_stage("tag_generation", "cached")
+                meter.mark_stage("tag_evaluation", "cached")
 
         # 3. Generate image/diagram from the selected Markdown before exporting it.
         image = read_generated_image(topic)
@@ -428,6 +471,7 @@ class EasyTutorAgent:
             generated_image = await self._image_generator.generate(
                 topic=topic,
                 content=content_results[selected_model],
+                meter=meter,
             )
             write_generated_image(
                 topic=topic,
@@ -441,6 +485,8 @@ class EasyTutorAgent:
             image = read_generated_image(topic)
         else:
             logger.info("Using generated image cache for topic '%s'", topic)
+            if meter:
+                meter.mark_stage("image_generation", "cached")
         if image is None:
             raise ValueError(f"Could not read generated image metadata for topic {topic!r}")
 
@@ -448,6 +494,9 @@ class EasyTutorAgent:
         # published translation records; no JSON cache is needed or written.
         if is_topic_exported(topic):
             logger.info("Using exported Markdown cache for topic '%s'", topic)
+            if meter:
+                for language in self._translator.languages():
+                    meter.mark_stage(f"translation_{language}", "cached")
         else:
             missing_languages = missing_translation_languages(topic)
             translation_results = await self._translator.generate(
@@ -458,7 +507,12 @@ class EasyTutorAgent:
                 ),
                 trace="EasyTutor: Translation",
                 languages=missing_languages,
+                meter=meter,
             )
+            if meter:
+                for language in self._translator.languages():
+                    if language not in missing_languages:
+                        meter.mark_stage(f"translation_{language}", "cached")
             translator_models = tuple(self._translator.models())
             if len(translator_models) != 1:
                 raise ValueError(
@@ -476,12 +530,31 @@ class EasyTutorAgent:
 
         # 4. Check if publishing is completed.
 
+    async def _finish_meter(
+        self,
+        meter: OpenRouterCostMeter,
+        error: BaseException | None = None,
+    ) -> None:
+        report = await meter.finish(api_key=AgentHelper.openrouter_api_key(), error=error)
+        logger.info("Wrote cost report to %s", report)
+
     async def run(self, generate_subtopic=False) -> None:
         logger.info("Starting EasyTutorAgent run")
         main_topic = "Teaching AI"
 
         if generate_subtopic:
-            await self.generate_topics(main_topic)
+            meter = OpenRouterCostMeter(
+                kind="topic_generation",
+                trigger="topic_generation",
+                main_topic=main_topic,
+                run_id=os.getenv("SARAL_COST_RUN_ID"),
+            )
+            try:
+                await self.generate_topics(main_topic, meter)
+            except BaseException as error:
+                await self._finish_meter(meter, error)
+                raise
+            await self._finish_meter(meter)
         else:
             # 1. Get next sub-topic
             next_topic = self._get_next_topic(main_topic)
@@ -490,7 +563,25 @@ class EasyTutorAgent:
             else:
                 sub_topic = next_topic[1]
                 logger.info(f"Using cached next top-ranked topic '{sub_topic}'")
-                await self._generate_article(main_topic, sub_topic)
+                metadata = {
+                    key.removeprefix("SARAL_").lower(): value
+                    for key, value in os.environ.items()
+                    if key in {"SARAL_RERUN_BATCH_ID", "SARAL_RERUN_OPTIONS"}
+                }
+                meter = OpenRouterCostMeter(
+                    kind="article",
+                    trigger=os.getenv("SARAL_RUN_TRIGGER", "normal"),
+                    main_topic=main_topic,
+                    topic=sub_topic,
+                    run_id=os.getenv("SARAL_COST_RUN_ID"),
+                    metadata=metadata,
+                )
+                try:
+                    await self._generate_article(main_topic, sub_topic, meter)
+                except BaseException as error:
+                    await self._finish_meter(meter, error)
+                    raise
+                await self._finish_meter(meter)
 
         logger.info("Finished EasyTutorAgent run")
 
