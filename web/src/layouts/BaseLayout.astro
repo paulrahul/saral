@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 import { ui, type Language } from "../lib/i18n";
 const language = (Astro.props.language ?? "en") as Language;
 const labels = ui(language);
@@ -47,5 +48,6 @@ const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png")
   <body class={pageClass}>
     <slot />
     <footer class="site-footer"><div class="shell">{labels.aiDisclosure}</div></footer>
+    <Analytics />
   </body>
 </html>
