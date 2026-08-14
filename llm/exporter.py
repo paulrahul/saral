@@ -83,6 +83,28 @@ def _yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def _generation_cost_from(output: Path) -> Mapping[str, object] | None:
+    """Read the compact display metrics preserved in an existing English article."""
+    if not output.is_file():
+        return None
+    match = re.search(r"^generationCost:\s*(.+?)\s*$", output.read_text(encoding="utf-8"), re.MULTILINE)
+    if match is None:
+        return None
+    try:
+        value = json.loads(match.group(1))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"Article {output} has invalid generationCost metadata") from error
+    if not isinstance(value, dict):
+        raise ValueError(f"Article {output} has invalid generationCost metadata")
+    return value
+
+
+def _generation_cost_line(generation_cost: Mapping[str, object]) -> str:
+    # JSON is valid YAML flow syntax and lets us retain a compact, structured
+    # payload without adding a YAML dependency to the generator package.
+    return f"generationCost: {json.dumps(generation_cost, ensure_ascii=False, separators=(',', ':'))}"
+
+
 def _translation_parts(markdown: str) -> tuple[str, str, list[str]]:
     """Extract translated image and tag metadata kept in the translation input."""
     image_match = re.search(
@@ -128,6 +150,7 @@ def _write_article(
     source_model: str,
     language: str,
     translation_of: str | None = None,
+    generation_cost: Mapping[str, object] | None = None,
 ) -> Path:
     summary = _summary_from(markdown)
     body = _without_title(_without_summary_marker(markdown))
@@ -146,12 +169,34 @@ def _write_article(
         f"imageMediaType: {_yaml_quote(image['mediaType'])}",
         f"sourceModel: {_yaml_quote(source_model)}",
     ]
+    if language == "en":
+        retained_cost = generation_cost if generation_cost is not None else _generation_cost_from(output)
+        if retained_cost is not None:
+            frontmatter.append(_generation_cost_line(retained_cost))
     if translation_of is not None:
         frontmatter.append(f"translationOf: {_yaml_quote(translation_of)}")
     frontmatter.extend(("---", ""))
     output.parent.mkdir(parents=True, exist_ok=True)
     document = "\n".join(frontmatter)
     output.write_text(f"{document}{body}\n", encoding="utf-8")
+    return output
+
+
+def attach_generation_cost(topic: str, generation_cost: Mapping[str, object]) -> Path:
+    """Attach the latest completed run's display metrics to English Markdown."""
+    output = article_path(topic)
+    if not output.is_file():
+        raise ValueError(f"Cannot attach cost data: English article for {topic!r} is missing")
+    document = output.read_text(encoding="utf-8")
+    line = _generation_cost_line(generation_cost)
+    if re.search(r"^generationCost:\s*.+$", document, re.MULTILINE):
+        document = re.sub(r"^generationCost:\s*.+$", line, document, count=1, flags=re.MULTILINE)
+    else:
+        parts = document.split("---", 2)
+        if len(parts) != 3:
+            raise ValueError(f"Article {output} does not contain frontmatter")
+        document = f"---{parts[1].rstrip()}\n{line}\n---{parts[2]}"
+    output.write_text(document, encoding="utf-8")
     return output
 
 

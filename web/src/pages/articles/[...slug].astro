@@ -1,9 +1,13 @@
 ---
 import { getCollection, render } from "astro:content";
+import BackToTop from "../../components/BackToTop.astro";
+import GenerationCostDetails from "../../components/GenerationCostDetails.astro";
 import ShareButton from "../../components/ShareButton.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articleSlug, articleUrl, articlesForLanguage, sortArticles, tagUrl } from "../../lib/articles";
+import { costForArticle, formatUsd } from "../../lib/generation-costs";
+import { format } from "../../lib/i18n";
 import { locale, ui } from "../../lib/i18n";
 
 export async function getStaticPaths() {
@@ -16,11 +20,13 @@ export async function getStaticPaths() {
 
 const { article, previousArticle, nextArticle } = Astro.props;
 const { Content } = await render(article);
+const allArticles = await getCollection("articles");
+const generationCost = costForArticle(article, allArticles);
 const text = ui("en");
 const formattedDate = article.data.publishedAt.toLocaleDateString(locale("en").dateLocale, { month: "long", day: "numeric", year: "numeric" });
 ---
 
 <BaseLayout title={`${article.data.title} | Saral`} description={article.data.summary} socialImage={article.data.socialImage ?? article.data.image} socialImageAlt={article.data.imageAlt} socialImageWidth={article.data.imageWidth} socialImageHeight={article.data.imageHeight} socialImageType={article.data.imageMediaType}>
   <SiteHeader language="en" currentPath={Astro.url.pathname} />
-  <main class="shell article-shell"><a class="back-link" href="/">← {text.allLessons}</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, "en")}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>{text.updated} {formattedDate}</span><ShareButton title={article.data.title} language="en" /></div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><aside class="gentle-note"><strong>{text.remember}</strong><p>{text.gentleNote}</p></aside><nav class="lesson-navigation" aria-label={text.otherLessons}>{previousArticle ? <a href={articleUrl(previousArticle)}><span>← {text.previousLesson}</span><strong>{previousArticle.data.title}</strong></a> : <span></span>}{nextArticle && <a class="next-lesson" href={articleUrl(nextArticle)}><span>{text.nextLesson} →</span><strong>{nextArticle.data.title}</strong></a>}</nav></article></main>
+  <main class="shell article-shell"><a class="back-link" href="/">← {text.allLessons}</a><article class="lesson"><header><div class="tag-row">{article.data.tags.map((tag) => <a class="tag" href={tagUrl(tag, "en")}>{tag}</a>)}</div><h1>{article.data.title}</h1><p class="article-summary">{article.data.summary}</p><div class="article-meta"><span>{text.updated} {formattedDate}</span><ShareButton title={article.data.title} language="en" />{generationCost ? <span class="cost-metadata"><span class="cost-label">{format(text.aiProductionCost, { cost: `${formatUsd(generationCost.totalUsd, "en")}${generationCost.costStatus === "partial" ? "+" : ""}` })}</span><a class="cost-link" href="#ai-production-cost">{text.viewCostBreakdown}</a></span> : <span class="cost-unavailable">{text.costDataUnavailable}</span>}</div></header><figure class="lesson-visual"><img src={article.data.image} alt={article.data.imageAlt} /></figure><div class="lesson-content"><Content /></div><!--aside class="gentle-note"><strong>{text.remember}</strong><p>{text.gentleNote}</p></aside-->{generationCost && <GenerationCostDetails cost={generationCost} language="en" />}<nav class="lesson-navigation" aria-label={text.otherLessons}>{previousArticle ? <a href={articleUrl(previousArticle)}><span>← {text.previousLesson}</span><strong>{previousArticle.data.title}</strong></a> : <span></span>}{nextArticle && <a class="next-lesson" href={articleUrl(nextArticle)}><span>{text.nextLesson} →</span><strong>{nextArticle.data.title}</strong></a>}</nav></article></main><BackToTop language="en" />
 </BaseLayout>

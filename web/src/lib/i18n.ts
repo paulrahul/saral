@@ -49,6 +49,41 @@ type UiStrings = {
   pagination: string;
   previous: string;
   next: string;
+  aiProductionCost: string;
+  viewCostBreakdown: string;
+  costDataUnavailable: string;
+  aiProductionCosts: string;
+  costTransparencyIntro: string;
+  averageRecordedCost: string;
+  exploreCostDetails: string;
+  costDataUnavailableShort: string;
+  costOverview: string;
+  totalRecordedCost: string;
+  generationTime: string;
+  modelCalls: string;
+  costByStage: string;
+  modelsUsed: string;
+  stage: string;
+  models: string;
+  calls: string;
+  cost: string;
+  shareOfCost: string;
+  model: string;
+  provider: string;
+  inputTokens: string;
+  outputTokens: string;
+  partialCostNote: string;
+  seconds: string;
+  minutes: string;
+  contentGeneration: string;
+  contentEvaluation: string;
+  tagGeneration: string;
+  tagEvaluation: string;
+  imageGeneration: string;
+  bengaliTranslation: string;
+  hindiTranslation: string;
+  markdownRebuild: string;
+  backToTop: string;
 };
 
 type Locale = {
@@ -108,11 +143,46 @@ export const LOCALES: Record<Language, Locale> = {
       pagination: "Pagination",
       previous: "Previous",
       next: "Next",
+      aiProductionCost: "AI production cost: {cost}",
+      viewCostBreakdown: "View cost breakdown",
+      costDataUnavailable: "AI production cost: Data not available",
+      aiProductionCosts: "AI production costs",
+      costTransparencyIntro: "See the latest recorded costs, models, and token usage for each Saral lesson.",
+      averageRecordedCost: "Average AI production cost: {cost} per article ·",
+      exploreCostDetails: "Explore cost details",
+      costDataUnavailableShort: "Data not available",
+      costOverview: "Cost overview",
+      totalRecordedCost: "Total recorded cost",
+      generationTime: "Generation time",
+      modelCalls: "Model calls",
+      costByStage: "Cost by stage",
+      modelsUsed: "Models used",
+      stage: "Stage",
+      models: "Models",
+      calls: "Calls",
+      cost: "Cost",
+      shareOfCost: "Share",
+      model: "Model",
+      provider: "Provider",
+      inputTokens: "Input tokens",
+      outputTokens: "Output tokens",
+      partialCostNote: "Some provider cost data was unavailable. The total shown is a known minimum.",
+      seconds: "sec",
+      minutes: "min",
+      contentGeneration: "Content generation",
+      contentEvaluation: "Content evaluation",
+      tagGeneration: "Tag generation",
+      tagEvaluation: "Tag evaluation",
+      imageGeneration: "Image generation",
+      bengaliTranslation: "Bengali translation",
+      hindiTranslation: "Hindi translation",
+      markdownRebuild: "Markdown rebuild",
+      backToTop: "Back to top",
     },
   },
   hi: {
     name: "हिन्दी",
-    dateLocale: "hi-IN",
+    dateLocale: "hi-IN-u-nu-deva",
     ui: {
       siteTitle: "सरल — तकनीकी आसान भाषा में, ताकि कोई पीछे न छूटे",
       siteDescription: "रोज़मर्रा की ज़िंदगी के लिए साफ़ और उपयोगी तकनीकी पाठ।",
@@ -160,6 +230,41 @@ export const LOCALES: Record<Language, Locale> = {
       pagination: "पृष्ठ नेविगेशन",
       previous: "पिछला",
       next: "अगला",
+      aiProductionCost: "एआई निर्माण लागत: {cost}",
+      viewCostBreakdown: "लागत का विवरण देखें",
+      costDataUnavailable: "एआई निर्माण लागत: डेटा उपलब्ध नहीं है",
+      aiProductionCosts: "एआई निर्माण लागत",
+      costTransparencyIntro: "सरल के हर पाठ के लिए नवीनतम दर्ज लागत, मॉडल और टोकन उपयोग देखें।",
+      averageRecordedCost: "औसत एआई निर्माण लागत: {cost} प्रति पाठ ·",
+      exploreCostDetails: "लागत विवरण देखें",
+      costDataUnavailableShort: "डेटा उपलब्ध नहीं है",
+      costOverview: "लागत का सार",
+      totalRecordedCost: "कुल दर्ज लागत",
+      generationTime: "निर्माण समय",
+      modelCalls: "मॉडल कॉल",
+      costByStage: "चरण के अनुसार लागत",
+      modelsUsed: "इस्तेमाल किए गए मॉडल",
+      stage: "चरण",
+      models: "मॉडल",
+      calls: "कॉल",
+      cost: "लागत",
+      shareOfCost: "हिस्सा",
+      model: "मॉडल",
+      provider: "प्रदाता",
+      inputTokens: "इनपुट टोकन",
+      outputTokens: "आउटपुट टोकन",
+      partialCostNote: "कुछ प्रदाताओं की लागत का डेटा उपलब्ध नहीं था। दिखाई गई कुल लागत ज्ञात न्यूनतम है।",
+      seconds: "सेकंड",
+      minutes: "मिनट",
+      contentGeneration: "सामग्री निर्माण",
+      contentEvaluation: "सामग्री मूल्यांकन",
+      tagGeneration: "टैग निर्माण",
+      tagEvaluation: "टैग मूल्यांकन",
+      imageGeneration: "चित्र निर्माण",
+      bengaliTranslation: "बांग्ला अनुवाद",
+      hindiTranslation: "हिन्दी अनुवाद",
+      markdownRebuild: "मार्कडाउन पुनर्निर्माण",
+      backToTop: "ऊपर जाएँ",
     },
   },
   bn: {
@@ -212,6 +317,41 @@ export const LOCALES: Record<Language, Locale> = {
       pagination: "পৃষ্ঠা নেভিগেশন",
       previous: "আগের",
       next: "পরের",
+      aiProductionCost: "এআই তৈরির খরচ: {cost}",
+      viewCostBreakdown: "খরচের বিবরণ দেখুন",
+      costDataUnavailable: "এআই তৈরির খরচ: তথ্য উপলভ্য নয়",
+      aiProductionCosts: "এআই তৈরির খরচ",
+      costTransparencyIntro: "সরলের প্রতিটি পাঠের সর্বশেষ নথিভুক্ত খরচ, মডেল এবং টোকেন ব্যবহার দেখুন।",
+      averageRecordedCost: "গড় এআই তৈরির খরচ: প্রতি পাঠে {cost} ·",
+      exploreCostDetails: "খরচের বিবরণ দেখুন",
+      costDataUnavailableShort: "তথ্য উপলভ্য নয়",
+      costOverview: "খরচের সারাংশ",
+      totalRecordedCost: "মোট নথিভুক্ত খরচ",
+      generationTime: "তৈরির সময়",
+      modelCalls: "মডেল কল",
+      costByStage: "ধাপ অনুযায়ী খরচ",
+      modelsUsed: "ব্যবহৃত মডেল",
+      stage: "ধাপ",
+      models: "মডেল",
+      calls: "কল",
+      cost: "খরচ",
+      shareOfCost: "অংশ",
+      model: "মডেল",
+      provider: "প্রদানকারী",
+      inputTokens: "ইনপুট টোকেন",
+      outputTokens: "আউটপুট টোকেন",
+      partialCostNote: "কিছু প্রদানকারীর খরচের তথ্য পাওয়া যায়নি। দেখানো মোটটি জানা ন্যূনতম পরিমাণ।",
+      seconds: "সেকেন্ড",
+      minutes: "মিনিট",
+      contentGeneration: "বিষয়বস্তু তৈরি",
+      contentEvaluation: "বিষয়বস্তু মূল্যায়ন",
+      tagGeneration: "ট্যাগ তৈরি",
+      tagEvaluation: "ট্যাগ মূল্যায়ন",
+      imageGeneration: "ছবি তৈরি",
+      bengaliTranslation: "বাংলা অনুবাদ",
+      hindiTranslation: "হিন্দি অনুবাদ",
+      markdownRebuild: "মার্কডাউন পুনর্গঠন",
+      backToTop: "উপরে যান",
     },
   },
 };

@@ -1,9 +1,15 @@
 ---
+import { getCollection } from "astro:content";
+import BackToTop from "../components/BackToTop.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { articleUrl, articlesForLanguage, sortArticles } from "../lib/articles";
+import { costForArticle, formatUsd } from "../lib/generation-costs";
 import { ui } from "../lib/i18n";
 
 const text = ui("en");
+const allArticles = await getCollection("articles");
+const articles = sortArticles(articlesForLanguage(allArticles, "en"));
 ---
 
 <BaseLayout title={`${text.aboutPageTitle} | Saral`} description={text.aboutPageDescription} pageClass="about-page">
@@ -20,5 +26,16 @@ const text = ui("en");
         <li>{text.aboutGoalFour}</li>
       </ul>
     </section>
+    <section class="about-costs" id="ai-production-costs" aria-labelledby="costs-title">
+      <p class="kicker">{text.aiProductionCosts}</p>
+      <!--h2 id="costs-title">{text.aiProductionCosts}</h2-->
+      <p>{text.costTransparencyIntro}</p>
+      <div class="about-cost-list">{articles.map((article) => {
+        const cost = costForArticle(article, allArticles);
+        const amount = cost ? `${formatUsd(cost.totalUsd, "en")}${cost.costStatus === "partial" ? "+" : ""}` : text.costDataUnavailableShort;
+        return <div><span>{article.data.title}</span>{cost ? <a href={`${articleUrl(article)}#ai-production-cost`}>{amount}</a> : <span class="cost-data-unavailable">{amount}</span>}</div>;
+      })}</div>
+    </section>
   </main>
+  <BackToTop language="en" />
 </BaseLayout>

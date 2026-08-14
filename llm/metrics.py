@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 import contextvars
-import copy
 import json
 import time
 import uuid
@@ -20,7 +19,6 @@ import httpx
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COST_REPORTS_DIR = REPO_ROOT / "llm" / "generated" / "cost-reports"
-PUBLIC_ARTICLE_COSTS_FILE = REPO_ROOT / "web" / "src" / "data" / "article-costs.json"
 
 
 def _slugify(value: str) -> str:
@@ -287,32 +285,39 @@ class OpenRouterCostMeter:
         _atomic_write_json(output, document)
         if self.kind == "article" and self._status == "completed":
             _atomic_write_json(output.parent / "latest.json", document)
-            self._write_public_latest(document)
         return output
 
-    @staticmethod
-    def _write_public_latest(document: Mapping[str, Any]) -> None:
-        slug = document.get("slug")
-        if not isinstance(slug, str):
-            return
-        try:
-            existing = json.loads(PUBLIC_ARTICLE_COSTS_FILE.read_text(encoding="utf-8"))
-        except (FileNotFoundError, json.JSONDecodeError):
-            existing = {"version": 1, "articles": {}}
-        articles = existing.setdefault("articles", {})
-        if not isinstance(articles, dict):
-            articles = existing["articles"] = {}
-        # The web only needs displayed metrics. Keep OpenRouter generation IDs
-        # and any future private fields in the local audit report.
-        public_document = copy.deepcopy({
-            key: document[key]
-            for key in ("runId", "kind", "trigger", "topic", "slug", "startedAt", "finishedAt", "wallTimeMs", "status", "totals", "stages")
-        })
-        articles[slug] = public_document
-        for stage in public_document["stages"]:
-            for call in stage["calls"]:
-                call.pop("generationId", None)
-        _atomic_write_json(PUBLIC_ARTICLE_COSTS_FILE, existing)
+    def display_cost(self) -> dict[str, Any]:
+        """Return the latest article metrics safe to embed in Markdown.
+
+        Detailed audit reports keep OpenRouter generation IDs locally. The
+        website only needs the cost, timing, model, provider, and token fields
+        needed to explain a lesson's latest generation run.
+        """
+        document = self.document()
+        return {
+            "totalUsd": document["totals"]["costUsd"],
+            "wallTimeMs": document["wallTimeMs"],
+            "requestCount": document["totals"]["requestCount"],
+            "costStatus": document["totals"]["costStatus"],
+            "stages": [
+                {
+                    key: stage[key]
+                    for key in ("key", "status", "wallTimeMs", "costUsd", "costStatus", "requestCount")
+                }
+                | {
+                    "calls": [
+                        {
+                            key: value
+                            for key, value in call.items()
+                            if key != "generationId" and value is not None
+                        }
+                        for call in stage["calls"]
+                    ]
+                }
+                for stage in document["stages"]
+            ],
+        }
 
     async def finish(self, *, api_key: str | None, error: BaseException | None = None) -> Path:
         if error is None:
@@ -363,4 +368,3 @@ def append_local_stage(report_path: Path, *, key: str, wall_time_ms: int, status
     _atomic_write_json(report_path, document)
     if document.get("kind") == "article" and document.get("status") == "completed":
         _atomic_write_json(report_path.parent / "latest.json", document)
-        OpenRouterCostMeter._write_public_latest(document)

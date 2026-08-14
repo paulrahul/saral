@@ -4,15 +4,22 @@ import ArticleCard from "../components/ArticleCard.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { articleUrl, articlesForLanguage, sortArticles, tagUrl } from "../lib/articles";
+import { costForArticle } from "../lib/generation-costs";
 import { ui } from "../lib/i18n";
 
-const articles = sortArticles(articlesForLanguage(await getCollection("articles"), "en"));
+const allArticles = await getCollection("articles");
+const articles = sortArticles(articlesForLanguage(allArticles, "en"));
+const recordedCosts = articles.flatMap((article) => {
+  const cost = costForArticle(article, allArticles);
+  return cost ? [cost.totalUsd] : [];
+});
+const averageCost = recordedCosts.length ? recordedCosts.reduce((total, cost) => total + cost, 0) / recordedCosts.length : undefined;
 const [latest, ...older] = articles;
 const tags = [...new Set(articles.flatMap((article) => article.data.tags))];
 const text = ui("en");
 ---
 
-<BaseLayout pageClass="home-page">
+<BaseLayout pageClass="home-page" {averageCost} averageCostHref="/about/#ai-production-costs">
   <SiteHeader language="en" currentPath={Astro.url.pathname} />
   <main class="home-main shell">
     <section class="topic-strip" id="topics" aria-labelledby="topics-title">

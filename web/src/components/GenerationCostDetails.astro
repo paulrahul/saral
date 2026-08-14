@@ -1,0 +1,75 @@
+---
+import { formatDuration, formatUsd, type GenerationCost } from "../lib/generation-costs";
+import { locale, ui, type Language } from "../lib/i18n";
+
+const { cost, language } = Astro.props as { cost: GenerationCost; language: Language };
+const text = ui(language);
+const total = formatUsd(cost.totalUsd, language);
+const displayedTotal = `${total}${cost.costStatus === "partial" ? "+" : ""}`;
+const stageLabel: Record<string, string> = {
+  content_generation: "Content generation",
+  content_evaluation: "Content evaluation",
+  tag_generation: "Tag generation",
+  tag_evaluation: "Tag evaluation",
+  image_generation: "Image generation",
+  translation_bn: "Bengali translation",
+  translation_hi: "Hindi translation",
+  markdown_rebuild: "Markdown rebuild",
+};
+const localizedStageLabel: Record<string, string> = {
+  content_generation: text.contentGeneration,
+  content_evaluation: text.contentEvaluation,
+  tag_generation: text.tagGeneration,
+  tag_evaluation: text.tagEvaluation,
+  image_generation: text.imageGeneration,
+  translation_bn: text.bengaliTranslation,
+  translation_hi: text.hindiTranslation,
+  markdown_rebuild: text.markdownRebuild,
+};
+const labelForStage = (key: string) => localizedStageLabel[key] ?? stageLabel[key] ?? key.replaceAll("_", " ");
+const displayedStages = cost.stages.filter((stage) => stage.requestCount > 0 || stage.costUsd > 0);
+---
+
+<section class="generation-cost" id="ai-production-cost" aria-labelledby="ai-production-cost-title">
+  <p class="kicker">{text.aiProductionCosts}</p>
+  <h2 id="ai-production-cost-title">{text.costOverview}</h2>
+  <div class="cost-summary">
+    <div><span>{text.totalRecordedCost}</span><strong>{displayedTotal}</strong></div>
+    <div><span>{text.generationTime}</span><strong>{formatDuration(cost.wallTimeMs, language)}</strong></div>
+    <div><span>{text.modelCalls}</span><strong>{cost.requestCount}</strong></div>
+  </div>
+  {cost.costStatus === "partial" && <p class="cost-note">{text.partialCostNote}</p>}
+
+  <h3>{text.costByStage}</h3>
+  <div class="cost-table-wrap">
+    <table class="cost-table">
+      <thead><tr><th>{text.stage}</th><th>{text.models}</th><th>{text.calls}</th><th>{text.cost}</th><th>{text.shareOfCost}</th></tr></thead>
+      <tbody>{displayedStages.map((stage) => {
+        const models = [...new Set(stage.calls.map((call) => call.modelName))];
+        const share = cost.totalUsd > 0 ? `${((stage.costUsd / cost.totalUsd) * 100).toFixed(1)}%` : "—";
+        return <tr>
+          <th scope="row">{labelForStage(stage.key)}</th>
+          <td>{models.length ? models.join(", ") : "—"}</td>
+          <td>{stage.requestCount}</td>
+          <td>{formatUsd(stage.costUsd, language)}{stage.costStatus === "partial" ? "+" : ""}</td>
+          <td>{share}</td>
+        </tr>;
+      })}</tbody>
+    </table>
+  </div>
+
+  <h3>{text.modelsUsed}</h3>
+  <div class="cost-table-wrap">
+    <table class="cost-table model-cost-table">
+      <thead><tr><th>{text.model}</th><th>{text.stage}</th><th>{text.provider}</th><th>{text.inputTokens}</th><th>{text.outputTokens}</th><th>{text.cost}</th></tr></thead>
+      <tbody>{displayedStages.flatMap((stage) => stage.calls.map((call) => <tr>
+        <th scope="row"><span>{call.modelName}</span><code>{call.model}</code></th>
+        <td>{labelForStage(stage.key)}</td>
+        <td>{call.provider ?? "—"}</td>
+        <td>{call.inputTokens?.toLocaleString(locale(language).dateLocale) ?? "—"}</td>
+        <td>{call.outputTokens?.toLocaleString(locale(language).dateLocale) ?? "—"}</td>
+        <td>{call.costUsd === undefined ? "—" : formatUsd(call.costUsd, language)}</td>
+      </tr>))}</tbody>
+    </table>
+  </div>
+</section>

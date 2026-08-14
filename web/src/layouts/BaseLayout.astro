@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
-import { ui, type Language } from "../lib/i18n";
+import { format, ui, type Language } from "../lib/i18n";
+import { formatUsd } from "../lib/generation-costs";
 const language = (Astro.props.language ?? "en") as Language;
 const labels = ui(language);
 const {
@@ -13,10 +14,13 @@ const {
   socialImageHeight = 630,
   socialImageType: suppliedSocialImageType,
   pageClass = "",
+  averageCost: suppliedAverageCost,
+  averageCostHref,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImageUrl = new URL(socialImage, Astro.site);
 const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png") ? "image/png" : socialImage.endsWith(".jpg") || socialImage.endsWith(".jpeg") ? "image/jpeg" : socialImage.endsWith(".webp") ? "image/webp" : undefined);
+const averageCost = typeof suppliedAverageCost === "number" ? suppliedAverageCost : undefined;
 ---
 
 <!doctype html>
@@ -45,9 +49,9 @@ const socialImageType = suppliedSocialImageType ?? (socialImage.endsWith(".png")
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>{title}</title>
   </head>
-  <body class={pageClass}>
+  <body id="top" class={pageClass}>
     <slot />
-    <footer class="site-footer"><div class="shell">{labels.aiDisclosure}</div></footer>
+    <footer class="site-footer"><div class="shell"><div>{labels.aiDisclosure}</div>{averageCost !== undefined && averageCostHref && <div class="average-cost"><span>{format(labels.averageRecordedCost, { cost: formatUsd(averageCost, language) })}</span> <a class="average-cost-link" href={averageCostHref}>{labels.exploreCostDetails}</a></div>}</div></footer>
     <Analytics />
   </body>
 </html>

@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
-from llm.exporter import export_approved_topic, is_topic_exported, missing_translation_languages
+from llm.exporter import attach_generation_cost, export_approved_topic, is_topic_exported, missing_translation_languages
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
 from llm.metrics import OpenRouterCostMeter
 from llm.translator import Translator
@@ -535,15 +535,17 @@ class EasyTutorAgent:
         self,
         meter: OpenRouterCostMeter,
         error: BaseException | None = None,
-    ) -> None:
+    ) -> dict[str, object] | None:
         try:
             report = await meter.finish(api_key=AgentHelper.openrouter_api_key(), error=error)
         except Exception:
             # Metering is observability, not a publishing prerequisite. A
             # completed lesson must remain successful even if reporting fails.
             logger.exception("Could not write the cost report")
+            return None
         else:
             logger.info("Wrote cost report to %s", report)
+            return meter.display_cost() if error is None and meter.kind == "article" else None
 
     async def run(self, generate_subtopic=False) -> None:
         logger.info("Starting EasyTutorAgent run")
@@ -588,7 +590,16 @@ class EasyTutorAgent:
                 except BaseException as error:
                     await self._finish_meter(meter, error)
                     raise
-                await self._finish_meter(meter)
+                display_cost = await self._finish_meter(meter)
+                if display_cost is not None:
+                    try:
+                        output = attach_generation_cost(sub_topic, display_cost)
+                    except Exception:
+                        # The local audit report remains available even if the
+                        # public Markdown metadata cannot be updated.
+                        logger.exception("Could not attach cost data to the exported article")
+                    else:
+                        logger.info("Attached latest cost data to %s", output)
 
         logger.info("Finished EasyTutorAgent run")
 
