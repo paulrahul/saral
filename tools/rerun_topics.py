@@ -407,7 +407,7 @@ def run_normal_agent(
         "SARAL_RERUN_OPTIONS": ",".join(options),
     }
     completed = subprocess.run(
-        [sys.executable, "-m", "llm.main"],
+        [sys.executable, "-m", "llm.main", "--no-publish"],
         cwd=REPO_ROOT,
         check=False,
         env=environment,
