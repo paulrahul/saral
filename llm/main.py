@@ -592,6 +592,12 @@ class EasyTutorAgent:
 
         logger.info("Finished EasyTutorAgent run")
 
+    def _publish(self):
+        # Create git commit after checking the files being added to the commit
+        # Git push with appropriate comment.
+        # Wait for some time and then fetch https://saralai-seven.vercel.app/
+        # and check the title of the latest article and match it with the last
+        # generated article.
 
 if __name__ == "__main__":
     import argparse
