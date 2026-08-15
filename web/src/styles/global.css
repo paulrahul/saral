@@ -57,12 +57,38 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
 .lesson-section,.tag-page,.article-shell { padding-top:32px;padding-bottom:72px; }
 .about-page { min-height:100svh;display:grid;grid-template-rows:auto 1fr auto; }
 .about-shell { max-width:820px;padding-top:58px;padding-bottom:72px; }
+.about-section-nav { position:sticky;top:8px;z-index:3;max-width:760px;display:flex;gap:4px;overflow-x:auto;margin:0 0 34px;padding:5px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 4px 16px rgba(24,37,31,.1);scrollbar-width:none; }
+.about-section-nav::-webkit-scrollbar { display:none; }
+.about-section-nav a { flex:1 0 max-content;min-height:42px;display:grid;place-items:center;padding:8px 14px;border-radius:6px;color:var(--muted);font-size:.86rem;font-weight:650;text-align:center;text-decoration:none;white-space:nowrap; }
+.about-section-nav a:hover,.about-section-nav a:focus-visible { background:var(--green-soft);color:var(--green-dark); }
+.about-introduction,.about-goals,.about-tech,.about-costs { scroll-margin-top:74px; }
 .about-shell h1 { margin:0;color:var(--heading);font-size:clamp(2.4rem,6vw,4.3rem);font-weight:650;line-height:1.08; }
 .about-intro { max-width:650px;margin:18px 0 38px;color:var(--muted);font-size:1.18rem; }
 .about-goals { max-width:760px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:clamp(22px,4vw,38px);box-shadow:0 4px 18px rgba(24,37,31,.06); }
 .about-goals h2 { margin:0 0 18px;color:var(--heading);font-size:1.45rem; }
 .about-goals ul { display:grid;gap:16px;margin:0;padding-left:1.35em; }
 .about-goals li::marker { color:var(--green); }
+.about-tech { max-width:760px;margin-top:42px;padding-top:8px; }
+.about-tech h2 { margin:0;color:var(--heading);font-size:1.65rem; }
+.about-tech>p:not(.kicker) { margin:12px 0 0;color:var(--muted); }
+.about-tech a { color:var(--green-dark);text-underline-offset:4px; }
+.tech-average-cost { padding:16px 18px;border-left:4px solid var(--green);background:var(--green-soft);border-radius:0 8px 8px 0; }
+.tech-flow-diagram { display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:14px;margin-top:24px; }
+.tech-flow { min-width:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:20px;box-shadow:0 4px 18px rgba(24,37,31,.05); }
+.tech-flow header { display:flex;align-items:center;gap:10px;margin-bottom:16px; }
+.tech-flow header>span { width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--green-soft);color:var(--green-dark);font-size:.72rem;font-weight:800; }
+.tech-flow h3 { margin:0;color:var(--heading);font-size:1.08rem; }
+.tech-flow ol { display:grid;gap:0;margin:0;padding:0;list-style:none; }
+.tech-flow li { position:relative;display:grid;grid-template-columns:28px minmax(0,1fr);align-items:start;gap:10px;padding-bottom:18px; }
+.tech-flow li:last-child { padding-bottom:0; }
+.tech-flow li:not(:last-child)::after { content:"";position:absolute;left:13px;top:27px;bottom:3px;width:2px;background:var(--line); }
+.tech-flow li>span { position:relative;z-index:1;width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--green);border-radius:7px;background:var(--surface);color:var(--green-dark);font-size:.72rem;font-weight:800; }
+.tech-flow li>strong { padding-top:4px;color:var(--heading);font-size:.88rem;font-weight:600;line-height:1.35; }
+.about-tech .tech-upcoming { display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;margin-top:24px;padding:17px 18px;border:1px solid var(--line);border-radius:9px;background:var(--surface); }
+.tech-upcoming strong { grid-row:1/3;color:var(--heading); }
+.tech-upcoming span { color:var(--muted); }
+.about-tech .tech-contact { margin-top:24px; }
+.tech-contact a { font-weight:650; }
 .about-costs { max-width:760px;margin-top:34px;padding-top:8px; }
 .about-costs h2 { margin:0;color:var(--heading);font-size:1.45rem; }
 .about-costs>p:not(.kicker) { margin:10px 0 16px;color:var(--muted); }
@@ -144,6 +170,12 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
  .compact-list { min-height:0;display:flex;overflow-x:auto; } .compact-list>a { min-width:235px;padding:9px 13px; }
  .article-list .article-card { grid-template-columns:1fr;min-height:auto; } .article-list .card-image { height:220px; }
  .about-shell { padding-top:34px;padding-bottom:48px; } .about-intro { margin-bottom:26px;font-size:1.08rem; }
+ .about-section-nav { margin-inline:-2px;margin-bottom:26px; }
+ .about-section-nav a { flex-grow:0;min-height:44px;padding-inline:13px; }
+ .tech-flow-diagram { grid-template-columns:1fr; }
+ .tech-flow { padding:17px; }
+ .about-tech .tech-upcoming { grid-template-columns:1fr; }
+ .tech-upcoming strong { grid-row:auto; }
  .about-cost-list>div { align-items:start;flex-direction:column;gap:4px; } .cost-data-unavailable { text-align:left; }
  .lesson h1 { font-size:2.45rem; } .lesson-visual { margin-inline:-14px;border-radius:0; }
  .cost-summary { grid-template-columns:1fr; } .cost-table { min-width:620px; }

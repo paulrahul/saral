@@ -2,7 +2,7 @@ export const SUPPORTED_LANGUAGES = ["en", "hi", "bn"] as const;
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 export const LANGUAGE_VALUES = [...SUPPORTED_LANGUAGES] as [Language, ...Language[]];
 
-type UiStrings = {
+export type UiStrings = {
   siteTitle: string;
   siteDescription: string;
   tagline: string;
@@ -19,6 +19,29 @@ type UiStrings = {
   aboutGoalTwo: string;
   aboutGoalThree: string;
   aboutGoalFour: string;
+  aboutSectionNavigation: string;
+  techOverview: string;
+  techOverviewIntro: string;
+  techOverviewAverageCost: string;
+  techOverviewCostLink: string;
+  topicFlowTitle: string;
+  articleFlowTitle: string;
+  flowGenerateTopics: string;
+  flowFilterTopics: string;
+  flowRankTopics: string;
+  flowQueueTopics: string;
+  flowChooseTopic: string;
+  flowGenerateDrafts: string;
+  flowEvaluateContent: string;
+  flowGenerateTags: string;
+  flowGenerateImage: string;
+  flowTranslate: string;
+  flowExportPublish: string;
+  upcomingFeatures: string;
+  upcomingFeatureChatbot: string;
+  upcomingFeatureTopicSubmissions: string;
+  techContactBefore: string;
+  techContactLink: string;
   chooseLanguage: string;
   useLightTheme: string;
   useDarkTheme: string;
@@ -100,7 +123,7 @@ export const LOCALES: Record<Language, Locale> = {
       siteTitle: "Saral — Technology made simple, so no one is left behind",
       siteDescription: "Clear, useful technology lessons for everyday life.",
       tagline: "Technology made simple, so no one is left behind.",
-      aiDisclosure: "All lessons, translations, and illustrations on this website are generated using AI.",
+      aiDisclosure: "All lessons, translations, and illustrations on this website are generated using AI with focus on AI cost optimization.",
       mainNavigation: "Main navigation",
       home: "Home",
       allTopics: "All topics",
@@ -113,6 +136,29 @@ export const LOCALES: Record<Language, Locale> = {
       aboutGoalTwo: "Explain emerging technology in very simple, clear language — without assuming prior knowledge.",
       aboutGoalThree: "Build confidence with everyday tasks such as using the AI, internet, smartphones, messaging apps, websites, online orders, and Google.",
       aboutGoalFour: "Make sure marginalised communities are not left behind by technologies that affect society and personal life.",
+      aboutSectionNavigation: "About page sections",
+      techOverview: "Tech overview",
+      techOverviewIntro: "Saral is maintained end to end by an AI agent. It finds topics, creates and reviews lessons, produces translations and illustrations, and handles publishing—with a strong focus on keeping AI costs low at every step. Human input is used only occasionally to introduce a new topic area.",
+      techOverviewAverageCost: "Based on the lessons with recorded costs, generating and publishing a new article costs about {cost} on average.",
+      techOverviewCostLink: "Explore the article-by-article costs below.",
+      topicFlowTitle: "Topic generation",
+      articleFlowTitle: "Article generation",
+      flowGenerateTopics: "Generate topic candidates",
+      flowFilterTopics: "Remove repeats and used topics",
+      flowRankTopics: "Rank topics with an evaluator",
+      flowQueueTopics: "Save the ranked topic queue",
+      flowChooseTopic: "Choose the next topic",
+      flowGenerateDrafts: "Generate lesson drafts",
+      flowEvaluateContent: "Evaluate and select content",
+      flowGenerateTags: "Generate and review tags",
+      flowGenerateImage: "Create the illustration",
+      flowTranslate: "Translate into Hindi and Bengali",
+      flowExportPublish: "Export Markdown, record costs, and publish",
+      upcomingFeatures: "Upcoming features",
+      upcomingFeatureChatbot: "A chatbot that answers questions using Saral’s content",
+      upcomingFeatureTopicSubmissions: "A way for readers to suggest new topics",
+      techContactBefore: "Have more questions or ideas?",
+      techContactLink: "Come say Hi to Saral’s creator",
       chooseLanguage: "Choose language",
       useLightTheme: "Use light theme",
       useDarkTheme: "Use dark theme",
@@ -187,7 +233,7 @@ export const LOCALES: Record<Language, Locale> = {
       siteTitle: "सरल — तकनीकी आसान भाषा में, ताकि कोई पीछे न छूटे",
       siteDescription: "रोज़मर्रा की ज़िंदगी के लिए साफ़ और उपयोगी तकनीकी पाठ।",
       tagline: "तकनीकी आसान भाषा में, ताकि कोई पीछे न छूटे।",
-      aiDisclosure: "इस वेबसाइट के सभी पाठ, अनुवाद और चित्र एआई का उपयोग करके बनाए गए हैं।",
+      aiDisclosure: "इस वेबसाइट के सभी पाठ, अनुवाद और चित्र एआई का उपयोग करके बनाए जाते हैं, जिसमें एआई लागत को कम रखने पर विशेष ध्यान दिया जाता है।",
       mainNavigation: "मुख्य नेविगेशन",
       home: "मुख्य पृष्ठ",
       allTopics: "सभी विषय",
@@ -200,6 +246,29 @@ export const LOCALES: Record<Language, Locale> = {
       aboutGoalTwo: "नई तकनीकों को बहुत सरल और साफ़ भाषा में समझाना — बिना यह माने कि आपको पहले से कुछ पता है।",
       aboutGoalThree: "एआई, इंटरनेट, स्मार्टफ़ोन, मैसेजिंग ऐप, वेबसाइट, ऑनलाइन ऑर्डर और गूगल जैसे रोज़मर्रा के कामों के लिए आत्मविश्वास बढ़ाना।",
       aboutGoalFour: "यह सुनिश्चित करना कि समाज और निजी जीवन को प्रभावित करने वाली तकनीकों में हाशिए पर रहने वाले समुदाय पीछे न छूटें।",
+      aboutSectionNavigation: "परिचय पृष्ठ के भाग",
+      techOverview: "तकनीकी जानकारी",
+      techOverviewIntro: "सरल को शुरू से अंत तक एक एआई एजेंट संभालता है। वही विषय खोजता है, पाठ तैयार करके उनकी समीक्षा करता है, अनुवाद और चित्र बनाता है, और प्रकाशन पूरा करता है—हर कदम पर एआई लागत कम रखने पर खास ध्यान देते हुए। किसी नए विषय क्षेत्र को जोड़ने के लिए कभी-कभार ही मानवीय सुझाव लिया जाता है।",
+      techOverviewAverageCost: "अभी उपलब्ध लागत रिकॉर्ड के आधार पर, एक नया लेख तैयार और प्रकाशित करने की औसत लागत लगभग {cost} है।",
+      techOverviewCostLink: "नीचे हर लेख की विस्तृत लागत देखें।",
+      topicFlowTitle: "विषय निर्माण",
+      articleFlowTitle: "लेख निर्माण",
+      flowGenerateTopics: "संभावित विषय तैयार करना",
+      flowFilterTopics: "दोहराए और इस्तेमाल किए गए विषय हटाना",
+      flowRankTopics: "मूल्यांकन मॉडल से विषयों की रैंकिंग करना",
+      flowQueueTopics: "रैंक किए गए विषयों की सूची सहेजना",
+      flowChooseTopic: "अगला विषय चुनना",
+      flowGenerateDrafts: "पाठ के मसौदे तैयार करना",
+      flowEvaluateContent: "सामग्री का मूल्यांकन और चयन करना",
+      flowGenerateTags: "टैग तैयार करके उनकी समीक्षा करना",
+      flowGenerateImage: "चित्र बनाना",
+      flowTranslate: "हिन्दी और बांग्ला में अनुवाद करना",
+      flowExportPublish: "मार्कडाउन बनाना, लागत दर्ज करना और प्रकाशित करना",
+      upcomingFeatures: "आने वाली सुविधाएँ",
+      upcomingFeatureChatbot: "सरल की सामग्री के आधार पर सवालों के जवाब देने वाला चैटबॉट",
+      upcomingFeatureTopicSubmissions: "पाठकों के लिए नए विषय सुझाने की सुविधा",
+      techContactBefore: "और सवाल या सुझाव हैं?",
+      techContactLink: "सरल के निर्माता को नमस्ते कहें",
       chooseLanguage: "भाषा चुनें",
       useLightTheme: "हल्की थीम इस्तेमाल करें",
       useDarkTheme: "गहरी थीम इस्तेमाल करें",
@@ -274,7 +343,7 @@ export const LOCALES: Record<Language, Locale> = {
       siteTitle: "সরল — সহজ ভাষায় প্রযুক্তি, যাতে কেউ পিছিয়ে না থাকে",
       siteDescription: "প্রতিদিনের জীবনের জন্য পরিষ্কার ও উপকারী প্রযুক্তি পাঠ।",
       tagline: "সহজ ভাষায় প্রযুক্তি, যাতে কেউ পিছিয়ে না থাকে।",
-      aiDisclosure: "এই ওয়েবসাইটের সব পাঠ, অনুবাদ ও ছবি এআই ব্যবহার করে তৈরি করা হয়েছে।",
+      aiDisclosure: "এই ওয়েবসাইটের সব পাঠ, অনুবাদ ও ছবি এআই ব্যবহার করে তৈরি করা হয়, যেখানে এআইয়ের খরচ কম রাখার ওপর বিশেষ গুরুত্ব দেওয়া হয়।",
       mainNavigation: "মূল নেভিগেশন",
       home: "মূল পাতা",
       allTopics: "সব বিষয়",
@@ -287,6 +356,29 @@ export const LOCALES: Record<Language, Locale> = {
       aboutGoalTwo: "আগে থেকে কিছু জানা আছে ধরে না নিয়ে, নতুন প্রযুক্তি খুব সহজ ও পরিষ্কার ভাষায় ব্যাখ্যা করা।",
       aboutGoalThree: "এআই, ইন্টারনেট, স্মার্টফোন, মেসেজিং অ্যাপ, ওয়েবসাইট, অনলাইন অর্ডার ও গুগলের মতো দৈনন্দিন কাজের জন্য আত্মবিশ্বাস তৈরি করা।",
       aboutGoalFour: "সমাজ ও ব্যক্তিগত জীবনে প্রভাব ফেলা প্রযুক্তিগুলোতে প্রান্তিক জনগোষ্ঠী যেন পিছিয়ে না পড়ে, তা নিশ্চিত করা।",
+      aboutSectionNavigation: "পরিচিতি পাতার অংশ",
+      techOverview: "প্রযুক্তির সংক্ষিপ্ত পরিচিতি",
+      techOverviewIntro: "সরল শুরু থেকে শেষ পর্যন্ত একটি এআই এজেন্ট পরিচালনা করে। এটি বিষয় খোঁজে, পাঠ তৈরি ও পর্যালোচনা করে, অনুবাদ ও ছবি বানায় এবং প্রকাশনার কাজ সম্পন্ন করে—প্রতিটি ধাপে এআইয়ের খরচ কম রাখার দিকে বিশেষ নজর দিয়ে। নতুন কোনো বিষয়ের ক্ষেত্র যোগ করতে কেবল মাঝে মাঝে মানুষের পরামর্শ নেওয়া হয়।",
+      techOverviewAverageCost: "এখন পর্যন্ত নথিভুক্ত খরচ অনুযায়ী, একটি নতুন লেখা তৈরি ও প্রকাশ করতে গড়ে প্রায় {cost} খরচ হয়।",
+      techOverviewCostLink: "নিচে প্রতিটি লেখার বিস্তারিত খরচ দেখুন।",
+      topicFlowTitle: "বিষয় তৈরি",
+      articleFlowTitle: "লেখা তৈরি",
+      flowGenerateTopics: "সম্ভাব্য বিষয় তৈরি করা",
+      flowFilterTopics: "পুনরাবৃত্ত ও ব্যবহৃত বিষয় বাদ দেওয়া",
+      flowRankTopics: "মূল্যায়ন মডেল দিয়ে বিষয়ের ক্রম ঠিক করা",
+      flowQueueTopics: "ক্রম অনুযায়ী বিষয়ের তালিকা সংরক্ষণ করা",
+      flowChooseTopic: "পরবর্তী বিষয় বেছে নেওয়া",
+      flowGenerateDrafts: "পাঠের খসড়া তৈরি করা",
+      flowEvaluateContent: "বিষয়বস্তু মূল্যায়ন ও নির্বাচন করা",
+      flowGenerateTags: "ট্যাগ তৈরি ও পর্যালোচনা করা",
+      flowGenerateImage: "ছবি তৈরি করা",
+      flowTranslate: "হিন্দি ও বাংলায় অনুবাদ করা",
+      flowExportPublish: "মার্কডাউন তৈরি, খরচ নথিভুক্ত ও প্রকাশ করা",
+      upcomingFeatures: "শিগগির আসছে",
+      upcomingFeatureChatbot: "সরলের বিষয়বস্তু ব্যবহার করে প্রশ্নের উত্তর দেওয়ার একটি চ্যাটবট",
+      upcomingFeatureTopicSubmissions: "পাঠকদের নতুন বিষয় প্রস্তাব করার সুযোগ",
+      techContactBefore: "আরও প্রশ্ন বা ভাবনা আছে?",
+      techContactLink: "সরলের নির্মাতাকে হ্যালো বলুন",
       chooseLanguage: "ভাষা বেছে নিন",
       useLightTheme: "হালকা থিম ব্যবহার করুন",
       useDarkTheme: "গাঢ় থিম ব্যবহার করুন",

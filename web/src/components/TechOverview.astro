@@ -1,0 +1,51 @@
+---
+import { formatUsd } from "../lib/generation-costs";
+import { format, ui, type Language } from "../lib/i18n";
+
+type Props = {
+  language: Language;
+  averageCost?: number;
+};
+
+const { language, averageCost } = Astro.props;
+const text = ui(language);
+const topicSteps = [
+  text.flowGenerateTopics,
+  text.flowFilterTopics,
+  text.flowRankTopics,
+  text.flowQueueTopics,
+];
+const articleSteps = [
+  text.flowChooseTopic,
+  text.flowGenerateDrafts,
+  text.flowEvaluateContent,
+  text.flowGenerateTags,
+  text.flowGenerateImage,
+  text.flowTranslate,
+  text.flowExportPublish,
+];
+---
+
+<section class="about-tech" id="tech-overview" aria-labelledby="tech-overview-title">
+  <!--h2 id="tech-overview-title">{text.techOverview}</h2-->
+  <p class="kicker" id="tech-overview-title">{text.techOverview}</p>
+  <p>{text.techOverviewIntro}</p>
+  {averageCost !== undefined && <p class="tech-average-cost">
+    {format(text.techOverviewAverageCost, { cost: formatUsd(averageCost, language) })}
+    {" "}<a href="#ai-production-costs">{text.techOverviewCostLink}</a>
+  </p>}
+
+  <div class="tech-flow-diagram">
+    <section class="tech-flow" aria-labelledby="topic-flow-title">
+      <header><span aria-hidden="true">01</span><h3 id="topic-flow-title">{text.topicFlowTitle}</h3></header>
+      <ol>{topicSteps.map((step, index) => <li><span aria-hidden="true">{index + 1}</span><strong>{step}</strong></li>)}</ol>
+    </section>
+    <section class="tech-flow" aria-labelledby="article-flow-title">
+      <header><span aria-hidden="true">02</span><h3 id="article-flow-title">{text.articleFlowTitle}</h3></header>
+      <ol>{articleSteps.map((step, index) => <li><span aria-hidden="true">{index + 1}</span><strong>{step}</strong></li>)}</ol>
+    </section>
+  </div>
+
+  <p class="tech-upcoming"><strong>{text.upcomingFeatures}:</strong> <span>1. {text.upcomingFeatureChatbot}</span> <span>2. {text.upcomingFeatureTopicSubmissions}</span></p>
+  <p class="tech-contact">{text.techContactBefore} <a href="https://paulrahul.github.io/#contact">{text.techContactLink}</a>.</p>
+</section>

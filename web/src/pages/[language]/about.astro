@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import AboutSectionNav from "../../components/AboutSectionNav.astro";
 import BackToTop from "../../components/BackToTop.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
+import TechOverview from "../../components/TechOverview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articleUrl, articlesForLanguage, sortArticles } from "../../lib/articles";
 import { costForArticle, formatUsd } from "../../lib/generation-costs";
@@ -15,14 +17,22 @@ const language = Astro.params.language as Exclude<Language, "en">;
 const text = ui(language);
 const allArticles = await getCollection("articles");
 const articles = sortArticles(articlesForLanguage(allArticles, language));
+const recordedCosts = articles.flatMap((article) => {
+  const cost = costForArticle(article, allArticles);
+  return cost ? [cost.totalUsd] : [];
+});
+const averageCost = recordedCosts.length ? recordedCosts.reduce((total, cost) => total + cost, 0) / recordedCosts.length : undefined;
 ---
 
 <BaseLayout title={`${text.aboutPageTitle} | Saral`} description={text.aboutPageDescription} pageClass="about-page" {language}>
   <SiteHeader {language} currentPath={Astro.url.pathname} />
   <main class="shell about-shell">
-    <p class="kicker">{text.aboutSaral}</p>
-    <p class="about-intro">{text.aboutIntro}</p>
-    <section class="about-goals" aria-labelledby="goals-title">
+    <AboutSectionNav {language} />
+    <section class="about-introduction" id="about-introduction">
+      <p class="kicker">{text.aboutSaral}</p>
+      <p class="about-intro">{text.aboutIntro}</p>
+    </section>
+    <section class="about-goals" id="our-goal" aria-labelledby="goals-title">
       <h2 id="goals-title">{text.aboutGoalHeading}</h2>
       <ul>
         <li>{text.aboutGoalOne}</li>
@@ -31,8 +41,8 @@ const articles = sortArticles(articlesForLanguage(allArticles, language));
         <li>{text.aboutGoalFour}</li>
       </ul>
     </section>
+    <TechOverview {language} {averageCost} />
     <section class="about-costs" id="ai-production-costs" aria-labelledby="costs-title">
-      <p class="kicker">{text.aiProductionCosts}</p>
       <h2 id="costs-title">{text.aiProductionCosts}</h2>
       <p>{text.costTransparencyIntro}</p>
       <div class="about-cost-list">{articles.map((article) => {

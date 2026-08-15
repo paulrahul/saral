@@ -1,0 +1,19 @@
+---
+import { ui, type Language } from "../lib/i18n";
+
+type Props = {
+  language: Language;
+};
+
+const { language } = Astro.props;
+const text = ui(language);
+const sections = [
+  ["about-introduction", text.aboutSaral],
+  ["tech-overview", text.techOverview],
+  ["ai-production-costs", text.aiProductionCosts],
+];
+---
+
+<nav class="about-section-nav" aria-label={text.aboutSectionNavigation}>
+  {sections.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+</nav>
