@@ -83,7 +83,7 @@ def _yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def _generation_cost_from(output: Path) -> Mapping[str, object] | None:
+def read_generation_cost(output: Path) -> Mapping[str, object] | None:
     """Read the compact display metrics preserved in an existing English article."""
     if not output.is_file():
         return None
@@ -170,7 +170,7 @@ def _write_article(
         f"sourceModel: {_yaml_quote(source_model)}",
     ]
     if language == "en":
-        retained_cost = generation_cost if generation_cost is not None else _generation_cost_from(output)
+        retained_cost = generation_cost if generation_cost is not None else read_generation_cost(output)
         if retained_cost is not None:
             frontmatter.append(_generation_cost_line(retained_cost))
     if translation_of is not None:

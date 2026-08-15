@@ -19,6 +19,7 @@ import httpx
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COST_REPORTS_DIR = REPO_ROOT / "llm" / "generated" / "cost-reports"
+LOCAL_STAGE_KEYS = {"markdown_rebuild"}
 
 
 def _slugify(value: str) -> str:
@@ -104,6 +105,10 @@ class OpenRouterCostMeter:
         if status not in {"cached", "skipped"}:
             raise ValueError(f"Unsupported non-call stage status: {status!r}")
         self._stages[key] = {"key": key, "status": status, "wallTimeMs": 0, "calls": []}
+
+    def has_calls(self) -> bool:
+        """Return whether this run made any metered model requests."""
+        return any(stage["calls"] for stage in self._stages.values())
 
     @contextmanager
     def capture_call(self, *, stage: str, model_name: str, model: str) -> Iterator[None]:
@@ -294,30 +299,7 @@ class OpenRouterCostMeter:
         website only needs the cost, timing, model, provider, and token fields
         needed to explain a lesson's latest generation run.
         """
-        document = self.document()
-        return {
-            "totalUsd": document["totals"]["costUsd"],
-            "wallTimeMs": document["wallTimeMs"],
-            "requestCount": document["totals"]["requestCount"],
-            "costStatus": document["totals"]["costStatus"],
-            "stages": [
-                {
-                    key: stage[key]
-                    for key in ("key", "status", "wallTimeMs", "costUsd", "costStatus", "requestCount")
-                }
-                | {
-                    "calls": [
-                        {
-                            key: value
-                            for key, value in call.items()
-                            if key != "generationId" and value is not None
-                        }
-                        for call in stage["calls"]
-                    ]
-                }
-                for stage in document["stages"]
-            ],
-        }
+        return display_cost_from_report(self.document())
 
     async def finish(self, *, api_key: str | None, error: BaseException | None = None) -> Path:
         if error is None:
@@ -332,6 +314,146 @@ class OpenRouterCostMeter:
         self._finished_perf = time.perf_counter()
         await self.resolve_costs(api_key)
         return self.persist()
+
+
+def display_cost_from_report(document: Mapping[str, Any]) -> dict[str, Any]:
+    """Return public display metrics from a persisted run report."""
+    stages = document.get("stages")
+    if not isinstance(stages, list):
+        raise ValueError("Cost report does not contain a valid stage list")
+    display_stages: list[dict[str, Any]] = []
+    for stage in stages:
+        if not isinstance(stage, Mapping) or not isinstance(stage.get("key"), str):
+            raise ValueError("Cost report contains an invalid stage")
+        if stage["key"] in LOCAL_STAGE_KEYS:
+            continue
+        calls = stage.get("calls")
+        if not isinstance(calls, list) or not all(isinstance(call, Mapping) for call in calls):
+            raise ValueError(f"Cost stage {stage['key']!r} contains invalid calls")
+        public_calls = [
+            {
+                key: value
+                for key, value in call.items()
+                if key != "generationId" and value is not None
+            }
+            for call in calls
+        ]
+        known_costs = [
+            float(call["costUsd"])
+            for call in public_calls
+            if isinstance(call.get("costUsd"), (int, float))
+        ]
+        unresolved = any(
+            call.get("costStatus") in {"pending", "unavailable"}
+            for call in public_calls
+        )
+        display_stages.append(
+            {
+                "key": stage["key"],
+                "status": stage.get("status", "completed"),
+                "wallTimeMs": stage.get("wallTimeMs", 0),
+                "costUsd": round(sum(known_costs), 8),
+                "costStatus": "partial" if unresolved else "reported",
+                "requestCount": len(public_calls),
+            }
+            | {"calls": public_calls}
+        )
+    return _cost_document(display_stages, wall_time_ms=document.get("wallTimeMs"))
+
+
+def _cost_document(stages: list[dict[str, Any]], *, wall_time_ms: object = None) -> dict[str, Any]:
+    total_cost = round(
+        sum(float(stage.get("costUsd", 0)) for stage in stages),
+        8,
+    )
+    request_count = sum(int(stage.get("requestCount", 0)) for stage in stages)
+    partial = any(stage.get("costStatus") == "partial" for stage in stages)
+    if not isinstance(wall_time_ms, int) or wall_time_ms < 0:
+        wall_time_ms = sum(
+            int(stage.get("wallTimeMs", 0))
+            for stage in stages
+            if isinstance(stage.get("wallTimeMs"), int)
+        )
+    return {
+        "totalUsd": total_cost,
+        "wallTimeMs": wall_time_ms,
+        "requestCount": request_count,
+        "costStatus": "partial" if partial else "reported",
+        "stages": stages,
+    }
+
+
+def merge_generation_costs(
+    previous: Mapping[str, Any] | None,
+    current: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Apply one run to the costs of the artifacts it reused or replaced.
+
+    Cached stages retain the calls that originally produced their artifact.
+    Any non-cached stage replaces the old stage, including a deliberately
+    skipped zero-call stage. Local, non-model stages never appear publicly.
+    """
+    merged: OrderedDict[str, dict[str, Any]] = OrderedDict()
+    if previous is not None:
+        stages = previous.get("stages")
+        if not isinstance(stages, list):
+            raise ValueError("Existing generation costs do not contain a valid stage list")
+        for stage in stages:
+            if isinstance(stage, Mapping) and isinstance(stage.get("key"), str):
+                if stage["key"] not in LOCAL_STAGE_KEYS:
+                    merged[stage["key"]] = dict(stage)
+
+    current_stages = current.get("stages")
+    if not isinstance(current_stages, list):
+        raise ValueError("Current generation costs do not contain a valid stage list")
+    replaced = False
+    for stage in current_stages:
+        if not isinstance(stage, Mapping) or not isinstance(stage.get("key"), str):
+            raise ValueError("Current generation costs contain an invalid stage")
+        key = stage["key"]
+        if key in LOCAL_STAGE_KEYS:
+            continue
+        if stage.get("status") == "cached":
+            continue
+        merged[key] = dict(stage)
+        replaced = True
+
+    if previous is None:
+        wall_time_ms = current.get("wallTimeMs")
+    elif not replaced:
+        wall_time_ms = previous.get("wallTimeMs")
+    else:
+        wall_time_ms = None
+    return _cost_document(list(merged.values()), wall_time_ms=wall_time_ms)
+
+
+def reconstruct_generation_cost(topic: str) -> dict[str, Any]:
+    """Rebuild a topic's effective costs from successful, cost-bearing runs."""
+    reports_dir = COST_REPORTS_DIR / "articles" / _slugify(topic)
+    reports: list[dict[str, Any]] = []
+    for path in reports_dir.glob("*.json"):
+        if path.name == "latest.json":
+            continue
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(document, dict) or document.get("status") != "completed":
+            continue
+        totals = document.get("totals")
+        if not isinstance(totals, Mapping) or not totals.get("requestCount"):
+            continue
+        reports.append(document)
+    reports.sort(key=lambda report: str(report.get("startedAt", "")))
+    if not reports:
+        raise ValueError(f"No successful model-call cost reports found for topic {topic!r}")
+
+    effective: dict[str, Any] | None = None
+    for report in reports:
+        effective = merge_generation_costs(effective, display_cost_from_report(report))
+    if effective is None or not effective["requestCount"]:
+        raise ValueError(f"Could not reconstruct model-call costs for topic {topic!r}")
+    return effective
 
 
 def write_rerun_batch(document: Mapping[str, Any]) -> Path:

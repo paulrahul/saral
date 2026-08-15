@@ -23,7 +23,7 @@ from llm.exporter import (
     missing_translation_languages,
 )
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
-from llm.metrics import OpenRouterCostMeter
+from llm.metrics import OpenRouterCostMeter, reconstruct_generation_cost
 from llm.translator import Translator
 from llm.util import (
     AgentHelper,
@@ -732,6 +732,9 @@ class EasyTutorAgent:
         meter: OpenRouterCostMeter,
         error: BaseException | None = None,
     ) -> dict[str, object] | None:
+        if not meter.has_calls():
+            logger.info("No model calls were made; leaving existing cost data unchanged")
+            return None
         try:
             report = await meter.finish(api_key=AgentHelper.openrouter_api_key(), error=error)
         except Exception:
@@ -741,7 +744,9 @@ class EasyTutorAgent:
             return None
         else:
             logger.info("Wrote cost report to %s", report)
-            return meter.display_cost() if error is None and meter.kind == "article" else None
+            if error is not None or meter.kind != "article":
+                return None
+            return meter.display_cost()
 
     async def run(self, generate_subtopic: bool = False, publish: bool = True) -> None:
         logger.info("Starting EasyTutorAgent run")
@@ -789,7 +794,8 @@ class EasyTutorAgent:
                 display_cost = await self._finish_meter(meter)
                 if display_cost is not None:
                     try:
-                        output = attach_generation_cost(sub_topic, display_cost)
+                        effective_cost = reconstruct_generation_cost(sub_topic)
+                        output = attach_generation_cost(sub_topic, effective_cost)
                     except Exception:
                         # The local audit report remains available even if the
                         # public Markdown metadata cannot be updated.

@@ -9,7 +9,6 @@ path as ordinary article runs.
 from __future__ import annotations
 
 import argparse
-import asyncio
 import copy
 import json
 import os
@@ -29,8 +28,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from llm.metrics import (
     COST_REPORTS_DIR,
-    OpenRouterCostMeter,
     append_local_stage,
+    reconstruct_generation_cost,
     write_rerun_batch,
 )
 
@@ -72,14 +71,16 @@ class Selection:
     images: bool = False
     translations: bool = False
     markdown: bool = False
+    costs: bool = False
 
     @property
     def has_requested_work(self) -> bool:
-        return any((self.content, self.evaluation, self.images, self.translations, self.markdown))
+        return any((self.content, self.evaluation, self.images, self.translations, self.markdown, self.costs))
 
     @property
     def requires_agent(self) -> bool:
-        return not self.markdown or self.content or self.evaluation or self.images or self.translations
+        agent_work = self.content or self.evaluation or self.images or self.translations
+        return agent_work or not (self.markdown or self.costs)
 
     @property
     def invalidate_approval(self) -> bool:
@@ -111,6 +112,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-i", "--images", action="store_true", help="Regenerate images and refresh article references")
     parser.add_argument("-t", "--translations", action="store_true", help="Regenerate translated articles")
     parser.add_argument("-m", "--markdown", action="store_true", help="Rebuild Markdown without translating it")
+    parser.add_argument(
+        "--costs",
+        action="store_true",
+        help="Recompute Markdown cost metadata from existing cost reports without model calls",
+    )
     parser.add_argument("-a", "--all", action="store_true", help="Regenerate all supported data")
     parser.add_argument(
         "--topic",
@@ -127,8 +133,8 @@ def parse_args() -> argparse.Namespace:
 
 def selection_from(args: argparse.Namespace) -> Selection:
     if args.all:
-        return Selection(True, True, True, True, True)
-    return Selection(args.content, args.evaluation, args.images, args.translations, args.markdown)
+        return Selection(True, True, True, True, True, False)
+    return Selection(args.content, args.evaluation, args.images, args.translations, args.markdown, args.costs)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -235,6 +241,8 @@ def affected_paths(topics: list[str], selection: Selection) -> set[Path]:
             or selection.requires_agent
         ):
             paths.update(article_paths(topic))
+        elif selection.costs:
+            paths.add(article_path(topic))
     return paths
 
 
@@ -424,24 +432,6 @@ def report_path(topic: str, run_id: str) -> Path | None:
     return matches[0] if len(matches) == 1 else None
 
 
-def rebuild_with_meter(topic: str, batch_id: str, options: list[str]) -> tuple[list[Path], Path]:
-    meter = OpenRouterCostMeter(
-        kind="article",
-        trigger="rerun_topics",
-        main_topic=MAIN_TOPIC,
-        topic=topic,
-        metadata={"rerun_batch_id": batch_id, "rerun_options": options},
-    )
-    meter.start_stage("markdown_rebuild")
-    try:
-        outputs = rebuild_markdown(topic)
-    except BaseException as error:
-        report = asyncio.run(meter.finish(api_key=None, error=error))
-        raise RuntimeError(f"Markdown rebuild cost report: {report}") from error
-    meter.finish_stage("markdown_rebuild")
-    return outputs, asyncio.run(meter.finish(api_key=None))
-
-
 def generated_image_paths(topics: list[str]) -> set[Path]:
     images = read_json_or_empty(IMAGES_FILE)
     return {
@@ -461,6 +451,13 @@ def rebuild_markdown(topic: str) -> list[Path]:
     return rebuild_exported_topic(topic)
 
 
+def rewrite_generation_cost(topic: str) -> Path:
+    """Repair only the English article's cost metadata from local reports."""
+    from llm.exporter import attach_generation_cost
+
+    return attach_generation_cost(topic, reconstruct_generation_cost(topic))
+
+
 def print_plan(topics: list[str], selection: Selection, backup_paths: set[Path]) -> None:
     options = [
         name
@@ -470,6 +467,7 @@ def print_plan(topics: list[str], selection: Selection, backup_paths: set[Path])
             ("images", selection.images),
             ("translations", selection.translations),
             ("markdown", selection.markdown),
+            ("costs", selection.costs),
         )
         if enabled
     ]
@@ -544,6 +542,7 @@ def main() -> int:
                 ("images", selection.images),
                 ("translations", selection.translations),
                 ("markdown", selection.markdown),
+                ("costs", selection.costs),
             )
             if enabled
         ]
@@ -593,20 +592,22 @@ def main() -> int:
                                     wall_time_ms=round((time.perf_counter() - rebuild_started_at) * 1000),
                                 )
                         else:
-                            outputs, output = rebuild_with_meter(topic, batch_id, option_names)
-                            batch_reports.append(
-                                {
-                                    "topic": topic,
-                                    "slug": slugify(topic),
-                                    "runId": output.stem.rsplit("__", 1)[-1],
-                                    "report": str(output.relative_to(COST_REPORTS_DIR)),
-                                    "status": "completed",
-                                }
-                            )
+                            outputs = rebuild_markdown(topic)
                         print(f"Rebuilt Markdown for {topic}: {', '.join(str(path) for path in outputs)}")
                     except Exception as error:
                         failed.append(topic)
                         print(f"FAILED to rebuild Markdown for {topic}: {error}", file=sys.stderr)
+
+            if selection.costs:
+                for topic in successful:
+                    if topic in failed:
+                        continue
+                    try:
+                        output = rewrite_generation_cost(topic)
+                        print(f"Recomputed generation costs for {topic}: {output}")
+                    except Exception as error:
+                        failed.append(topic)
+                        print(f"FAILED to recompute costs for {topic}: {error}", file=sys.stderr)
         finally:
             # The normal agent moves queued topics into ``used``.  Regeneration
             # must not change this persistent queue or its ordering.
@@ -614,6 +615,18 @@ def main() -> int:
 
         add_created_paths_to_backup(generated_image_paths(topics))
         succeeded = [topic for topic in successful if topic not in failed]
+        reported_topics = {entry["topic"] for entry in batch_reports}
+        for topic in topics:
+            if topic not in reported_topics:
+                batch_reports.append(
+                    {
+                        "topic": topic,
+                        "slug": slugify(topic),
+                        "runId": None,
+                        "report": None,
+                        "status": "failed" if topic in failed else "completed",
+                    }
+                )
         report_cost = 0.0
         for entry in batch_reports:
             if not entry.get("report"):
@@ -623,20 +636,23 @@ def main() -> int:
                 report_cost += float(report_data.get("totals", {}).get("costUsd", 0))
             except (ValueError, TypeError):
                 pass
-        batch_output = write_rerun_batch(
-            {
-                "version": 1,
-                "batchId": batch_id,
-                "trigger": "rerun_topics",
-                "options": option_names or ["normal"],
-                "startedAt": datetime_now_iso(batch_started_at),
-                "finishedAt": datetime_now_iso(time.time()),
-                "wallTimeMs": round((time.time() - batch_started_at) * 1000),
-                "topics": batch_reports,
-                "totals": {"costUsd": round(report_cost, 8), "topicCount": len(batch_reports)},
-            }
-        )
-        print(f"Wrote rerun cost manifest to {batch_output}")
+        if any(entry.get("report") for entry in batch_reports):
+            batch_output = write_rerun_batch(
+                {
+                    "version": 1,
+                    "batchId": batch_id,
+                    "trigger": "rerun_topics",
+                    "options": option_names or ["normal"],
+                    "startedAt": datetime_now_iso(batch_started_at),
+                    "finishedAt": datetime_now_iso(time.time()),
+                    "wallTimeMs": round((time.time() - batch_started_at) * 1000),
+                    "topics": batch_reports,
+                    "totals": {"costUsd": round(report_cost, 8), "topicCount": len(batch_reports)},
+                }
+            )
+            print(f"Wrote rerun cost manifest to {batch_output}")
+        else:
+            print("No model calls were made; no cost manifest was written.")
         print(f"\nCompleted {len(succeeded)} topic(s); {len(failed)} failed.")
         if failed:
             print("Failed topics: " + ", ".join(dict.fromkeys(failed)), file=sys.stderr)
