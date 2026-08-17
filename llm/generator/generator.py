@@ -218,6 +218,7 @@ class ImageGenerator:
         self._output_dir = output_dir
         self._size = size
         self._output_format = output_format
+        logger.info(f"Created Image generator with model '{self._selected_model()}'")
 
     def models(self) -> Mapping[str, str]:
         return self._models

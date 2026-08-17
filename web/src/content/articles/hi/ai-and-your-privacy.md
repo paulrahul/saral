@@ -7,11 +7,11 @@ tags:
   - "एआई बुनियादी बातें"
   - "निजता (गोपनीयता)"
   - "दैनिक जीवन में एआई"
-image: "/images/ai-and-your-privacy-6bd408bf6d.png"
+image: "/images/ai-and-your-privacy-e67db167e2.jpg"
 imageAlt: "पाठ के लिए सरल शैक्षिक चित्रण: एआई और आपकी निजता (गोपनीयता)।"
 imageWidth: 1200
 imageHeight: 630
-imageMediaType: "image/png"
+imageMediaType: "image/jpeg"
 sourceModel: "Z.ai: GLM 5.2"
 translationOf: "ai-and-your-privacy"
 ---

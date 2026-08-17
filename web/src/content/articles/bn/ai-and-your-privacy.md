@@ -7,11 +7,11 @@ tags:
   - "এআই বেসিক"
   - "গোপনীয়তা"
   - "দৈনন্দিন জীবনে এআই"
-image: "/images/ai-and-your-privacy-6bd408bf6d.png"
+image: "/images/ai-and-your-privacy-e67db167e2.jpg"
 imageAlt: "পাঠের জন্য সহজ শিক্ষামূলক চিত্র: এআই এবং আপনার গোপনীয়তা।"
 imageWidth: 1200
 imageHeight: 630
-imageMediaType: "image/png"
+imageMediaType: "image/jpeg"
 sourceModel: "Z.ai: GLM 5.2"
 translationOf: "ai-and-your-privacy"
 ---

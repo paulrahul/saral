@@ -13,6 +13,7 @@ from urllib.parse import urlencode, urlsplit, urlunsplit
 
 import httpx
 
+from llm.config import load_model_config
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
 from llm.exporter import (
     TRANSLATION_LANGUAGES,
@@ -116,52 +117,44 @@ class EasyTutorAgent:
 
     def __init__(self):
         logger.info("Initializing EasyTutorAgent")
+        models = load_model_config()
 
         self._topic_generator = TopicGenerator(
             context=self.CONTEXT,
-            models={
-                "Z.ai: GLM 5.2": "z-ai/glm-5.2",
-                "DeepSeek V4 Flash 0731": "deepseek/deepseek-v4-flash-0731",
-                "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna",
-            })
+            models=models["topic_generator"],
+        )
         self._content_generator = ContentGenerator(
             context=self.CONTEXT,
-            models={
-                "Z.ai: GLM 5.2": "z-ai/glm-5.2",
-                "OpenAI: GPT-5.6 Luna": "openai/gpt-5.6-luna",
-            })
+            models=models["content_generator"],
+        )
         self._tag_generator = TagGenerator(
             context=self.CONTEXT,
             broad_tags=BROAD_TAGS,
-            models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"}
+            models=models["tag_generator"],
         )
         self._image_generator = ImageGenerator(
             context=self.CONTEXT,
-
-            models={"Google: Nano Banana 2 Lite": "google/gemini-3.1-flash-lite-image"},
-            # models={"Recraft: Recraft V4.1 Utility Pro": "recraft/recraft-v4.1-utility-pro"},
-            # models={"Recraft: Recraft V4 Vector": "recraft/recraft-v4-vector"},
-
+            models=models["image_generator"],
             output_dir=Path(__file__).resolve().parents[1] / "web" / "public" / "images",
         )
         self._translator = Translator(
             context=self.CONTEXT,
-
-            models={"DeepSeek: DeepSeek V4 Flash 0423": "deepseek/deepseek-v4-flash"},
-            # models={"Z.ai: GLM 5.2": "z-ai/glm-5.2"},
-
+            models=models["translator"],
             prefix="Lesson Translator",
         )
 
         self._topic_evaluator = TopicEvaluator(
             context=self.CONTEXT,
-            models={"MoonshotAI: Kimi K3": "moonshotai/kimi-k3"})
+            models=models["topic_evaluator"],
+        )
         self._content_evaluator = ContentEvaluator(
             context=self.CONTEXT,
-            models={"MoonshotAI: Kimi K3": "moonshotai/kimi-k3"})
+            models=models["content_evaluator"],
+        )
         self._tag_evaluator = TagEvaluator(
             context=self.CONTEXT,
-            models={"MoonshotAI: Kimi K3": "moonshotai/kimi-k3"})
+            models=models["tag_evaluator"],
+        )
 
     @staticmethod
     def _load_json_object(output: str, source: str) -> dict:
