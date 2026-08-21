@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 import httpx
 from openai import AsyncOpenAI
 
-from llm.metrics import OpenRouterCostMeter
+from llm.observability import OpenRouterCostMeter
 
 
 logger = logging.getLogger(__name__)

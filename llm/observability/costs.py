@@ -17,7 +17,7 @@ from typing import Any
 import httpx
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 COST_REPORTS_DIR = REPO_ROOT / "llm" / "generated" / "cost-reports"
 LOCAL_STAGE_KEYS = {"markdown_rebuild"}
 

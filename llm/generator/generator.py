@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 import httpx
 from PIL import Image, ImageOps, UnidentifiedImageError
 
-from llm.metrics import OpenRouterCostMeter
+from llm.observability import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 

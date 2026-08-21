@@ -3,7 +3,7 @@
 from collections.abc import Mapping
 import logging
 
-from llm.metrics import OpenRouterCostMeter
+from llm.observability import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 

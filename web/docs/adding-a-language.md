@@ -105,7 +105,7 @@ LANGUAGES = {
 Add the code to both lists that decide which Markdown translation files must
 exist:
 
-- `TRANSLATION_LANGUAGES` in [`llm/exporter.py`](../../llm/exporter.py)
+- `TRANSLATION_LANGUAGES` in [`llm/publishing/exporter.py`](../../llm/publishing/exporter.py)
 - `TRANSLATION_LANGUAGES` in [`tools/rerun_topics.py`](../../tools/rerun_topics.py)
 
 For example:

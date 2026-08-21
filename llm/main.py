@@ -4,27 +4,22 @@ import asyncio
 import json
 import logging
 import os
-import subprocess
-import time
-from dataclasses import dataclass
-from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlencode, urlsplit, urlunsplit
 
-import httpx
-
-from llm.config import load_model_config
+from llm.configuration import load_model_config
 from llm.evaluator import ContentEvaluator, TagEvaluator, TopicEvaluator
-from llm.exporter import (
+from llm.publishing import (
+    Publication,
     TRANSLATION_LANGUAGES,
     article_path,
     attach_generation_cost,
     export_approved_topic,
     is_topic_exported,
     missing_translation_languages,
+    publish as publish_artifacts,
 )
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
-from llm.metrics import OpenRouterCostMeter, reconstruct_generation_cost
+from llm.observability import OpenRouterCostMeter, reconstruct_generation_cost
 from llm.translator import Translator
 from llm.util import (
     AgentHelper,
@@ -53,55 +48,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-@dataclass(frozen=True)
-class Publication:
-    """The exact local artifacts and deployed title for one article."""
-
-    topic: str
-    title: str
-    paths: tuple[Path, ...]
-
-
-class _LatestArticleTitleParser(HTMLParser):
-    """Extract the first article heading from the homepage's latest section."""
-
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self._latest_depth = 0
-        self._heading_depth = 0
-        self._title_parts: list[str] = []
-        self.title: str | None = None
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        classes = dict(attrs).get("class", "") or ""
-        if self._latest_depth:
-            self._latest_depth += 1
-        elif tag == "section" and "latest" in classes.split():
-            self._latest_depth = 1
-
-        if self._latest_depth and self.title is None:
-            if self._heading_depth:
-                self._heading_depth += 1
-            elif tag == "h2":
-                self._heading_depth = 1
-
-    def handle_endtag(self, tag: str) -> None:
-        if self._heading_depth:
-            self._heading_depth -= 1
-            if self._heading_depth == 0 and tag == "h2":
-                self.title = " ".join("".join(self._title_parts).split())
-
-        if self._latest_depth:
-            self._latest_depth -= 1
-
-    def handle_data(self, data: str) -> None:
-        if self._heading_depth:
-            self._title_parts.append(data)
-
-
 class EasyTutorAgent:
     REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-    SITE_URL = "https://saralai-seven.vercel.app/"
 
     CONTEXT = """
     you are a tech educator specialising in tech education for elderly, poor and
@@ -592,133 +540,9 @@ class EasyTutorAgent:
             raise ValueError(f"Unexpected public image path for topic {topic!r}: {image_path!r}")
         public_image = self.REPOSITORY_ROOT / "web" / "public" / image_path.lstrip("/")
         return Publication(
-            topic=topic,
             title=topic,
             paths=tuple(dict.fromkeys([*outputs, public_image])),
         )
-
-    @staticmethod
-    def _run_git(repository: Path, *arguments: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-        environment = {**os.environ, "GIT_TERMINAL_PROMPT": "0"}
-        result = subprocess.run(
-            ("git", *arguments),
-            cwd=repository,
-            env=environment,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if check and result.returncode != 0:
-            detail = result.stderr.strip() or result.stdout.strip() or "unknown git error"
-            raise RuntimeError(f"git {' '.join(arguments)} failed: {detail}")
-        return result
-
-    @staticmethod
-    def _latest_article_title(document: str) -> str | None:
-        parser = _LatestArticleTitleParser()
-        parser.feed(document)
-        parser.close()
-        return parser.title
-
-    @staticmethod
-    def _cache_busted_url(url: str, revision: str) -> str:
-        parts = urlsplit(url)
-        query = urlencode({"saral_revision": revision})
-        return urlunsplit((parts.scheme, parts.netloc, parts.path or "/", query, parts.fragment))
-
-    async def _wait_for_publication(self, expected_title: str, revision: str) -> None:
-        site_url = os.getenv("SARAL_SITE_URL", self.SITE_URL)
-        timeout = float(os.getenv("SARAL_DEPLOY_TIMEOUT_SECONDS", "300"))
-        poll_interval = float(os.getenv("SARAL_DEPLOY_POLL_SECONDS", "10"))
-        if timeout <= 0 or poll_interval <= 0:
-            raise ValueError("Deployment timeout and poll interval must be positive")
-
-        deadline = time.monotonic() + timeout
-        last_observation = "the site did not return a response"
-        async with httpx.AsyncClient(follow_redirects=True, timeout=20) as client:
-            while True:
-                try:
-                    response = await client.get(self._cache_busted_url(site_url, revision))
-                    response.raise_for_status()
-                    deployed_title = self._latest_article_title(response.text)
-                    if deployed_title == expected_title:
-                        logger.info("Verified deployed article '%s' at %s", expected_title, site_url)
-                        return
-                    last_observation = (
-                        f"latest article was {deployed_title!r}"
-                        if deployed_title is not None
-                        else "the latest article title could not be found"
-                    )
-                except httpx.HTTPError as error:
-                    last_observation = str(error)
-
-                remaining = deadline - time.monotonic()
-                if remaining <= 0:
-                    raise TimeoutError(
-                        f"Timed out after {timeout:g}s waiting for {expected_title!r} at "
-                        f"{site_url}: {last_observation}"
-                    )
-                await asyncio.sleep(min(poll_interval, remaining))
-
-    async def _publish(self, publication: Publication) -> None:
-        repository = self.REPOSITORY_ROOT
-        discovered_root = await asyncio.to_thread(
-            self._run_git, repository, "rev-parse", "--show-toplevel"
-        )
-        if Path(discovered_root.stdout.strip()).resolve() != repository:
-            raise RuntimeError(f"Expected git repository root to be {repository}")
-
-        relative_paths: list[str] = []
-        for path in publication.paths:
-            resolved = path.resolve()
-            try:
-                relative = resolved.relative_to(repository)
-            except ValueError as error:
-                raise ValueError(f"Refusing to publish path outside the repository: {path}") from error
-            if not resolved.is_file():
-                raise FileNotFoundError(f"Publication artifact does not exist: {resolved}")
-            relative_paths.append(relative.as_posix())
-
-        # Stage only this publication's artifacts. Other working-tree and index
-        # changes are preserved, and `git commit --only` excludes them.
-        await asyncio.to_thread(self._run_git, repository, "add", "--", *relative_paths)
-        staged = await asyncio.to_thread(
-            self._run_git,
-            repository,
-            "diff",
-            "--cached",
-            "--name-status",
-            "--",
-            *relative_paths,
-        )
-        if staged.stdout.strip():
-            logger.info("Publishing these article artifacts:\n%s", staged.stdout.rstrip())
-            commit = await asyncio.to_thread(
-                self._run_git,
-                repository,
-                "commit",
-                "--only",
-                "-m",
-                f"content(publish): {publication.title}",
-                "--",
-                *relative_paths,
-            )
-            logger.info("Created publication commit: %s", commit.stdout.strip())
-        else:
-            logger.info("Publication artifacts have no uncommitted changes; using the current commit")
-
-        branch = os.getenv("SARAL_PUBLISH_BRANCH") or (
-            await asyncio.to_thread(self._run_git, repository, "branch", "--show-current")
-        ).stdout.strip()
-        if not branch:
-            raise RuntimeError("Cannot publish from a detached HEAD without SARAL_PUBLISH_BRANCH")
-        remote = os.getenv("SARAL_PUBLISH_REMOTE", "origin")
-        await asyncio.to_thread(self._run_git, repository, "push", remote, f"HEAD:{branch}")
-        revision = (
-            await asyncio.to_thread(self._run_git, repository, "rev-parse", "HEAD")
-        ).stdout.strip()
-        logger.info("Pushed publication revision %s to %s/%s", revision, remote, branch)
-        await self._wait_for_publication(publication.title, revision)
 
     async def _finish_meter(
         self,
@@ -796,7 +620,7 @@ class EasyTutorAgent:
                     else:
                         logger.info("Attached latest cost data to %s", output)
                 if publish:
-                    await self._publish(publication)
+                    await publish_artifacts(publication)
                     self._remove_used_topic(main_topic, sub_topic)
                 else:
                     logger.info(

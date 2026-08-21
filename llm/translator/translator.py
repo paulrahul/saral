@@ -6,7 +6,7 @@ from collections.abc import Mapping
 
 from agents import Agent
 
-from llm.metrics import OpenRouterCostMeter
+from llm.observability import OpenRouterCostMeter
 from llm.util import AgentHelper
 
 

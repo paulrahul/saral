@@ -9,7 +9,7 @@ from collections.abc import Mapping
 from llm.util import read_approved_content, read_content, read_generated_image
 
 
-ARTICLES_DIR = Path(__file__).resolve().parents[1] / "web" / "src" / "content" / "articles"
+ARTICLES_DIR = Path(__file__).resolve().parents[2] / "web" / "src" / "content" / "articles"
 TRANSLATION_LANGUAGES = ("bn", "hi")
 SUMMARY_MARKER = re.compile(r"^\s*<!--\s*saral-summary:\s*(.*?)\s*-->\s*", re.DOTALL)
 

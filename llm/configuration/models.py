@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-MODEL_CONFIG_FILE = Path(__file__).with_name("config.json")
+MODEL_CONFIG_FILE = Path(__file__).with_name("models.json")
 MODEL_COMPONENTS = (
     "topic_generator",
     "content_generator",

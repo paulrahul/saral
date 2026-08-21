@@ -1,14 +1,31 @@
 #!/usr/bin/env python3
-"""Back up, invalidate, and rerun every already-used EasyTutor topic.
+"""Back up, invalidate, and rerun already-used EasyTutor topics.
 
-The script deliberately invokes ``python -m llm.main`` for article work.  It
-only adapts the topic queue temporarily, so reruns take the same generation
-path as ordinary article runs.
+Run this script from the repository root with its virtual environment::
+
+    .venv/bin/python tools/rerun_topics.py --dry-run
+    .venv/bin/python tools/rerun_topics.py --topic "What is AI?" --markdown
+    .venv/bin/python tools/rerun_topics.py --topic "What is AI?" --images --publish
+    .venv/bin/python tools/rerun_topics.py --costs --yes
+    .venv/bin/python tools/rerun_topics.py --restore
+
+With no stage option, the normal article pipeline is rerun using every
+available cache.  Stage options invalidate only the requested stage and its
+downstream data.  ``--topic`` may be repeated; without it, every used topic is
+selected.  Runs are local by default.  ``--publish`` commits and pushes the
+final article/image artifacts once, after every selected topic succeeds.
+
+The child article process always receives ``--no-publish``.  This is
+intentional: this wrapper may still need to rebuild Markdown or costs after
+the child finishes, so publishing there would expose an intermediate result.
+``--restore`` restores local files from the latest backup; it cannot undo a
+Git commit that has already been pushed.
 """
 
 from __future__ import annotations
 
 import argparse
+import asyncio
 import copy
 import json
 import os
@@ -26,7 +43,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from llm.metrics import (
+from llm.observability import (
     COST_REPORTS_DIR,
     append_local_stage,
     reconstruct_generation_cost,
@@ -105,7 +122,17 @@ class Selection:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Rerun every used EasyTutor topic, optionally invalidating selected caches."
+        description="Rerun used EasyTutor topics, optionally invalidating selected caches.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""examples:
+  %(prog)s --dry-run
+  %(prog)s --topic "What is AI?" --markdown
+  %(prog)s --topic "What is AI?" --images --publish --yes
+  %(prog)s --costs --yes
+  %(prog)s --restore
+
+Runs stay local unless --publish is supplied. Publishing occurs once after
+all selected topics and post-processing stages succeed.""",
     )
     parser.add_argument("-c", "--content", action="store_true", help="Regenerate content and all downstream data")
     parser.add_argument("-e", "--evaluation", action="store_true", help="Re-evaluate content and regenerate downstream data")
@@ -118,6 +145,12 @@ def parse_args() -> argparse.Namespace:
         help="Recompute Markdown cost metadata from existing cost reports without model calls",
     )
     parser.add_argument("-a", "--all", action="store_true", help="Regenerate all supported data")
+    parser.add_argument(
+        "-p",
+        "--publish",
+        action="store_true",
+        help="Commit and push final article/image artifacts after the complete rerun succeeds",
+    )
     parser.add_argument(
         "--topic",
         action="append",
@@ -446,19 +479,83 @@ def rebuild_markdown(topic: str) -> list[Path]:
     # cache-management portions of this tool do not need.
     if str(REPO_ROOT) not in sys.path:
         sys.path.insert(0, str(REPO_ROOT))
-    from llm.exporter import rebuild_exported_topic
+    from llm.publishing import rebuild_exported_topic
 
     return rebuild_exported_topic(topic)
 
 
 def rewrite_generation_cost(topic: str) -> Path:
     """Repair only the English article's cost metadata from local reports."""
-    from llm.exporter import attach_generation_cost
+    from llm.publishing import attach_generation_cost
 
     return attach_generation_cost(topic, reconstruct_generation_cost(topic))
 
 
-def print_plan(topics: list[str], selection: Selection, backup_paths: set[Path]) -> None:
+def publication_paths(
+    topics: list[str],
+    selection: Selection,
+    original_images: dict[str, Any],
+) -> tuple[Path, ...]:
+    """Return only artifacts affected by the selected rerun stages."""
+    paths: set[Path] = set()
+    for topic in topics:
+        if selection.requires_agent or selection.rebuild_articles:
+            paths.update(article_paths(topic))
+        elif selection.costs:
+            paths.add(article_path(topic))
+
+    if selection.requires_agent:
+        current_images = read_json_or_empty(IMAGES_FILE)
+        for topic in topics:
+            # The old path lets `git add --all` record a removed superseded
+            # image; the current path includes a newly generated image.
+            for images in (original_images, current_images):
+                asset = image_asset_path(images.get(topic))
+                if asset is not None:
+                    paths.add(asset)
+    return tuple(sorted(paths))
+
+
+def superseded_image_paths(
+    topics: list[str],
+    selection: Selection,
+    original_images: dict[str, Any],
+) -> tuple[Path, ...]:
+    """Return old image paths intentionally removed by invalidation."""
+    if not selection.invalidate_images:
+        return ()
+    current_images = read_json_or_empty(IMAGES_FILE)
+    removed: list[Path] = []
+    for topic in topics:
+        old_asset = image_asset_path(original_images.get(topic))
+        current_asset = image_asset_path(current_images.get(topic))
+        if old_asset is not None and old_asset != current_asset and not old_asset.exists():
+            removed.append(old_asset)
+    return tuple(removed)
+
+
+def publish_rerun(
+    topics: list[str],
+    paths: tuple[Path, ...],
+    removed_paths: tuple[Path, ...],
+) -> str:
+    """Publish the wrapper's final output without assuming it is homepage-latest."""
+    # Keep publishing imports lazy so --help and --dry-run do not initialize
+    # configured generation agents through the exporter package.
+    from llm.publishing import Publication, publish
+
+    title = topics[0] if len(topics) == 1 else f"rerun {len(topics)} topics"
+    publication = Publication(title=title, paths=paths, removed_paths=removed_paths)
+    return asyncio.run(publish(publication, verify_latest=False))
+
+
+def print_plan(
+    topics: list[str],
+    selection: Selection,
+    backup_paths: set[Path],
+    *,
+    should_publish: bool,
+) -> None:
     options = [
         name
         for name, enabled in (
@@ -475,6 +572,7 @@ def print_plan(topics: list[str], selection: Selection, backup_paths: set[Path])
     for topic in topics:
         print(f"  - {topic}")
     print("Requested work: " + (", ".join(options) if options else "normal rerun (no invalidation)"))
+    print(f"Publish final artifacts: {'yes' if should_publish else 'no'}")
     print(f"Files in latest backup: {len(backup_paths)}")
     if selection.content:
         print("Content invalidation also refreshes approvals, images, translations, and articles.")
@@ -524,13 +622,14 @@ def main() -> int:
         topics = requested_topics or all_used_topics
 
         paths = affected_paths(topics, selection)
-        print_plan(topics, selection, paths)
+        print_plan(topics, selection, paths, should_publish=args.publish)
         if args.dry_run:
             return 0
         confirm(args)
         backup = create_backup(paths, sys.argv[1:])
         print(f"Created backup at {backup}")
 
+        original_images = read_json_or_empty(IMAGES_FILE)
         invalidate(topics, selection)
         successful: list[str] = []
         failed: list[str] = []
@@ -655,8 +754,18 @@ def main() -> int:
             print("No model calls were made; no cost manifest was written.")
         print(f"\nCompleted {len(succeeded)} topic(s); {len(failed)} failed.")
         if failed:
+            if args.publish:
+                print("Publishing skipped because at least one selected topic failed.", file=sys.stderr)
             print("Failed topics: " + ", ".join(dict.fromkeys(failed)), file=sys.stderr)
             return 1
+        if args.publish:
+            removed_paths = superseded_image_paths(succeeded, selection, original_images)
+            revision = publish_rerun(
+                succeeded,
+                publication_paths(succeeded, selection, original_images),
+                removed_paths,
+            )
+            print(f"Published final rerun artifacts at revision {revision}")
         return 0
     except ValueError as error:
         print(f"Error: {error}", file=sys.stderr)
