@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import os
+import time
 from collections.abc import Sequence
-from typing import Any
+from typing import Any, Callable
 
 import httpx
 from openai import AsyncOpenAI, OpenAI
@@ -92,6 +93,26 @@ class OpenRouterEmbeddingClient:
         return vectors
 
     @staticmethod
+    def _usage(response: Any) -> dict[str, Any]:
+        usage = getattr(response, "usage", None)
+        if usage is None:
+            return {}
+        if hasattr(usage, "model_dump"):
+            value = usage.model_dump()
+        elif isinstance(usage, dict):
+            value = dict(usage)
+        else:
+            value = {
+                key: getattr(usage, key)
+                for key in ("prompt_tokens", "total_tokens", "cost")
+                if getattr(usage, key, None) is not None
+            }
+        extra = getattr(usage, "model_extra", None)
+        if isinstance(extra, dict):
+            value.update(extra)
+        return value
+
+    @staticmethod
     def _validate_texts(texts: Sequence[str]) -> list[str]:
         values = [text.strip() for text in texts]
         if not values:
@@ -100,7 +121,12 @@ class OpenRouterEmbeddingClient:
             raise ValueError("Embedding input texts must not be empty.")
         return values
 
-    def embed_documents(self, texts: Sequence[str]) -> list[list[float]]:
+    def embed_documents(
+        self,
+        texts: Sequence[str],
+        *,
+        on_batch: Callable[[dict[str, Any], int, int], None] | None = None,
+    ) -> list[list[float]]:
         """Synchronously embed document texts in stable input order."""
 
         values = self._validate_texts(texts)
@@ -108,8 +134,12 @@ class OpenRouterEmbeddingClient:
         client = self._get_sync_client()
         for start in range(0, len(values), self.batch_size):
             batch = values[start : start + self.batch_size]
+            started = time.perf_counter()
             response = client.embeddings.create(model=self.model, input=batch)
+            elapsed_ms = round((time.perf_counter() - started) * 1000)
             vectors.extend(self._vectors(response, len(batch)))
+            if on_batch is not None:
+                on_batch(self._usage(response), elapsed_ms, len(batch))
         return vectors
 
     async def embed_query(self, text: str) -> list[float]:

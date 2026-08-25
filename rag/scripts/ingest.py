@@ -23,7 +23,7 @@ import tempfile
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import yaml
 
@@ -32,13 +32,17 @@ from rag.app.embeddings import OpenRouterEmbeddingClient
 
 DEFAULT_MODEL = "openai/text-embedding-3-small"
 DEFAULT_SITE_URL = "https://saralai-seven.vercel.app"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 HEADING_PATTERN = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+#+)?\s*$")
 HTML_COMMENT_PATTERN = re.compile(r"<!--.*?-->", re.DOTALL)
 MARKDOWN_IMAGE_PATTERN = re.compile(r"!\[([^\]]*)\]\([^)]*\)")
 MARKDOWN_LINK_PATTERN = re.compile(r"\[([^\]]+)\]\([^)]*\)")
 INLINE_MARKDOWN_PATTERN = re.compile(r"(`+|\*\*|__|\*|_)")
 WHITESPACE_PATTERN = re.compile(r"\s+")
+
+
+def _embedding_text_hash(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -365,6 +369,7 @@ def chunk_articles(
                         "heading": section.heading,
                         "part": part_number,
                         "text": text,
+                        "contentHash": _embedding_text_hash(text),
                         "wordCount": len(text.split()),
                         "sourcePath": article.source_path,
                         "sourceHash": article.source_hash,
@@ -386,6 +391,7 @@ def chunk_articles(
                         "heading": "AI production cost and models",
                         "part": part_number,
                         "text": text,
+                        "contentHash": _embedding_text_hash(text),
                         "wordCount": len(text.split()),
                         "sourcePath": article.source_path,
                         "sourceHash": article.source_hash,
@@ -410,6 +416,7 @@ def _create_embeddings(
     chunks: list[dict[str, Any]],
     model_name: str,
     embedding_client: OpenRouterEmbeddingClient | None = None,
+    on_embedding_batch: Callable[[dict[str, Any], int, int], None] | None = None,
 ):
     try:
         import numpy as np
@@ -426,10 +433,13 @@ def _create_embeddings(
             f"Embedding client model '{client.model}' does not match requested model '{model_name}'."
         )
     try:
-        vectors = np.asarray(
-            client.embed_documents([str(chunk["text"]) for chunk in chunks]),
-            dtype="float32",
+        texts = [str(chunk["text"]) for chunk in chunks]
+        created = (
+            client.embed_documents(texts, on_batch=on_embedding_batch)
+            if on_embedding_batch is not None and isinstance(client, OpenRouterEmbeddingClient)
+            else client.embed_documents(texts)
         )
+        vectors = np.asarray(created, dtype="float32")
     finally:
         if owns_client:
             client.close()
@@ -440,6 +450,101 @@ def _create_embeddings(
     if np.any(norms == 0):
         raise RuntimeError("OpenRouter returned a zero-length document embedding.")
     return vectors / norms
+
+
+def _load_reusable_vectors(
+    output_dir: Path,
+    model_name: str,
+    *,
+    full_rebuild: bool,
+) -> tuple[dict[str, Any], int]:
+    """Load vectors keyed by the exact text embedded in the previous index."""
+
+    if full_rebuild:
+        return {}, 0
+    chunks_path = output_dir / "chunks.json"
+    vectors_path = output_dir / "embeddings.npy"
+    manifest_path = output_dir / "index-manifest.json"
+    existing_paths = (chunks_path, vectors_path, manifest_path)
+    if not any(path.exists() for path in existing_paths):
+        return {}, 0
+    if not all(path.is_file() for path in existing_paths):
+        raise ValueError("The existing RAG index is incomplete; use --full-rebuild to replace it.")
+
+    import numpy as np
+
+    try:
+        document = json.loads(chunks_path.read_text(encoding="utf-8"))
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        vectors = np.load(vectors_path, allow_pickle=False)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        raise ValueError("The existing RAG index is invalid; use --full-rebuild to replace it.") from error
+    old_chunks = document.get("chunks") if isinstance(document, dict) else None
+    embedding = manifest.get("embedding") if isinstance(manifest, dict) else None
+    if not isinstance(old_chunks, list) or not isinstance(embedding, dict):
+        raise ValueError("The existing RAG index is invalid; use --full-rebuild to replace it.")
+    if embedding.get("model") != model_name or embedding.get("status") != "created":
+        return {}, len(old_chunks)
+    if vectors.ndim != 2 or vectors.shape[0] != len(old_chunks):
+        raise ValueError("The existing RAG vectors do not match its chunks; use --full-rebuild.")
+
+    reusable: dict[str, Any] = {}
+    for index, chunk in enumerate(old_chunks):
+        if not isinstance(chunk, dict) or not isinstance(chunk.get("text"), str):
+            raise ValueError("The existing RAG chunks are invalid; use --full-rebuild.")
+        content_hash = chunk.get("contentHash") or _embedding_text_hash(chunk["text"])
+        reusable.setdefault(str(content_hash), vectors[index])
+    return reusable, len(old_chunks)
+
+
+def _create_incremental_embeddings(
+    chunks: list[dict[str, Any]],
+    output_dir: Path,
+    model_name: str,
+    *,
+    full_rebuild: bool,
+    embedding_client: OpenRouterEmbeddingClient | None,
+    on_embedding_batch: Callable[[dict[str, Any], int, int], None] | None,
+) -> tuple[Any, int, int, int]:
+    import numpy as np
+
+    reusable, previous_count = _load_reusable_vectors(
+        output_dir,
+        model_name,
+        full_rebuild=full_rebuild,
+    )
+    reused_indices: dict[int, Any] = {}
+    missing_indices: list[int] = []
+    for index, chunk in enumerate(chunks):
+        vector = reusable.get(str(chunk["contentHash"]))
+        if vector is None:
+            missing_indices.append(index)
+        else:
+            reused_indices[index] = vector
+
+    created = None
+    if missing_indices:
+        created = _create_embeddings(
+            [chunks[index] for index in missing_indices],
+            model_name,
+            embedding_client,
+            on_embedding_batch,
+        )
+    dimensions = (
+        int(created.shape[1])
+        if created is not None
+        else len(next(iter(reused_indices.values())))
+    )
+    vectors = np.empty((len(chunks), dimensions), dtype="float32")
+    for index, vector in reused_indices.items():
+        if len(vector) != dimensions:
+            raise ValueError("Reusable embedding dimensions do not match newly created embeddings.")
+        vectors[index] = vector
+    if created is not None:
+        for created_index, chunk_index in enumerate(missing_indices):
+            vectors[chunk_index] = created[created_index]
+    reused_count = len(reused_indices)
+    return vectors, reused_count, len(missing_indices), max(0, previous_count - reused_count)
 
 
 def _atomic_save_numpy(path: Path, vectors: Any) -> None:
@@ -462,7 +567,9 @@ def ingest(
     min_words: int = 40,
     overlap_words: int = 30,
     skip_embeddings: bool = False,
+    full_rebuild: bool = False,
     embedding_client: OpenRouterEmbeddingClient | None = None,
+    on_embedding_batch: Callable[[dict[str, Any], int, int], None] | None = None,
 ) -> dict[str, Any]:
     """Create artifacts and return the manifest, for use by the CLI and tests."""
 
@@ -479,10 +586,34 @@ def ingest(
 
     embedding: dict[str, Any] = {"model": model_name, "normalized": True}
     if skip_embeddings:
-        embedding["status"] = "skipped"
+        embedding.update({"status": "skipped", "reusedChunks": 0, "embeddedChunks": 0, "removedChunks": 0})
     else:
-        vectors = _create_embeddings(chunks, model_name, embedding_client)
-        embedding.update({"status": "created", "dimensions": int(vectors.shape[1])})
+        batch_count = 0
+
+        def record_batch(usage: dict[str, Any], elapsed_ms: int, input_count: int) -> None:
+            nonlocal batch_count
+            batch_count += 1
+            if on_embedding_batch is not None:
+                on_embedding_batch(usage, elapsed_ms, input_count)
+
+        vectors, reused_count, embedded_count, removed_count = _create_incremental_embeddings(
+            chunks,
+            output_dir,
+            model_name,
+            full_rebuild=full_rebuild,
+            embedding_client=embedding_client,
+            on_embedding_batch=record_batch,
+        )
+        embedding.update(
+            {
+                "status": "created",
+                "dimensions": int(vectors.shape[1]),
+                "reusedChunks": reused_count,
+                "embeddedChunks": embedded_count,
+                "removedChunks": removed_count,
+                "requestCount": batch_count,
+            }
+        )
 
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
@@ -527,6 +658,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-words", type=int, default=40, help="Merge sections shorter than this many words.")
     parser.add_argument("--overlap-words", type=int, default=30, help="Word overlap when splitting long sections.")
     parser.add_argument("--skip-embeddings", action="store_true", help="Write chunks and manifest without loading a model.")
+    parser.add_argument(
+        "--full-rebuild",
+        action="store_true",
+        help="Ignore reusable vectors and recreate embeddings for every chunk.",
+    )
     return parser.parse_args()
 
 
@@ -541,12 +677,19 @@ def main() -> None:
         min_words=args.min_words,
         overlap_words=args.overlap_words,
         skip_embeddings=args.skip_embeddings,
+        full_rebuild=args.full_rebuild,
     )
     print(f"Indexed {manifest['articleCount']} English articles into {manifest['chunkCount']} chunks.")
     print(f"Wrote {args.output / 'chunks.json'}")
     print(f"Wrote {args.output / 'index-manifest.json'}")
     if manifest["embedding"]["status"] == "created":
         print(f"Wrote {args.output / 'embeddings.npy'} ({manifest['embedding']['dimensions']} dimensions)")
+        print(
+            "Embedding work: "
+            f"{manifest['embedding']['embeddedChunks']} created, "
+            f"{manifest['embedding']['reusedChunks']} reused, "
+            f"{manifest['embedding']['removedChunks']} removed."
+        )
     else:
         print("Embeddings were skipped; run again without --skip-embeddings to create embeddings.npy.")
 

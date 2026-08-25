@@ -19,6 +19,7 @@ from llm.publishing import (
     publish as publish_artifacts,
 )
 from llm.generator import ContentGenerator, ImageGenerator, TagGenerator, TopicGenerator
+from llm.ingestion import run_metered_ingestion
 from llm.observability import OpenRouterCostMeter, reconstruct_generation_cost
 from llm.translator import Translator
 from llm.util import (
@@ -565,7 +566,12 @@ class EasyTutorAgent:
                 return None
             return meter.display_cost()
 
-    async def run(self, generate_subtopic: bool = False, publish: bool = True) -> None:
+    async def run(
+        self,
+        generate_subtopic: bool = False,
+        publish: bool = True,
+        ingest_articles: bool = True,
+    ) -> None:
         logger.info("Starting EasyTutorAgent run")
         main_topic = "Teaching AI"
 
@@ -619,6 +625,26 @@ class EasyTutorAgent:
                         logger.exception("Could not attach cost data to the exported article")
                     else:
                         logger.info("Attached latest cost data to %s", output)
+                if ingest_articles:
+                    ingestion = await run_metered_ingestion(
+                        trigger=os.getenv("SARAL_RUN_TRIGGER", "normal"),
+                        main_topic=main_topic,
+                        topics=[sub_topic],
+                        article_run_id=meter.run_id,
+                    )
+                    publication = Publication(
+                        title=publication.title,
+                        paths=tuple(dict.fromkeys([*publication.paths, *ingestion.paths])),
+                        removed_paths=publication.removed_paths,
+                    )
+                    logger.info(
+                        "Updated RAG index (%s embedded, %s reused); cost report: %s",
+                        ingestion.manifest["embedding"].get("embeddedChunks"),
+                        ingestion.manifest["embedding"].get("reusedChunks"),
+                        ingestion.report_path,
+                    )
+                else:
+                    logger.info("RAG ingestion deferred to the parent workflow")
                 if publish:
                     await publish_artifacts(publication)
                     self._remove_used_topic(main_topic, sub_topic)
@@ -640,6 +666,17 @@ if __name__ == "__main__":
         action='store_true',
         help='Generate article artifacts without committing, pushing, or verifying deployment',
     )
+    parser.add_argument(
+        '--defer-ingestion',
+        action='store_true',
+        help='Skip this process ingestion pass because a parent batch will run it once later',
+    )
     args = parser.parse_args()
 
-    asyncio.run(EasyTutorAgent().run(args.generate_subtopic, publish=not args.no_publish))
+    asyncio.run(
+        EasyTutorAgent().run(
+            args.generate_subtopic,
+            publish=not args.no_publish,
+            ingest_articles=not args.defer_ingestion,
+        )
+    )

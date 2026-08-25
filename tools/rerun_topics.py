@@ -49,6 +49,7 @@ from llm.observability import (
     reconstruct_generation_cost,
     write_rerun_batch,
 )
+from llm.ingestion import RAG_DATA_PATHS, run_metered_ingestion
 
 
 MAIN_TOPIC = "Teaching AI"
@@ -251,7 +252,7 @@ def image_asset_path(metadata: Any) -> Path | None:
 
 def affected_paths(topics: list[str], selection: Selection) -> set[Path]:
     """Return files that must be restorable for this run."""
-    paths: set[Path] = set()
+    paths: set[Path] = set(RAG_DATA_PATHS)
     # The queue is temporarily changed around every normal agent invocation.
     if selection.requires_agent:
         paths.add(TOPICS_FILE)
@@ -448,7 +449,7 @@ def run_normal_agent(
         "SARAL_RERUN_OPTIONS": ",".join(options),
     }
     completed = subprocess.run(
-        [sys.executable, "-m", "llm.main", "--no-publish"],
+        [sys.executable, "-m", "llm.main", "--no-publish", "--defer-ingestion"],
         cwd=REPO_ROOT,
         check=False,
         env=environment,
@@ -497,7 +498,7 @@ def publication_paths(
     original_images: dict[str, Any],
 ) -> tuple[Path, ...]:
     """Return only artifacts affected by the selected rerun stages."""
-    paths: set[Path] = set()
+    paths: set[Path] = set(RAG_DATA_PATHS)
     for topic in topics:
         if selection.requires_agent or selection.rebuild_articles:
             paths.update(article_paths(topic))
@@ -580,6 +581,7 @@ def print_plan(
         print("Evaluation invalidation also refreshes images, translations, and articles.")
     elif selection.images:
         print("Image references will be rebuilt without re-translating article bodies.")
+    print("The RAG index will be refreshed once after all selected topics succeed.")
 
 
 def confirm(args: argparse.Namespace) -> None:
@@ -714,6 +716,27 @@ def main() -> int:
 
         add_created_paths_to_backup(generated_image_paths(topics))
         succeeded = [topic for topic in successful if topic not in failed]
+        ingestion_result = None
+        ingestion_error: Exception | None = None
+        if not failed:
+            try:
+                ingestion_result = asyncio.run(
+                    run_metered_ingestion(
+                        trigger="rerun_topics",
+                        main_topic=MAIN_TOPIC,
+                        topics=succeeded,
+                        rerun_batch_id=batch_id,
+                    )
+                )
+                embedding = ingestion_result.manifest["embedding"]
+                print(
+                    "Updated RAG index: "
+                    f"{embedding.get('embeddedChunks')} embedded, "
+                    f"{embedding.get('reusedChunks')} reused."
+                )
+            except Exception as error:
+                ingestion_error = error
+                print(f"FAILED to update the RAG index: {error}", file=sys.stderr)
         reported_topics = {entry["topic"] for entry in batch_reports}
         for topic in topics:
             if topic not in reported_topics:
@@ -727,15 +750,35 @@ def main() -> int:
                     }
                 )
         report_cost = 0.0
+        report_partial = False
         for entry in batch_reports:
             if not entry.get("report"):
                 continue
             try:
                 report_data = read_json(COST_REPORTS_DIR / entry["report"])
-                report_cost += float(report_data.get("totals", {}).get("costUsd", 0))
+                totals = report_data.get("totals", {})
+                report_cost += float(totals.get("costUsd", 0))
+                report_partial = report_partial or totals.get("costStatus") == "partial"
             except (ValueError, TypeError):
                 pass
-        if any(entry.get("report") for entry in batch_reports):
+        ingestion_report = None
+        if ingestion_result is not None:
+            ingestion_totals = ingestion_result.report.get("totals", {})
+            ingestion_report = {
+                "runId": ingestion_result.report.get("runId"),
+                "report": str(ingestion_result.report_path.relative_to(COST_REPORTS_DIR)),
+                "status": "completed",
+                "embeddedChunks": ingestion_result.manifest["embedding"].get("embeddedChunks"),
+                "reusedChunks": ingestion_result.manifest["embedding"].get("reusedChunks"),
+                "removedChunks": ingestion_result.manifest["embedding"].get("removedChunks"),
+                "costUsd": ingestion_result.cost_usd,
+                "costStatus": ingestion_totals.get("costStatus"),
+            }
+            report_cost += ingestion_result.cost_usd
+            report_partial = report_partial or ingestion_totals.get("costStatus") == "partial"
+        elif ingestion_error is not None:
+            ingestion_report = {"status": "failed", "error": str(ingestion_error)}
+        if any(entry.get("report") for entry in batch_reports) or ingestion_report is not None:
             batch_output = write_rerun_batch(
                 {
                     "version": 1,
@@ -746,17 +789,23 @@ def main() -> int:
                     "finishedAt": datetime_now_iso(time.time()),
                     "wallTimeMs": round((time.time() - batch_started_at) * 1000),
                     "topics": batch_reports,
-                    "totals": {"costUsd": round(report_cost, 8), "topicCount": len(batch_reports)},
+                    "ingestion": ingestion_report,
+                    "totals": {
+                        "costUsd": round(report_cost, 8),
+                        "costStatus": "partial" if report_partial else "reported",
+                        "topicCount": len(batch_reports),
+                    },
                 }
             )
             print(f"Wrote rerun cost manifest to {batch_output}")
         else:
             print("No model calls were made; no cost manifest was written.")
         print(f"\nCompleted {len(succeeded)} topic(s); {len(failed)} failed.")
-        if failed:
+        if failed or ingestion_error is not None:
             if args.publish:
-                print("Publishing skipped because at least one selected topic failed.", file=sys.stderr)
-            print("Failed topics: " + ", ".join(dict.fromkeys(failed)), file=sys.stderr)
+                print("Publishing skipped because the rerun pipeline failed.", file=sys.stderr)
+            if failed:
+                print("Failed topics: " + ", ".join(dict.fromkeys(failed)), file=sys.stderr)
             return 1
         if args.publish:
             removed_paths = superseded_image_paths(succeeded, selection, original_images)

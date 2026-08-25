@@ -70,7 +70,7 @@ class OpenRouterCostMeter:
         run_id: str | None = None,
         metadata: Mapping[str, Any] | None = None,
     ) -> None:
-        if kind not in {"article", "topic_generation"}:
+        if kind not in {"article", "topic_generation", "ingestion"}:
             raise ValueError(f"Unsupported cost-report kind: {kind!r}")
         self.kind = kind
         self.trigger = trigger
@@ -154,17 +154,20 @@ class OpenRouterCostMeter:
             "model": model,
             "generationId": generation_id,
             "requestWallTimeMs": request_wall_time_ms,
-            "costStatus": "pending" if generation_id else "reported",
+            "costStatus": "pending" if generation_id else "unavailable",
         }
         if usage:
+            cost = _as_number(usage.get("cost"))
             call.update(
                 {
-                    "costUsd": _as_number(usage.get("cost")),
+                    "costUsd": cost,
                     "inputTokens": usage.get("prompt_tokens"),
                     "outputTokens": usage.get("completion_tokens"),
                     "totalTokens": usage.get("total_tokens"),
                 }
             )
+            if cost is not None:
+                call["costStatus"] = "reported"
         calls.append(call)
 
     def record_image_call(
@@ -183,6 +186,27 @@ class OpenRouterCostMeter:
             request_wall_time_ms=request_wall_time_ms,
             usage=usage,
         )
+
+    def record_embedding_call(
+        self,
+        *,
+        stage: str,
+        model_name: str,
+        model: str,
+        usage: Mapping[str, Any] | None,
+        request_wall_time_ms: int,
+        input_count: int,
+    ) -> None:
+        """Record one OpenRouter document-embedding batch."""
+
+        self._record_call(
+            stage=stage,
+            model_name=model_name,
+            model=model,
+            request_wall_time_ms=request_wall_time_ms,
+            usage=usage,
+        )
+        self._stages[stage]["calls"][-1]["inputCount"] = input_count
 
     async def resolve_costs(self, api_key: str | None) -> None:
         """Resolve authoritative text-call costs from OpenRouter generation IDs."""
@@ -279,6 +303,8 @@ class OpenRouterCostMeter:
     def _report_directory(self) -> Path:
         if self.kind == "topic_generation":
             return COST_REPORTS_DIR / "topic-runs"
+        if self.kind == "ingestion":
+            return COST_REPORTS_DIR / "ingestion"
         if self.topic is None:
             raise ValueError("Article cost reports require a topic")
         return COST_REPORTS_DIR / "articles" / _slugify(self.topic)
@@ -288,7 +314,7 @@ class OpenRouterCostMeter:
         filename = f"{_timestamp(self._started_at)}__{self.run_id}.json"
         output = self._report_directory() / filename
         _atomic_write_json(output, document)
-        if self.kind == "article" and self._status == "completed":
+        if self.kind in {"article", "ingestion"} and self._status == "completed":
             _atomic_write_json(output.parent / "latest.json", document)
         return output
 

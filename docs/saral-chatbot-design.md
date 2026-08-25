@@ -116,11 +116,41 @@ Validate a deployment at:
 /chat/
 ```
 
+## Automated ingestion
+
+Normal article generation refreshes the RAG index after the final English
+Markdown and its generation-cost metadata have been written. The article,
+image, translations, and all three `rag/data` artifacts are committed and
+pushed together. Both Vercel projects therefore deploy from the same source
+revision.
+
+Ingestion is incremental. It compares the exact text sent to the embedding
+model with the existing index, reuses matching vectors, embeds only new or
+changed chunks, and removes obsolete chunks. Changing the embedding model
+automatically recreates every vector. A manual full rebuild remains available:
+
+```bash
+python -m rag.scripts.ingest --full-rebuild
+```
+
+`tools/rerun_topics.py` defers ingestion in its child article processes and
+refreshes the index once after the complete rerun batch succeeds. This also
+applies to Markdown or cost-only reruns, since generation-cost chunks can
+change even when lesson text does not.
+
+Every ingestion writes a separate report under
+`llm/generated/cost-reports/ingestion/`. The report records embedding calls,
+OpenRouter usage and cost, wall time, and the numbers of embedded, reused, and
+removed chunks. Rerun batch reports link this ingestion report and include its
+cost in the batch total. Ingestion costs are kept separate from article
+`generationCost` frontmatter so adding the cost cannot invalidate the index
+that produced it.
+
+If ingestion fails, article publication stops and the previous deployed index
+remains active. The locally generated article caches can be reused on the next
+run.
+
 ## Remaining Work
-
-### High priority: automate ingestion
-
-After new English articles are exported, the publishing workflow should run ingestion, review the resulting index artifacts, and commit or push the Markdown article plus all three `rag/data` files together. The Vercel chatbot deployment will then update from the same Git push.
 
 ### Low priority: abuse protection
 
