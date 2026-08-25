@@ -121,11 +121,11 @@ def create_app(settings: Settings | None = None, *, service: RagService | None =
         except Exception as error:
             raise HTTPException(status_code=502, detail="Saral could not prepare an answer right now.") from error
 
-    ui = create_ui_proxy(app, logo_url=settings.logo_url)
+    ui = create_ui_proxy(app, logo_url=settings.logo_url, site_url=settings.site_url)
     return gr.mount_gradio_app(app, ui, path="/chat", show_error=False, css=SARAL_CSS)
 
 
-def create_ui_proxy(app: FastAPI, *, logo_url: str):
+def create_ui_proxy(app: FastAPI, *, logo_url: str, site_url: str):
     """Defer service access until each Gradio event, after FastAPI startup."""
 
     class AppAnswerGenerator:
@@ -136,7 +136,7 @@ def create_ui_proxy(app: FastAPI, *, logo_url: str):
         async def ask(self, question: str, _generator, *, limit: int):
             return await app.state.service.ask(question, app.state.generator, limit=limit)
 
-    return create_ui(AppService(), AppAnswerGenerator(), logo_url=logo_url)
+    return create_ui(AppService(), AppAnswerGenerator(), logo_url=logo_url, site_url=site_url)
 
 
 app = create_app()

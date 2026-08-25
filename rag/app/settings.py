@@ -14,6 +14,7 @@ DEFAULT_ALLOWED_ORIGINS = (
     "http://127.0.0.1:4321",
 )
 DEFAULT_LOGO_URL = "https://saralai-seven.vercel.app/saral-logo.png"
+DEFAULT_SITE_URL = "https://saralai-seven.vercel.app"
 
 
 def _as_bool(value: str | None) -> bool:
@@ -29,6 +30,7 @@ class Settings:
     retrieval_only: bool
     allowed_origins: tuple[str, ...]
     logo_url: str = DEFAULT_LOGO_URL
+    site_url: str = DEFAULT_SITE_URL
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -45,6 +47,7 @@ class Settings:
             if origins
             else DEFAULT_ALLOWED_ORIGINS,
             logo_url=os.getenv("SARAL_LOGO_URL", DEFAULT_LOGO_URL),
+            site_url=os.getenv("SARAL_SITE_URL", DEFAULT_SITE_URL).rstrip("/"),
         )
 
     def validate(self) -> None:

@@ -47,6 +47,7 @@ class OpenRouterAnswerGenerator:
                         "You are Saral's experimental English lesson assistant. Answer only from the supplied "
                         "Saral lesson excerpts. Be clear, kind, and concise for a non-technical reader. "
                         "Do not invent facts, cite sources in prose, or give medical, legal, or financial advice. "
+                        "When asked which lessons fit a person or need, list the relevant supplied lesson titles first. "
                         "If the excerpts do not answer the question, say so plainly."
                     ),
                 },

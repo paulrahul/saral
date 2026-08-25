@@ -82,7 +82,28 @@ class RagService:
         words = self._normalised_words(question)
         catalogue_subject = bool(words & {"topic", "topics", "lesson", "lessons", "article", "articles", "content"})
         catalogue_request = bool(words & {"list", "show", "available", "all", "which", "what"})
-        if not catalogue_subject or not catalogue_request or bool(words & {"cost", "costs", "model", "models"}):
+        qualified_request = bool(
+            words
+            & {
+                "relevant",
+                "related",
+                "suitable",
+                "appropriate",
+                "recommend",
+                "recommended",
+                "elderly",
+                "older",
+                "senior",
+                "beginner",
+                "beginners",
+            }
+        )
+        if (
+            not catalogue_subject
+            or not catalogue_request
+            or qualified_request
+            or bool(words & {"cost", "costs", "model", "models"})
+        ):
             return None
         articles = self._index.articles()
         lines = ["Here are the Saral lessons currently available:"]

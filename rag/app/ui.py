@@ -115,6 +115,22 @@ body, .gradio-container {
   font-size: 1rem;
 }
 
+.saral-chat-back {
+  display: block;
+  margin-top: 14px;
+  text-align: right;
+  color: var(--saral-green-dark);
+  font-size: .62rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.saral-chat-back:hover {
+  color: var(--saral-heading);
+}
+
 .saral-scope-note {
   margin-top: 14px;
   padding: 14px 17px;
@@ -292,6 +308,7 @@ body, .gradio-container {
   .saral-chat-header img {
     width: 126px;
   }
+
 }
 """
 
@@ -314,7 +331,7 @@ def _sources_markdown(result: RagResult) -> str:
     return "\n".join(lines)
 
 
-def create_ui(service: RagService, generator: AnswerGenerator, *, logo_url: str) -> gr.Blocks:
+def create_ui(service: RagService, generator: AnswerGenerator, *, logo_url: str, site_url: str) -> gr.Blocks:
     """Create a framework-owned chat interface over the shared service instance."""
 
     async def respond(message: str, history: list[dict[str, str]]) -> tuple[str, list[dict[str, str]]]:
@@ -331,6 +348,7 @@ def create_ui(service: RagService, generator: AnswerGenerator, *, logo_url: str)
         return "", updated_history[-MAX_HISTORY_MESSAGES:]
 
     safe_logo_url = escape(logo_url, quote=True)
+    safe_site_url = escape(site_url, quote=True)
     with gr.Blocks(
         title="Ask Saral",
         elem_id="saral-chat-shell",
@@ -352,6 +370,7 @@ def create_ui(service: RagService, generator: AnswerGenerator, *, logo_url: str)
               Conversations are state-less i.e. conversational history is not
               remembered by the system.
             </div>
+            <a class="saral-chat-back" href="{safe_site_url}">← Back to Saral</a>
             """
         )
         chatbot = gr.Chatbot(
