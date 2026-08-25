@@ -1,0 +1,1470 @@
+{
+  "schemaVersion": 2,
+  "language": "en",
+  "chunks": [
+    {
+      "id": "ai-and-your-privacy:1",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "AI and your privacy — What is AI?",
+      "part": 1,
+      "text": "AI programs learn from information you give them, so it is important to only share safe details and keep your personal secrets private.\n\nAI (Artificial Intelligence) is like a very smart robot inside your computer or phone. It learns by looking at lots of information. When you ask it a question, it uses what it has learned to give you an answer.",
+      "wordCount": 62,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
+    },
+    {
+      "id": "ai-and-your-privacy:2",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How Does AI See My Information? — Why Does This Matter for My Privacy?",
+      "part": 1,
+      "text": "When you type a question to an AI program, it reads what you wrote. Some companies that make these AI programs might save what you type so the robot can learn even more for the next person.\n\nPrivacy means keeping your personal life a secret from strangers. If you tell the AI your bank password, your home address, or a secret about your family, that information might be saved by the company. We do not want our secrets to be saved where strangers might see them.",
+      "wordCount": 86,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
+    },
+    {
+      "id": "ai-and-your-privacy:3",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How to Keep Your Secrets Safe",
+      "part": 1,
+      "text": "1. Do not share passwords: Never tell an AI program your passwords. 2. Do not share bank details: Keep your money safe by not typing your card numbers into AI tools. 3. Do not share personal secrets: If you wouldn't tell a stranger on the street, do not tell the AI.",
+      "wordCount": 51,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
+    },
+    {
+      "id": "ai-and-your-privacy:4",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "The Golden Rule",
+      "part": 1,
+      "text": "Think of AI like a helpful stranger. You can ask it to help you write a letter or find a recipe, but never share your private information with it.",
+      "wordCount": 29,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
+    },
+    {
+      "id": "ai-and-your-privacy:cost:1",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “AI and your privacy”. Overall run — total recorded cost: USD 0.05340024; wall time: 202092 ms (202.092 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 17108 ms (17.108 seconds); recorded cost: USD 0.0055328; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1421 ms (1.421 seconds); cost status: reported; recorded cost: USD 0.0005714; provider: OpenAI; input tokens: 466; output tokens: 352; total tokens: 818; cached tokens: 0; reasoning tokens: 129; latency: 2846 ms (2.846 seconds); generation time: 4345 ms (4.345 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 3173 ms (3.173 seconds); cost status: reported; recorded cost: USD 0.0049614; provider: Friendli; input tokens: 466; output tokens: 1136; total tokens: 1602; cached tokens: 0; reasoning tokens: 757; latency: 2495 ms (2.495 seconds); generation time: 16393 ms (16.393 seconds). Stage: content evaluation. status: completed; wall time: 4108 ms (4.108 seconds); recorded cost: USD 0.0114432; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 763 ms (0.763 seconds); cost status: reported; recorded cost: USD 0.0114432; provider: Modal; input tokens: 1294; output tokens: 614; total tokens:",
+      "wordCount": 220,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
+      "totalCostUsd": 0.05340024,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0055328,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0114432,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0011772,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034578,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00066904,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-and-your-privacy:cost:2",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 763 ms (0.763 seconds); cost status: reported; recorded cost: USD 0.0114432; provider: Modal; input tokens: 1294; output tokens: 614; total tokens: 1908; cached tokens: 64; reasoning tokens: 606; latency: 712 ms (0.712 seconds); generation time: 4001 ms (4.001 seconds). Stage: tag generation. status: completed; wall time: 4427 ms (4.427 seconds); recorded cost: USD 0.0011772; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 2532 ms (2.532 seconds); cost status: reported; recorded cost: USD 0.0011772; provider: Friendli; input tokens: 770; output tokens: 67; total tokens: 837; cached tokens: 0; reasoning tokens: 48; latency: 2387 ms (2.387 seconds); generation time: 4358 ms (4.358 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 4627 ms (4.627 seconds); recorded cost: USD 0.034578; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 4097 ms (4.097 seconds); cost status: reported; recorded cost: USD 0.034578; input tokens: 960; output tokens: 1612; total tokens: 2572. Stage: translation bn. status: completed; wall time: 68901 ms (68.901 seconds); recorded cost: USD 0.00066904; cost status: reported;",
+      "wordCount": 220,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
+      "totalCostUsd": 0.05340024,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0055328,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0114432,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0011772,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034578,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00066904,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-and-your-privacy:cost:3",
+      "articleSlug": "ai-and-your-privacy",
+      "articleTitle": "AI and your privacy",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-and-your-privacy/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "cost: USD 0.034578; input tokens: 960; output tokens: 1612; total tokens: 2572. Stage: translation bn. status: completed; wall time: 68901 ms (68.901 seconds); recorded cost: USD 0.00066904; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1861 ms (1.861 seconds); cost status: reported; recorded cost: USD 0.00066904; provider: StreamLake; input tokens: 1239; output tokens: 5502; total tokens: 6741; cached tokens: 0; reasoning tokens: 2994; latency: 1619 ms (1.619 seconds); generation time: 68729 ms (68.729 seconds). Stage: translation hi. status: completed; wall time: 102921 ms (102.921 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 2319 ms (2.319 seconds); cost status: unavailable.",
+      "wordCount": 134,
+      "sourcePath": "ai-and-your-privacy.md",
+      "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
+      "totalCostUsd": 0.05340024,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0055328,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0114432,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0011772,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034578,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00066904,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-detecting-online-scams:1",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "AI detecting online scams — What Is an Online Scam?",
+      "part": 1,
+      "text": "Learn how smart computer programs can help spot and stop bad people from tricking you on the internet.\n\nAn online scam is when someone tries to trick you on the internet. They might: - Send you a fake message asking for your money - Pretend to be someone they are not - Make a fake website that looks real - Promise you something that is too good to be true These bad people want to steal your money or your personal information.",
+      "wordCount": 82,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:2",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "What Are Smart Computer Programs?",
+      "part": 1,
+      "text": "Artificial Intelligence (AI) is when computers are taught to think and learn like humans. They can: - Look at lots of information very fast - Find patterns that humans might miss - Learn from mistakes to get better over time - Watch for bad things happening online Think of it like having a very clever guard dog that never sleeps and can watch many doors at the same time.",
+      "wordCount": 69,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:3",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How Do These Programs Find Scams? — 1. Strange Messages",
+      "part": 1,
+      "text": "These smart programs look for signs that something might be a scam:\n\nThe program checks messages for words and phrases that scammers often use. If a message says \"You won a prize!\" or \"Send money now!\", the program might flag it.",
+      "wordCount": 41,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:4",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "2. Fake Websites — 3. Bad Behaviour",
+      "part": 1,
+      "text": "The program can check if a website is pretending to be a real bank or shop. It looks for small differences that humans might not notice.\n\nIf someone sends thousands of messages very fast, the program might think this is a scammer, not a real person.",
+      "wordCount": 46,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:5",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "4. Unusual Requests — How Does This Help You?",
+      "part": 1,
+      "text": "If someone you don't know asks for your bank details or password, the program can warn you this might be dangerous.\n\nWhen you use the internet, these smart programs are often working in the background to keep you safe: - Your email might move suspicious messages to a \"spam\" folder - Your bank might text you if someone tries to use your card in a strange way - Your phone might warn you if a website is dangerous - Your messages app might tell you if a link looks suspicious These warnings are there to help you stop and think before you do something you might regret.",
+      "wordCount": 107,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:6",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "What Should You Still Watch Out For?",
+      "part": 1,
+      "text": "Even with smart programs helping, you still need to be careful: 1. Be suspicious of urgent requests - Real banks and companies don't ask you to act immediately 2. Check website addresses carefully - Scammers make addresses that look almost right 3. Never share passwords - No real company will ask for your password 4. Ask someone you trust - If something feels wrong, ask a family member or friend",
+      "wordCount": 70,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:7",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Remember",
+      "part": 1,
+      "text": "Smart computer programs help protect you, but they are not perfect. You are still the best protector of yourself. When something feels wrong, trust your feelings and ask for help. If you think someone has tried to scam you, tell someone you trust right away. You can also report scams to help protect others.",
+      "wordCount": 54,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "id": "ai-detecting-online-scams:cost:1",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “AI detecting online scams”. Overall run — total recorded cost: USD 0.0551167; wall time: 280033 ms (280.033 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 16956 ms (16.956 seconds); recorded cost: USD 0.00251312; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1071 ms (1.071 seconds); cost status: reported; recorded cost: USD 0.0002563; provider: OpenAI; input tokens: 468; output tokens: 470; total tokens: 938; cached tokens: 0; reasoning tokens: 72; latency: 3213 ms (3.213 seconds); generation time: 4537 ms (4.537 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1497 ms (1.497 seconds); cost status: reported; recorded cost: USD 0.00225682; provider: Novita; input tokens: 468; output tokens: 989; total tokens: 1457; cached tokens: 0; reasoning tokens: 223; latency: 894 ms (0.894 seconds); generation time: 16300 ms (16.3 seconds). Stage: content evaluation. status: completed; wall time: 47383 ms (47.383 seconds); recorded cost: USD 0.01695; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 3370 ms (3.37 seconds); cost status: reported; recorded cost: USD 0.01695; provider: Chutes; input tokens: 1673; output tokens: 940; total tokens:",
+      "wordCount": 220,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
+      "totalCostUsd": 0.0551167,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00251312,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01695,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00077695,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034507,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00036963,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-detecting-online-scams:cost:2",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 3370 ms (3.37 seconds); cost status: reported; recorded cost: USD 0.01695; provider: Chutes; input tokens: 1673; output tokens: 940; total tokens: 2613; cached tokens: 0; reasoning tokens: 800; latency: 3271 ms (3.271 seconds); generation time: 47250 ms (47.25 seconds). Stage: tag generation. status: completed; wall time: 2807 ms (2.807 seconds); recorded cost: USD 0.00077695; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 893 ms (0.893 seconds); cost status: reported; recorded cost: USD 0.00077695; provider: Sail Research; input tokens: 1159; output tokens: 107; total tokens: 1266; cached tokens: 0; reasoning tokens: 71; latency: 672 ms (0.672 seconds); generation time: 2556 ms (2.556 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3503 ms (3.503 seconds); recorded cost: USD 0.034507; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 2970 ms (2.97 seconds); cost status: reported; recorded cost: USD 0.034507; input tokens: 1288; output tokens: 1510; total tokens: 2798. Stage: translation bn. status: completed; wall time: 14821 ms (14.821 seconds); recorded cost: USD 0.00036963; cost status:",
+      "wordCount": 220,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
+      "totalCostUsd": 0.0551167,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00251312,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01695,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00077695,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034507,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00036963,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-detecting-online-scams:cost:3",
+      "articleSlug": "ai-detecting-online-scams",
+      "articleTitle": "AI detecting online scams",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/ai-detecting-online-scams/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "recorded cost: USD 0.034507; input tokens: 1288; output tokens: 1510; total tokens: 2798. Stage: translation bn. status: completed; wall time: 14821 ms (14.821 seconds); recorded cost: USD 0.00036963; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 547 ms (0.547 seconds); cost status: reported; recorded cost: USD 0.00036963; provider: Sail Research; input tokens: 1630; output tokens: 2926; total tokens: 4556; cached tokens: 0; reasoning tokens: 0; latency: 484 ms (0.484 seconds); generation time: 14715 ms (14.715 seconds). Stage: translation hi. status: completed; wall time: 209352 ms (209.352 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1907 ms (1.907 seconds); cost status: unavailable.",
+      "wordCount": 136,
+      "sourcePath": "ai-detecting-online-scams.md",
+      "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
+      "totalCostUsd": 0.0551167,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00251312,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01695,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00077695,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034507,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00036963,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "free-ai-tools-for-beginners:1",
+      "articleSlug": "free-ai-tools-for-beginners",
+      "articleTitle": "Free AI tools for beginners",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/free-ai-tools-for-beginners/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Free AI tools for beginners — Free tools to try",
+      "part": 1,
+      "text": "You will learn how to use free artificial intelligence tools for simple tasks like writing, learning, and finding ideas.\n\nArtificial intelligence tools are computer helpers. You can ask them to write, explain, translate, or suggest ideas.\n\n- ChatGPT — Ask questions, write messages, or explain difficult words. - Google Gemini — Ask questions and get help with learning or planning. - Microsoft Copilot — Ask for writing help, ideas, or simple explanations. - Canva — Make simple posters, cards, and pictures. Some features are free.",
+      "wordCount": 85,
+      "sourcePath": "free-ai-tools-for-beginners.md",
+      "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "id": "free-ai-tools-for-beginners:2",
+      "articleSlug": "free-ai-tools-for-beginners",
+      "articleTitle": "Free AI tools for beginners",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/free-ai-tools-for-beginners/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How to use one — Important safety tips",
+      "part": 1,
+      "text": "1. Open the tool’s website. 2. Type what you need in the message box. 3. Use simple words, such as: “Explain this letter in easy English.” 4. Read the answer carefully. 5. Ask again if you do not understand.\n\n- Do not share your password, bank details, or private identity number. - Do not believe every answer. The tool can make mistakes. - Check important information with a trusted person or website. - Free tools may offer paid features. Do not enter payment details unless you want to pay. - Be careful when downloading files or clicking links.",
+      "wordCount": 98,
+      "sourcePath": "free-ai-tools-for-beginners.md",
+      "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "id": "free-ai-tools-for-beginners:3",
+      "articleSlug": "free-ai-tools-for-beginners",
+      "articleTitle": "Free AI tools for beginners",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/free-ai-tools-for-beginners/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Useful things to ask",
+      "part": 1,
+      "text": "- “Write a polite message to my landlord.” - “Translate this into simple English.” - “Give me a shopping list for five cheap meals.” - “Explain this health letter in easy words.” - “Help me practise a job interview.”",
+      "wordCount": 39,
+      "sourcePath": "free-ai-tools-for-beginners.md",
+      "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "id": "how-phones-use-ai:1",
+      "articleSlug": "how-phones-use-ai",
+      "articleTitle": "How phones use AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-phones-use-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How phones use AI",
+      "part": 1,
+      "text": "You will learn how phones use smart computer tools to understand words, pictures, sounds, and your habits.\n\nArtificial intelligence means a computer doing tasks that usually need human thinking. Phones use it in many simple ways: - Voice help: Your phone listens to your words and turns them into text or follows a command. - Better typing: It guesses the next word while you write a message. - Photo help: It can find faces, pets, food, or places in your pictures. - Maps: It can suggest a quicker road and warn about traffic. - Safety: It can notice unwanted calls or suspicious messages. - Translation: It can change words from one language to another. - Personal suggestions: It may suggest music, videos, or news you might like. The phone learns from examples and patterns. It does not think or feel like a person. It can make mistakes, so check important information. You can help protect yourself by: - Checking what the phone is allowed to see or hear. - Avoiding sharing private information with unknown apps. - Asking a trusted person when something seems strange.",
+      "wordCount": 185,
+      "sourcePath": "how-phones-use-ai.md",
+      "sourceHash": "d84454fb72dd6d4463ff703875af0dc3c5f37ed089337c940634015ee6bae18d"
+    },
+    {
+      "id": "staying-safe-when-using-ai:1",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Staying Safe When Using AI",
+      "part": 1,
+      "text": "Learn how to use computer helpers safely by protecting your private information and knowing that they can make mistakes.\n\nAI (Artificial Intelligence) is like a very smart computer program that can talk to you, write things, or make pictures. You might use it on your phone or computer to ask questions or get help. While it is a helpful tool, we must be careful, just like when we cross the street or talk to strangers. Here is how you can stay safe:",
+      "wordCount": 82,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "id": "staying-safe-when-using-ai:2",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "1. Keep Your Secrets Safe",
+      "part": 1,
+      "text": "Never tell the computer helper your private information. This includes your bank account numbers, passwords, home address, or phone number. Think of the computer helper like a stranger on the bus. You wouldn't tell a stranger your secret money hiding spot!",
+      "wordCount": 41,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "id": "staying-safe-when-using-ai:3",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "2. Computers Can Make Mistakes",
+      "part": 1,
+      "text": "AI is smart, but it does not know everything. Sometimes, it might tell you something that is not true. If you need important advice about your health or your money, always ask a real doctor or a trusted family member. Do not trust the computer completely.",
+      "wordCount": 46,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "id": "staying-safe-when-using-ai:4",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "3. Watch Out for Fake Voices and Videos",
+      "part": 1,
+      "text": "Bad people can use AI to copy the voice of someone you know, like your grandchild. They might call you on the phone and ask for money, sounding just like them. If someone calls asking for money in a strange way, hang up and call them back on a phone number you know is real.",
+      "wordCount": 55,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "id": "staying-safe-when-using-ai:5",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "4. Be the Boss",
+      "part": 1,
+      "text": "You are in charge. If the computer helper says something that feels wrong or makes you uncomfortable, you can stop using it or ask it to change the subject. You do not have to do what it says. By following these simple steps, you can enjoy using new computer helpers without worry!",
+      "wordCount": 52,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "id": "staying-safe-when-using-ai:cost:1",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Staying Safe When Using AI”. Overall run — total recorded cost: USD 0.05792419; wall time: 136454 ms (136.454 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 9017 ms (9.017 seconds); recorded cost: USD 0.00300246; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1049 ms (1.049 seconds); cost status: reported; recorded cost: USD 0.0003512; provider: OpenAI; input tokens: 468; output tokens: 443; total tokens: 911; cached tokens: 0; reasoning tokens: 135; latency: 2528 ms (2.528 seconds); generation time: 5172 ms (5.172 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1210 ms (1.21 seconds); cost status: reported; recorded cost: USD 0.00265126; provider: CoreWeave; input tokens: 468; output tokens: 1120; total tokens: 1588; cached tokens: 0; reasoning tokens: 684; latency: 1178 ms (1.178 seconds); generation time: 8445 ms (8.445 seconds). Stage: content evaluation. status: completed; wall time: 36611 ms (36.611 seconds); recorded cost: USD 0.01938; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1197 ms (1.197 seconds); cost status: reported; recorded cost: USD 0.01938; provider: DigitalOcean; input tokens: 1444; output tokens: 1299; total",
+      "wordCount": 220,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
+      "totalCostUsd": 0.05792419,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00300246,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01938,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00088802,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034453,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00020071,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "staying-safe-when-using-ai:cost:2",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1197 ms (1.197 seconds); cost status: reported; recorded cost: USD 0.01938; provider: DigitalOcean; input tokens: 1444; output tokens: 1299; total tokens: 2743; cached tokens: 0; reasoning tokens: 1076; latency: 1146 ms (1.146 seconds); generation time: 36505 ms (36.505 seconds). Stage: tag generation. status: completed; wall time: 1773 ms (1.773 seconds); recorded cost: USD 0.00088802; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1226 ms (1.226 seconds); cost status: reported; recorded cost: USD 0.00088802; provider: CoreWeave; input tokens: 829; output tokens: 158; total tokens: 987; cached tokens: 0; reasoning tokens: 137; latency: 1091 ms (1.091 seconds); generation time: 1679 ms (1.679 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3505 ms (3.505 seconds); recorded cost: USD 0.034453; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 2938 ms (2.938 seconds); cost status: reported; recorded cost: USD 0.034453; input tokens: 1000; output tokens: 1522; total tokens: 2522. Stage: translation bn. status: completed; wall time: 55160 ms (55.16 seconds); recorded cost: USD 0.00020071; cost status:",
+      "wordCount": 220,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
+      "totalCostUsd": 0.05792419,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00300246,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01938,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00088802,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034453,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00020071,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "staying-safe-when-using-ai:cost:3",
+      "articleSlug": "staying-safe-when-using-ai",
+      "articleTitle": "Staying Safe When Using AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/staying-safe-when-using-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "recorded cost: USD 0.034453; input tokens: 1000; output tokens: 1522; total tokens: 2522. Stage: translation bn. status: completed; wall time: 55160 ms (55.16 seconds); recorded cost: USD 0.00020071; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1495 ms (1.495 seconds); cost status: reported; recorded cost: USD 0.00020071; provider: DigitalOcean; input tokens: 1300; output tokens: 1686; total tokens: 2986; cached tokens: 0; reasoning tokens: 0; latency: 1446 ms (1.446 seconds); generation time: 55077 ms (55.077 seconds). Stage: translation hi. status: completed; wall time: 85511 ms (85.511 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 926 ms (0.926 seconds); cost status: unavailable.",
+      "wordCount": 135,
+      "sourcePath": "staying-safe-when-using-ai.md",
+      "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
+      "totalCostUsd": 0.05792419,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00300246,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01938,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00088802,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.034453,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00020071,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "using-ai-to-read-documents:1",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Using AI to Read Documents — What can it do?",
+      "part": 1,
+      "text": "You will learn how to use an artificial intelligence tool to understand, summarise, and find information in documents.\n\nArtificial intelligence, or AI, is a computer helper. It can look at a document and explain it in simple words.\n\nAn AI tool may help you: - Read a letter or notice - Make a long document shorter - Explain difficult words - Find a name, date, price, or address - Translate a document - Answer questions about the document",
+      "wordCount": 78,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
+    },
+    {
+      "id": "using-ai-to-read-documents:2",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How to use it",
+      "part": 1,
+      "text": "1. Open an AI app or website. 2. Choose Add file, Upload, or the camera picture button. 3. Take a clear picture of the document, or choose a saved file. 4. Ask a simple question, such as: - “Please explain this in simple words.” - “What date must I remember?” - “How much money does this say?” 5. Read the answer carefully.",
+      "wordCount": 62,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
+    },
+    {
+      "id": "using-ai-to-read-documents:3",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Stay safe",
+      "part": 1,
+      "text": "- Do not upload passwords, bank details, identity numbers, or private medical papers unless you trust the service. - Check important information with the original document. - AI can make mistakes. Ask a trusted person or office if something is unclear. - Make sure the picture shows the whole page and is not blurry.",
+      "wordCount": 54,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
+    },
+    {
+      "id": "using-ai-to-read-documents:cost:1",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Using AI to Read Documents”. Overall run — total recorded cost: USD 0.04903584; wall time: 76099 ms (76.099 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 8448 ms (8.448 seconds); recorded cost: USD 0.00351848; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 932 ms (0.932 seconds); cost status: reported; recorded cost: USD 0.0002654; provider: OpenAI; input tokens: 468; output tokens: 479; total tokens: 947; cached tokens: 0; reasoning tokens: 82; latency: 1697 ms (1.697 seconds); generation time: 7180 ms (7.18 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 949 ms (0.949 seconds); cost status: reported; recorded cost: USD 0.00325308; provider: CoreWeave; input tokens: 468; output tokens: 1298; total tokens: 1766; cached tokens: 0; reasoning tokens: 1014; latency: 584 ms (0.584 seconds); generation time: 7862 ms (7.862 seconds). Stage: content evaluation. status: completed; wall time: 5749 ms (5.749 seconds); recorded cost: USD 0.0102162; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 2182 ms (2.182 seconds); cost status: reported; recorded cost: USD 0.0102162; provider: Modal; input tokens: 1185; output tokens: 534; total",
+      "wordCount": 220,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
+      "totalCostUsd": 0.04903584,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00351848,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0102162,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00063438,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03383225,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00083453,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "using-ai-to-read-documents:cost:2",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 2182 ms (2.182 seconds); cost status: reported; recorded cost: USD 0.0102162; provider: Modal; input tokens: 1185; output tokens: 534; total tokens: 1719; cached tokens: 64; reasoning tokens: 526; latency: 1654 ms (1.654 seconds); generation time: 5117 ms (5.117 seconds). Stage: tag generation. status: completed; wall time: 1145 ms (1.145 seconds); recorded cost: USD 0.00063438; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 508 ms (0.508 seconds); cost status: reported; recorded cost: USD 0.00063438; provider: CoreWeave; input tokens: 729; output tokens: 76; total tokens: 805; cached tokens: 0; reasoning tokens: 54; latency: 584 ms (0.584 seconds); generation time: 1065 ms (1.065 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3357 ms (3.357 seconds); recorded cost: USD 0.03383225; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3180 ms (3.18 seconds); cost status: reported; recorded cost: USD 0.03383225; input tokens: 929; output tokens: 1120; total tokens: 2049. Stage: translation bn. status: completed; wall time: 43286 ms (43.286 seconds); recorded cost: USD 0.00083453; cost status:",
+      "wordCount": 220,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
+      "totalCostUsd": 0.04903584,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00351848,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0102162,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00063438,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03383225,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00083453,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "using-ai-to-read-documents:cost:3",
+      "articleSlug": "using-ai-to-read-documents",
+      "articleTitle": "Using AI to Read Documents",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-read-documents/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "recorded cost: USD 0.03383225; input tokens: 929; output tokens: 1120; total tokens: 2049. Stage: translation bn. status: completed; wall time: 43286 ms (43.286 seconds); recorded cost: USD 0.00083453; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 2547 ms (2.547 seconds); cost status: reported; recorded cost: USD 0.00083453; provider: Baidu; input tokens: 1201; output tokens: 5939; total tokens: 7140; cached tokens: 0; reasoning tokens: 3547; latency: 6723 ms (6.723 seconds); generation time: 43149 ms (43.149 seconds). Stage: translation hi. status: completed; wall time: 57379 ms (57.379 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1932 ms (1.932 seconds); cost status: unavailable.",
+      "wordCount": 135,
+      "sourcePath": "using-ai-to-read-documents.md",
+      "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
+      "totalCostUsd": 0.04903584,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00351848,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0102162,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00063438,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03383225,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00083453,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "using-ai-to-translate-languages:1",
+      "articleSlug": "using-ai-to-translate-languages",
+      "articleTitle": "Using AI to Translate Languages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-translate-languages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Using AI to Translate Languages",
+      "part": 1,
+      "text": "Learn how smart computer programs can change your words into another language so you can talk to more people.\n\nHave you ever wanted to talk to someone who speaks a different language? Maybe you have a doctor or a neighbor who does not understand your words. Now, computers can help you talk to them easily.",
+      "wordCount": 55,
+      "sourcePath": "using-ai-to-translate-languages.md",
+      "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
+    },
+    {
+      "id": "using-ai-to-translate-languages:2",
+      "articleSlug": "using-ai-to-translate-languages",
+      "articleTitle": "Using AI to Translate Languages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-translate-languages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "What is Computer Translation?",
+      "part": 1,
+      "text": "Think of your phone or computer as a very smart friend who knows many languages. When you speak or type words, this friend quickly tells you what those words mean in another language. In the past, computers were not very good at this and made silly mistakes. Today, they are very smart and can change whole sentences so they make sense.",
+      "wordCount": 61,
+      "sourcePath": "using-ai-to-translate-languages.md",
+      "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
+    },
+    {
+      "id": "using-ai-to-translate-languages:3",
+      "articleSlug": "using-ai-to-translate-languages",
+      "articleTitle": "Using AI to Translate Languages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-translate-languages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How Can You Use It?",
+      "part": 1,
+      "text": "You can use your phone to change languages in a few simple ways: 1. Talking to people: You can speak into your phone in your language. The phone will then speak the same words out loud in the other language. The other person can reply, and your phone will change their words back to your language. 2. Reading signs or papers: If you get a letter in a language you do not know, you can take a picture of it with your phone. The phone will change the words in the picture to your language so you can read it. 3. Shopping online: If a website is in a different language, the computer can change the whole page to your language so you can understand what you are buying.",
+      "wordCount": 129,
+      "sourcePath": "using-ai-to-translate-languages.md",
+      "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
+    },
+    {
+      "id": "using-ai-to-translate-languages:4",
+      "articleSlug": "using-ai-to-translate-languages",
+      "articleTitle": "Using AI to Translate Languages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-translate-languages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Where to Find This Tool",
+      "part": 1,
+      "text": "One of the most famous tools for this is called Google Translate. It is free to use. You just need an internet connection on your phone or computer. You can also download apps on your phone that do the same thing. Using these tools makes the world smaller. You do not need to feel scared or left out when you see or hear words you do not know. Your phone can be your helpful translator friend!",
+      "wordCount": 76,
+      "sourcePath": "using-ai-to-translate-languages.md",
+      "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
+    },
+    {
+      "id": "using-ai-to-write-messages:1",
+      "articleSlug": "using-ai-to-write-messages",
+      "articleTitle": "Using AI to write messages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-write-messages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Using AI to write messages — How to use it",
+      "part": 1,
+      "text": "You will learn how to ask artificial intelligence to help write clear messages and check them before sending.\n\nArtificial intelligence can help you write a message. It is like a writing helper on your phone or computer.\n\n1. Open an artificial intelligence writing tool. 2. Tell it what you want to say. 3. Say who the message is for and what feeling you want. For example: > Write a short, friendly message to my doctor. Say that I cannot come to my appointment tomorrow and ask for a new date. The tool may write: > Hello Doctor, I cannot come to my appointment tomorrow. Could I please have a new date? Thank you.",
+      "wordCount": 113,
+      "sourcePath": "using-ai-to-write-messages.md",
+      "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    },
+    {
+      "id": "using-ai-to-write-messages:2",
+      "articleSlug": "using-ai-to-write-messages",
+      "articleTitle": "Using AI to write messages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-write-messages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Check the message",
+      "part": 1,
+      "text": "Before sending: - Read the whole message. - Make sure the details are correct. - Change any words that do not sound like you. - Check the person’s name and date. - Send it only when you are happy with it.",
+      "wordCount": 41,
+      "sourcePath": "using-ai-to-write-messages.md",
+      "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    },
+    {
+      "id": "using-ai-to-write-messages:3",
+      "articleSlug": "using-ai-to-write-messages",
+      "articleTitle": "Using AI to write messages",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/using-ai-to-write-messages/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Keep private things safe",
+      "part": 1,
+      "text": "Do not type private information into a writing tool, such as: - Passwords - Bank details - Identity numbers - Private medical information Artificial intelligence can make mistakes. You are the person who must check the message before sending it.",
+      "wordCount": 40,
+      "sourcePath": "using-ai-to-write-messages.md",
+      "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    }
+  ]
+}

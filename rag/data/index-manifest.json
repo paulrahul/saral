@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 2,
+  "createdAt": "2026-08-25T13:52:06.767803+00:00",
+  "language": "en",
+  "articleCount": 8,
+  "chunkCount": 42,
+  "lessonChunkCount": 30,
+  "costChunkCount": 12,
+  "chunking": {
+    "maxWords": 220,
+    "minWords": 40,
+    "overlapWords": 30
+  },
+  "embedding": {
+    "model": "openai/text-embedding-3-small",
+    "normalized": true,
+    "status": "created",
+    "dimensions": 1536
+  },
+  "sources": [
+    {
+      "slug": "ai-and-your-privacy",
+      "path": "ai-and-your-privacy.md",
+      "sha256": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
+    },
+    {
+      "slug": "ai-detecting-online-scams",
+      "path": "ai-detecting-online-scams.md",
+      "sha256": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "slug": "free-ai-tools-for-beginners",
+      "path": "free-ai-tools-for-beginners.md",
+      "sha256": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "slug": "how-phones-use-ai",
+      "path": "how-phones-use-ai.md",
+      "sha256": "d84454fb72dd6d4463ff703875af0dc3c5f37ed089337c940634015ee6bae18d"
+    },
+    {
+      "slug": "staying-safe-when-using-ai",
+      "path": "staying-safe-when-using-ai.md",
+      "sha256": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "slug": "using-ai-to-read-documents",
+      "path": "using-ai-to-read-documents.md",
+      "sha256": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
+    },
+    {
+      "slug": "using-ai-to-translate-languages",
+      "path": "using-ai-to-translate-languages.md",
+      "sha256": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
+    },
+    {
+      "slug": "using-ai-to-write-messages",
+      "path": "using-ai-to-write-messages.md",
+      "sha256": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    }
+  ]
+}
