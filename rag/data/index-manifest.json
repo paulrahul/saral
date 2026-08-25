@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 2,
-  "createdAt": "2026-08-25T13:52:06.767803+00:00",
+  "schemaVersion": 3,
+  "createdAt": "2026-08-25T19:26:50.520912+00:00",
   "language": "en",
-  "articleCount": 8,
-  "chunkCount": 42,
-  "lessonChunkCount": 30,
-  "costChunkCount": 12,
+  "articleCount": 9,
+  "chunkCount": 53,
+  "lessonChunkCount": 38,
+  "costChunkCount": 15,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -15,7 +15,11 @@
     "model": "openai/text-embedding-3-small",
     "normalized": true,
     "status": "created",
-    "dimensions": 1536
+    "dimensions": 1536,
+    "reusedChunks": 53,
+    "embeddedChunks": 0,
+    "removedChunks": 0,
+    "requestCount": 0
   },
   "sources": [
     {
@@ -37,6 +41,11 @@
       "slug": "how-phones-use-ai",
       "path": "how-phones-use-ai.md",
       "sha256": "d84454fb72dd6d4463ff703875af0dc3c5f37ed089337c940634015ee6bae18d"
+    },
+    {
+      "slug": "how-to-check-ai-answers",
+      "path": "how-to-check-ai-answers.md",
+      "sha256": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
     },
     {
       "slug": "staying-safe-when-using-ai",

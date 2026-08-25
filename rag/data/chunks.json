@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "language": "en",
   "chunks": [
     {
@@ -12,6 +12,7 @@
       "heading": "AI and your privacy — What is AI?",
       "part": 1,
       "text": "AI programs learn from information you give them, so it is important to only share safe details and keep your personal secrets private.\n\nAI (Artificial Intelligence) is like a very smart robot inside your computer or phone. It learns by looking at lots of information. When you ask it a question, it uses what it has learned to give you an answer.",
+      "contentHash": "43d7b97dc6cf2712ed116ebd80d58551bb7ea7795cdb74f50455a9b179fd1b44",
       "wordCount": 62,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
@@ -26,6 +27,7 @@
       "heading": "How Does AI See My Information? — Why Does This Matter for My Privacy?",
       "part": 1,
       "text": "When you type a question to an AI program, it reads what you wrote. Some companies that make these AI programs might save what you type so the robot can learn even more for the next person.\n\nPrivacy means keeping your personal life a secret from strangers. If you tell the AI your bank password, your home address, or a secret about your family, that information might be saved by the company. We do not want our secrets to be saved where strangers might see them.",
+      "contentHash": "c2637a0d748599ca92e3c0b1a3acd68ba52b05f6562251a44dc4f369366d5c3a",
       "wordCount": 86,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
@@ -40,6 +42,7 @@
       "heading": "How to Keep Your Secrets Safe",
       "part": 1,
       "text": "1. Do not share passwords: Never tell an AI program your passwords. 2. Do not share bank details: Keep your money safe by not typing your card numbers into AI tools. 3. Do not share personal secrets: If you wouldn't tell a stranger on the street, do not tell the AI.",
+      "contentHash": "f7b39e47b2141de617b4c395d238f8e97aed2a208568d46c6035203d8a873501",
       "wordCount": 51,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
@@ -54,6 +57,7 @@
       "heading": "The Golden Rule",
       "part": 1,
       "text": "Think of AI like a helpful stranger. You can ask it to help you write a letter or find a recipe, but never share your private information with it.",
+      "contentHash": "30c7da795550eddb97e36b0932be02b036dbec9604490157fcc049ed1c1dd3cb",
       "wordCount": 29,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d"
@@ -68,6 +72,7 @@
       "heading": "AI production cost and models",
       "part": 1,
       "text": "AI production cost and model information for the Saral article “AI and your privacy”. Overall run — total recorded cost: USD 0.05340024; wall time: 202092 ms (202.092 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 17108 ms (17.108 seconds); recorded cost: USD 0.0055328; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1421 ms (1.421 seconds); cost status: reported; recorded cost: USD 0.0005714; provider: OpenAI; input tokens: 466; output tokens: 352; total tokens: 818; cached tokens: 0; reasoning tokens: 129; latency: 2846 ms (2.846 seconds); generation time: 4345 ms (4.345 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 3173 ms (3.173 seconds); cost status: reported; recorded cost: USD 0.0049614; provider: Friendli; input tokens: 466; output tokens: 1136; total tokens: 1602; cached tokens: 0; reasoning tokens: 757; latency: 2495 ms (2.495 seconds); generation time: 16393 ms (16.393 seconds). Stage: content evaluation. status: completed; wall time: 4108 ms (4.108 seconds); recorded cost: USD 0.0114432; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 763 ms (0.763 seconds); cost status: reported; recorded cost: USD 0.0114432; provider: Modal; input tokens: 1294; output tokens: 614; total tokens:",
+      "contentHash": "236ed09b18d4d3747020ca743030c5a237ddca3ed1ec36a6a5cfccaca81f084d",
       "wordCount": 220,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
@@ -155,6 +160,7 @@
       "heading": "AI production cost and models",
       "part": 2,
       "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 763 ms (0.763 seconds); cost status: reported; recorded cost: USD 0.0114432; provider: Modal; input tokens: 1294; output tokens: 614; total tokens: 1908; cached tokens: 64; reasoning tokens: 606; latency: 712 ms (0.712 seconds); generation time: 4001 ms (4.001 seconds). Stage: tag generation. status: completed; wall time: 4427 ms (4.427 seconds); recorded cost: USD 0.0011772; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 2532 ms (2.532 seconds); cost status: reported; recorded cost: USD 0.0011772; provider: Friendli; input tokens: 770; output tokens: 67; total tokens: 837; cached tokens: 0; reasoning tokens: 48; latency: 2387 ms (2.387 seconds); generation time: 4358 ms (4.358 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 4627 ms (4.627 seconds); recorded cost: USD 0.034578; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 4097 ms (4.097 seconds); cost status: reported; recorded cost: USD 0.034578; input tokens: 960; output tokens: 1612; total tokens: 2572. Stage: translation bn. status: completed; wall time: 68901 ms (68.901 seconds); recorded cost: USD 0.00066904; cost status: reported;",
+      "contentHash": "8957f5dcd79709edd861fe638ba574f970c16561548070a194102e6b68ff87c0",
       "wordCount": 220,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
@@ -242,6 +248,7 @@
       "heading": "AI production cost and models",
       "part": 3,
       "text": "cost: USD 0.034578; input tokens: 960; output tokens: 1612; total tokens: 2572. Stage: translation bn. status: completed; wall time: 68901 ms (68.901 seconds); recorded cost: USD 0.00066904; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1861 ms (1.861 seconds); cost status: reported; recorded cost: USD 0.00066904; provider: StreamLake; input tokens: 1239; output tokens: 5502; total tokens: 6741; cached tokens: 0; reasoning tokens: 2994; latency: 1619 ms (1.619 seconds); generation time: 68729 ms (68.729 seconds). Stage: translation hi. status: completed; wall time: 102921 ms (102.921 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 2319 ms (2.319 seconds); cost status: unavailable.",
+      "contentHash": "0d7a3fe56e18f0e1439ed3b60b564b77193f383948481b410fe26bf6a25ab2a1",
       "wordCount": 134,
       "sourcePath": "ai-and-your-privacy.md",
       "sourceHash": "6d90fa1fb6c9a0094d4fb84636465e61fff33c4b14bcf7567570106e9498a95d",
@@ -329,6 +336,7 @@
       "heading": "AI detecting online scams — What Is an Online Scam?",
       "part": 1,
       "text": "Learn how smart computer programs can help spot and stop bad people from tricking you on the internet.\n\nAn online scam is when someone tries to trick you on the internet. They might: - Send you a fake message asking for your money - Pretend to be someone they are not - Make a fake website that looks real - Promise you something that is too good to be true These bad people want to steal your money or your personal information.",
+      "contentHash": "5d5990385477127a3b5bcce2c7976c1e174c5dd2fd0ce710e9034c86d67da652",
       "wordCount": 82,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -343,6 +351,7 @@
       "heading": "What Are Smart Computer Programs?",
       "part": 1,
       "text": "Artificial Intelligence (AI) is when computers are taught to think and learn like humans. They can: - Look at lots of information very fast - Find patterns that humans might miss - Learn from mistakes to get better over time - Watch for bad things happening online Think of it like having a very clever guard dog that never sleeps and can watch many doors at the same time.",
+      "contentHash": "c178122191d6433c4fe5c204d5cd0c4b0951e8061aac891cae8fbabe60dfb98a",
       "wordCount": 69,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -357,6 +366,7 @@
       "heading": "How Do These Programs Find Scams? — 1. Strange Messages",
       "part": 1,
       "text": "These smart programs look for signs that something might be a scam:\n\nThe program checks messages for words and phrases that scammers often use. If a message says \"You won a prize!\" or \"Send money now!\", the program might flag it.",
+      "contentHash": "b8a9fc78ddfc288ad08890e5dd65d8d3ed6753e0411ea15a41898c09adb057de",
       "wordCount": 41,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -371,6 +381,7 @@
       "heading": "2. Fake Websites — 3. Bad Behaviour",
       "part": 1,
       "text": "The program can check if a website is pretending to be a real bank or shop. It looks for small differences that humans might not notice.\n\nIf someone sends thousands of messages very fast, the program might think this is a scammer, not a real person.",
+      "contentHash": "c471323b1b99d3780e6b7e8cb7cf53929fda19c0753e36609f551f2a242453bb",
       "wordCount": 46,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -385,6 +396,7 @@
       "heading": "4. Unusual Requests — How Does This Help You?",
       "part": 1,
       "text": "If someone you don't know asks for your bank details or password, the program can warn you this might be dangerous.\n\nWhen you use the internet, these smart programs are often working in the background to keep you safe: - Your email might move suspicious messages to a \"spam\" folder - Your bank might text you if someone tries to use your card in a strange way - Your phone might warn you if a website is dangerous - Your messages app might tell you if a link looks suspicious These warnings are there to help you stop and think before you do something you might regret.",
+      "contentHash": "70a0bd8ada045fe888ce0ac7cb0bccb95ac8254961e9b41424d6bf9361db9d82",
       "wordCount": 107,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -399,6 +411,7 @@
       "heading": "What Should You Still Watch Out For?",
       "part": 1,
       "text": "Even with smart programs helping, you still need to be careful: 1. Be suspicious of urgent requests - Real banks and companies don't ask you to act immediately 2. Check website addresses carefully - Scammers make addresses that look almost right 3. Never share passwords - No real company will ask for your password 4. Ask someone you trust - If something feels wrong, ask a family member or friend",
+      "contentHash": "eb8a6f0e98470b3269c10453afe13f9d27293458909ff2f92eb26a0812577afd",
       "wordCount": 70,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -413,6 +426,7 @@
       "heading": "Remember",
       "part": 1,
       "text": "Smart computer programs help protect you, but they are not perfect. You are still the best protector of yourself. When something feels wrong, trust your feelings and ask for help. If you think someone has tried to scam you, tell someone you trust right away. You can also report scams to help protect others.",
+      "contentHash": "3a72fdbbe5e1eb5c706ec79ba5a19a88e810553ff524bc9952bf189a3bb9a020",
       "wordCount": 54,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
@@ -427,6 +441,7 @@
       "heading": "AI production cost and models",
       "part": 1,
       "text": "AI production cost and model information for the Saral article “AI detecting online scams”. Overall run — total recorded cost: USD 0.0551167; wall time: 280033 ms (280.033 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 16956 ms (16.956 seconds); recorded cost: USD 0.00251312; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1071 ms (1.071 seconds); cost status: reported; recorded cost: USD 0.0002563; provider: OpenAI; input tokens: 468; output tokens: 470; total tokens: 938; cached tokens: 0; reasoning tokens: 72; latency: 3213 ms (3.213 seconds); generation time: 4537 ms (4.537 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1497 ms (1.497 seconds); cost status: reported; recorded cost: USD 0.00225682; provider: Novita; input tokens: 468; output tokens: 989; total tokens: 1457; cached tokens: 0; reasoning tokens: 223; latency: 894 ms (0.894 seconds); generation time: 16300 ms (16.3 seconds). Stage: content evaluation. status: completed; wall time: 47383 ms (47.383 seconds); recorded cost: USD 0.01695; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 3370 ms (3.37 seconds); cost status: reported; recorded cost: USD 0.01695; provider: Chutes; input tokens: 1673; output tokens: 940; total tokens:",
+      "contentHash": "5aefcc5321154ccae39094f610d04b7bebdf22b6a0cebac74a9a137500bc1572",
       "wordCount": 220,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
@@ -514,6 +529,7 @@
       "heading": "AI production cost and models",
       "part": 2,
       "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 3370 ms (3.37 seconds); cost status: reported; recorded cost: USD 0.01695; provider: Chutes; input tokens: 1673; output tokens: 940; total tokens: 2613; cached tokens: 0; reasoning tokens: 800; latency: 3271 ms (3.271 seconds); generation time: 47250 ms (47.25 seconds). Stage: tag generation. status: completed; wall time: 2807 ms (2.807 seconds); recorded cost: USD 0.00077695; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 893 ms (0.893 seconds); cost status: reported; recorded cost: USD 0.00077695; provider: Sail Research; input tokens: 1159; output tokens: 107; total tokens: 1266; cached tokens: 0; reasoning tokens: 71; latency: 672 ms (0.672 seconds); generation time: 2556 ms (2.556 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3503 ms (3.503 seconds); recorded cost: USD 0.034507; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 2970 ms (2.97 seconds); cost status: reported; recorded cost: USD 0.034507; input tokens: 1288; output tokens: 1510; total tokens: 2798. Stage: translation bn. status: completed; wall time: 14821 ms (14.821 seconds); recorded cost: USD 0.00036963; cost status:",
+      "contentHash": "d8ae1dc3b5dafb90aae5ba3d41672974ed4f08012a8dcc456e2ee2eb38eda952",
       "wordCount": 220,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
@@ -601,6 +617,7 @@
       "heading": "AI production cost and models",
       "part": 3,
       "text": "recorded cost: USD 0.034507; input tokens: 1288; output tokens: 1510; total tokens: 2798. Stage: translation bn. status: completed; wall time: 14821 ms (14.821 seconds); recorded cost: USD 0.00036963; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 547 ms (0.547 seconds); cost status: reported; recorded cost: USD 0.00036963; provider: Sail Research; input tokens: 1630; output tokens: 2926; total tokens: 4556; cached tokens: 0; reasoning tokens: 0; latency: 484 ms (0.484 seconds); generation time: 14715 ms (14.715 seconds). Stage: translation hi. status: completed; wall time: 209352 ms (209.352 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1907 ms (1.907 seconds); cost status: unavailable.",
+      "contentHash": "ffb54fb09672c9d146b482e9274b53a9dc9316f983195792a23df716c7fca550",
       "wordCount": 136,
       "sourcePath": "ai-detecting-online-scams.md",
       "sourceHash": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3",
@@ -688,6 +705,7 @@
       "heading": "Free AI tools for beginners — Free tools to try",
       "part": 1,
       "text": "You will learn how to use free artificial intelligence tools for simple tasks like writing, learning, and finding ideas.\n\nArtificial intelligence tools are computer helpers. You can ask them to write, explain, translate, or suggest ideas.\n\n- ChatGPT — Ask questions, write messages, or explain difficult words. - Google Gemini — Ask questions and get help with learning or planning. - Microsoft Copilot — Ask for writing help, ideas, or simple explanations. - Canva — Make simple posters, cards, and pictures. Some features are free.",
+      "contentHash": "f97b9c5ee7f7923030ca3db4ef631e80665653b631d0878affef4a21bb1ea4ea",
       "wordCount": 85,
       "sourcePath": "free-ai-tools-for-beginners.md",
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
@@ -702,6 +720,7 @@
       "heading": "How to use one — Important safety tips",
       "part": 1,
       "text": "1. Open the tool’s website. 2. Type what you need in the message box. 3. Use simple words, such as: “Explain this letter in easy English.” 4. Read the answer carefully. 5. Ask again if you do not understand.\n\n- Do not share your password, bank details, or private identity number. - Do not believe every answer. The tool can make mistakes. - Check important information with a trusted person or website. - Free tools may offer paid features. Do not enter payment details unless you want to pay. - Be careful when downloading files or clicking links.",
+      "contentHash": "fc3b05dbb93d4e91d90f5c84648ce9164b8b975eb8982197a7d3ebc0061a62b9",
       "wordCount": 98,
       "sourcePath": "free-ai-tools-for-beginners.md",
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
@@ -716,6 +735,7 @@
       "heading": "Useful things to ask",
       "part": 1,
       "text": "- “Write a polite message to my landlord.” - “Translate this into simple English.” - “Give me a shopping list for five cheap meals.” - “Explain this health letter in easy words.” - “Help me practise a job interview.”",
+      "contentHash": "4be66fa650c038dea8d8895372f03c15efe9246e9fe8f9f7fc0815efb8881eca",
       "wordCount": 39,
       "sourcePath": "free-ai-tools-for-beginners.md",
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
@@ -730,9 +750,394 @@
       "heading": "How phones use AI",
       "part": 1,
       "text": "You will learn how phones use smart computer tools to understand words, pictures, sounds, and your habits.\n\nArtificial intelligence means a computer doing tasks that usually need human thinking. Phones use it in many simple ways: - Voice help: Your phone listens to your words and turns them into text or follows a command. - Better typing: It guesses the next word while you write a message. - Photo help: It can find faces, pets, food, or places in your pictures. - Maps: It can suggest a quicker road and warn about traffic. - Safety: It can notice unwanted calls or suspicious messages. - Translation: It can change words from one language to another. - Personal suggestions: It may suggest music, videos, or news you might like. The phone learns from examples and patterns. It does not think or feel like a person. It can make mistakes, so check important information. You can help protect yourself by: - Checking what the phone is allowed to see or hear. - Avoiding sharing private information with unknown apps. - Asking a trusted person when something seems strange.",
+      "contentHash": "e1a1828846c6529bcd8198f26eaa54f29be612f59c34c182d6641c234124f0f2",
       "wordCount": 185,
       "sourcePath": "how-phones-use-ai.md",
       "sourceHash": "d84454fb72dd6d4463ff703875af0dc3c5f37ed089337c940634015ee6bae18d"
+    },
+    {
+      "id": "how-to-check-ai-answers:1",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How to check AI answers — What is AI?",
+      "part": 1,
+      "text": "Learn simple ways to check if answers from AI tools are correct by using other sources like Google and asking experts.\n\nAI stands for \"Artificial Intelligence.\" It is a computer program that can answer questions, write text, or make pictures. You might have heard of tools like ChatGPT or Google Gemini. These are AI tools.",
+      "contentHash": "287519efee1f62459499171219a54d6e985df1a492c6aa4e518fcaa9f76690f1",
+      "wordCount": 55,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:2",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Why Do I Need to Check AI Answers?",
+      "part": 1,
+      "text": "AI is very smart, but it is not perfect. Sometimes AI: - Makes mistakes - Gives wrong information - Makes up things that are not true - Does not know the latest news Think of AI like a person you just met. You would not believe everything they say without checking, right? The same is true for AI.",
+      "contentHash": "2410f09af4bf943d29f3fc5e05af2daafbf324041555594eabb2ff39f1b5b5bd",
+      "wordCount": 58,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:3",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "1. Ask Google",
+      "part": 1,
+      "text": "If AI gives you a fact or information, type the same question into Google. See if other websites say the same thing. Example: If AI tells you \"The tallest mountain is Mount Everest,\" search \"tallest mountain in the world\" on Google to check.",
+      "contentHash": "361461c14d16dce0f509a18bfe2f0059975a8b90ad354d86d3ab6f3c091ca35d",
+      "wordCount": 43,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:4",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "2. Look at More Than One Source — 3. Check the Date",
+      "part": 1,
+      "text": "Do not trust just one website. Check two or three different websites. If they all say the same thing, the information is probably correct.\n\nSometimes AI gives old information. Look for the date on the website you are checking. Make sure the information is recent.",
+      "contentHash": "2acbe15a049cb3628223ca86f93e5eeec38611664aed5f37364f15c9c1411853",
+      "wordCount": 45,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:5",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "4. Ask the Same Question Differently",
+      "part": 1,
+      "text": "Ask AI the same question in a different way. If the answer changes too much, be careful. The information might not be reliable. Example: - First question: \"What is the population of India?\" - Second question: \"How many people live in India?\" If the answers are very different, check on Google.",
+      "contentHash": "eaff37e04df410773e03d7e4d0bc877da61a46eed33b83e12308af0724a35fb6",
+      "wordCount": 51,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:6",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "5. Use Common Sense",
+      "part": 1,
+      "text": "Ask yourself: \"Does this answer make sense?\" If something sounds too good to be true, it might be wrong. Example: If AI tells you \"Drinking lemon water cures all diseases,\" your common sense should tell you this is not true.",
+      "contentHash": "27c7578e94c9d547429ca9dec4ca1d60899ff89c8b75f72caf7ae9dccedf3ac8",
+      "wordCount": 40,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:7",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "When to Be Extra Careful",
+      "part": 1,
+      "text": "Always check AI answers carefully when the information is about: - Health or medicine - Talk to a doctor - Money or investments - Talk to a bank officer or financial expert - Legal matters - Talk to a lawyer - Important decisions - Talk to someone you trust AI is a helper, not an expert. For important things, always ask a real person who knows the subject.",
+      "contentHash": "4586f00fedc04305be4d220d1781c8355a2600c0932a226e9f405c8ebcb9cab2",
+      "wordCount": 68,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:8",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Quick Summary",
+      "part": 1,
+      "text": "| Step | What to Do | |------|-----------| | 1 | Ask Google the same question | | 2 | Check 2-3 websites | | 3 | Look at the date | | 4 | Ask AI the question in a different way | | 5 | Use your common sense | | 6 | Ask a real expert for important things | Remember: AI is a tool to help you, but you should always verify important information yourself.",
+      "contentHash": "56c7d73d1a7f55724981702521a30499b59e2859b594fe4287b63baafb95dbdb",
+      "wordCount": 79,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "id": "how-to-check-ai-answers:cost:1",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “How to check AI answers”. Overall run — total recorded cost: USD 0.0572689; wall time: 144506 ms (144.506 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 23771 ms (23.771 seconds); recorded cost: USD 0.00439225; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 948 ms (0.948 seconds); cost status: reported; recorded cost: USD 0.0006088; provider: OpenAI; input tokens: 467; output tokens: 371; total tokens: 838; cached tokens: 0; reasoning tokens: 119; latency: 2516 ms (2.516 seconds); generation time: 5190 ms (5.19 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 2942 ms (2.942 seconds); cost status: reported; recorded cost: USD 0.00378345; provider: Reka; input tokens: 467; output tokens: 969; total tokens: 1436; cached tokens: 0; reasoning tokens: 239; latency: 715 ms (0.715 seconds); generation time: 12716 ms (12.716 seconds). Stage: content evaluation. status: completed; wall time: 61675 ms (61.675 seconds); recorded cost: USD 0.01534155; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 229 ms (0.229 seconds); cost status: reported; recorded cost: USD 0.01534155; provider: DeepInfra; input tokens: 1665; output tokens: 861; total",
+      "contentHash": "b5f9299bf21501b0b2b1775ff871ac58ca0b0026b95c19c278b7aa789abe2acf",
+      "wordCount": 220,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40",
+      "totalCostUsd": 0.0572689,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00439225,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01534155,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0019524,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0346245,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.0009582,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-to-check-ai-answers:cost:2",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 229 ms (0.229 seconds); cost status: reported; recorded cost: USD 0.01534155; provider: DeepInfra; input tokens: 1665; output tokens: 861; total tokens: 2526; cached tokens: 0; reasoning tokens: 853; latency: 1685 ms (1.685 seconds); generation time: 61581 ms (61.581 seconds). Stage: tag generation. status: completed; wall time: 14006 ms (14.006 seconds); recorded cost: USD 0.0019524; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 2711 ms (2.711 seconds); cost status: reported; recorded cost: USD 0.0019524; provider: Mistral; input tokens: 1122; output tokens: 151; total tokens: 1273; cached tokens: 0; reasoning tokens: 130; latency: 485 ms (0.485 seconds); generation time: 2644 ms (2.644 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3457 ms (3.457 seconds); recorded cost: USD 0.0346245; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 2928 ms (2.928 seconds); cost status: reported; recorded cost: USD 0.0346245; input tokens: 1308; output tokens: 1585; total tokens: 2893. Stage: translation bn. status: completed; wall time: 41574 ms (41.574 seconds); recorded cost: USD 0; cost status:",
+      "contentHash": "0edf53aa1c8f1394c2f1363e5c560bc57406fcd658aad977ee110c87f20a1210",
+      "wordCount": 220,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40",
+      "totalCostUsd": 0.0572689,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00439225,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01534155,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0019524,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0346245,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.0009582,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-to-check-ai-answers:cost:3",
+      "articleSlug": "how-to-check-ai-answers",
+      "articleTitle": "How to check AI answers",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-to-check-ai-answers/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "recorded cost: USD 0.0346245; input tokens: 1308; output tokens: 1585; total tokens: 2893. Stage: translation bn. status: completed; wall time: 41574 ms (41.574 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 4058 ms (4.058 seconds); cost status: unavailable. Stage: translation hi. status: completed; wall time: 15781 ms (15.781 seconds); recorded cost: USD 0.0009582; cost status: reported; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1129 ms (1.129 seconds); cost status: reported; recorded cost: USD 0.0009582; provider: Phala; input tokens: 1593; output tokens: 2301; total tokens: 3894; cached tokens: 0; reasoning tokens: 0; latency: 1113 ms (1.113 seconds); generation time: 15635 ms (15.635 seconds).",
+      "contentHash": "f6f49f180b6571a869a44b2dd516ef29f093af104a2d960ec2fc1344abfe8988",
+      "wordCount": 135,
+      "sourcePath": "how-to-check-ai-answers.md",
+      "sourceHash": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40",
+      "totalCostUsd": 0.0572689,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00439225,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01534155,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0019524,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0346245,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.0009582,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
     },
     {
       "id": "staying-safe-when-using-ai:1",
@@ -744,6 +1149,7 @@
       "heading": "Staying Safe When Using AI",
       "part": 1,
       "text": "Learn how to use computer helpers safely by protecting your private information and knowing that they can make mistakes.\n\nAI (Artificial Intelligence) is like a very smart computer program that can talk to you, write things, or make pictures. You might use it on your phone or computer to ask questions or get help. While it is a helpful tool, we must be careful, just like when we cross the street or talk to strangers. Here is how you can stay safe:",
+      "contentHash": "dbaceeeba8866811cd46a3432c0ee704d7748e32c39a0746aa67f514ecb90beb",
       "wordCount": 82,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
@@ -758,6 +1164,7 @@
       "heading": "1. Keep Your Secrets Safe",
       "part": 1,
       "text": "Never tell the computer helper your private information. This includes your bank account numbers, passwords, home address, or phone number. Think of the computer helper like a stranger on the bus. You wouldn't tell a stranger your secret money hiding spot!",
+      "contentHash": "12d1fa205bcc446c5cad6a327b866a5875d36498a3e77f1d575e1cd10909b4b2",
       "wordCount": 41,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
@@ -772,6 +1179,7 @@
       "heading": "2. Computers Can Make Mistakes",
       "part": 1,
       "text": "AI is smart, but it does not know everything. Sometimes, it might tell you something that is not true. If you need important advice about your health or your money, always ask a real doctor or a trusted family member. Do not trust the computer completely.",
+      "contentHash": "05b5c221e0f15b97ab26014ecf9919b4f0037cb5e9c4f1a717febf15829db0ca",
       "wordCount": 46,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
@@ -786,6 +1194,7 @@
       "heading": "3. Watch Out for Fake Voices and Videos",
       "part": 1,
       "text": "Bad people can use AI to copy the voice of someone you know, like your grandchild. They might call you on the phone and ask for money, sounding just like them. If someone calls asking for money in a strange way, hang up and call them back on a phone number you know is real.",
+      "contentHash": "cc288d6185d53efb4e602f6582c757a3229c3902886bb06753ff780934e91877",
       "wordCount": 55,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
@@ -800,6 +1209,7 @@
       "heading": "4. Be the Boss",
       "part": 1,
       "text": "You are in charge. If the computer helper says something that feels wrong or makes you uncomfortable, you can stop using it or ask it to change the subject. You do not have to do what it says. By following these simple steps, you can enjoy using new computer helpers without worry!",
+      "contentHash": "f5d72f8323df0515f34ead1a0d650bfbbbe465d990a39b4baf8623a4f8f42a6d",
       "wordCount": 52,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
@@ -814,6 +1224,7 @@
       "heading": "AI production cost and models",
       "part": 1,
       "text": "AI production cost and model information for the Saral article “Staying Safe When Using AI”. Overall run — total recorded cost: USD 0.05792419; wall time: 136454 ms (136.454 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 9017 ms (9.017 seconds); recorded cost: USD 0.00300246; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1049 ms (1.049 seconds); cost status: reported; recorded cost: USD 0.0003512; provider: OpenAI; input tokens: 468; output tokens: 443; total tokens: 911; cached tokens: 0; reasoning tokens: 135; latency: 2528 ms (2.528 seconds); generation time: 5172 ms (5.172 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1210 ms (1.21 seconds); cost status: reported; recorded cost: USD 0.00265126; provider: CoreWeave; input tokens: 468; output tokens: 1120; total tokens: 1588; cached tokens: 0; reasoning tokens: 684; latency: 1178 ms (1.178 seconds); generation time: 8445 ms (8.445 seconds). Stage: content evaluation. status: completed; wall time: 36611 ms (36.611 seconds); recorded cost: USD 0.01938; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1197 ms (1.197 seconds); cost status: reported; recorded cost: USD 0.01938; provider: DigitalOcean; input tokens: 1444; output tokens: 1299; total",
+      "contentHash": "89459e9b0a06a53aecf4056c2059b56c1c7f41e17ce4488aa1e76ae7aa1fddb1",
       "wordCount": 220,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
@@ -901,6 +1312,7 @@
       "heading": "AI production cost and models",
       "part": 2,
       "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1197 ms (1.197 seconds); cost status: reported; recorded cost: USD 0.01938; provider: DigitalOcean; input tokens: 1444; output tokens: 1299; total tokens: 2743; cached tokens: 0; reasoning tokens: 1076; latency: 1146 ms (1.146 seconds); generation time: 36505 ms (36.505 seconds). Stage: tag generation. status: completed; wall time: 1773 ms (1.773 seconds); recorded cost: USD 0.00088802; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1226 ms (1.226 seconds); cost status: reported; recorded cost: USD 0.00088802; provider: CoreWeave; input tokens: 829; output tokens: 158; total tokens: 987; cached tokens: 0; reasoning tokens: 137; latency: 1091 ms (1.091 seconds); generation time: 1679 ms (1.679 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3505 ms (3.505 seconds); recorded cost: USD 0.034453; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 2938 ms (2.938 seconds); cost status: reported; recorded cost: USD 0.034453; input tokens: 1000; output tokens: 1522; total tokens: 2522. Stage: translation bn. status: completed; wall time: 55160 ms (55.16 seconds); recorded cost: USD 0.00020071; cost status:",
+      "contentHash": "1e0a664b0bc19486c858e4c0fba6736fbc71e49a73cf289d145191531ccc1e24",
       "wordCount": 220,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
@@ -988,6 +1400,7 @@
       "heading": "AI production cost and models",
       "part": 3,
       "text": "recorded cost: USD 0.034453; input tokens: 1000; output tokens: 1522; total tokens: 2522. Stage: translation bn. status: completed; wall time: 55160 ms (55.16 seconds); recorded cost: USD 0.00020071; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1495 ms (1.495 seconds); cost status: reported; recorded cost: USD 0.00020071; provider: DigitalOcean; input tokens: 1300; output tokens: 1686; total tokens: 2986; cached tokens: 0; reasoning tokens: 0; latency: 1446 ms (1.446 seconds); generation time: 55077 ms (55.077 seconds). Stage: translation hi. status: completed; wall time: 85511 ms (85.511 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 926 ms (0.926 seconds); cost status: unavailable.",
+      "contentHash": "ec1d7bedd75b917252d417e162e1174a4305aa94c76b3ded08049165d7504018",
       "wordCount": 135,
       "sourcePath": "staying-safe-when-using-ai.md",
       "sourceHash": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1",
@@ -1075,6 +1488,7 @@
       "heading": "Using AI to Read Documents — What can it do?",
       "part": 1,
       "text": "You will learn how to use an artificial intelligence tool to understand, summarise, and find information in documents.\n\nArtificial intelligence, or AI, is a computer helper. It can look at a document and explain it in simple words.\n\nAn AI tool may help you: - Read a letter or notice - Make a long document shorter - Explain difficult words - Find a name, date, price, or address - Translate a document - Answer questions about the document",
+      "contentHash": "702833a7308361d4be02ac4a768c3e4ce561842582910360a192bf9786760960",
       "wordCount": 78,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
@@ -1089,6 +1503,7 @@
       "heading": "How to use it",
       "part": 1,
       "text": "1. Open an AI app or website. 2. Choose Add file, Upload, or the camera picture button. 3. Take a clear picture of the document, or choose a saved file. 4. Ask a simple question, such as: - “Please explain this in simple words.” - “What date must I remember?” - “How much money does this say?” 5. Read the answer carefully.",
+      "contentHash": "deecddbeab782d60ba870a14ee64376ce2080b7d374929ae2976dd846cf98efe",
       "wordCount": 62,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
@@ -1103,6 +1518,7 @@
       "heading": "Stay safe",
       "part": 1,
       "text": "- Do not upload passwords, bank details, identity numbers, or private medical papers unless you trust the service. - Check important information with the original document. - AI can make mistakes. Ask a trusted person or office if something is unclear. - Make sure the picture shows the whole page and is not blurry.",
+      "contentHash": "a16eceb67958b81be30386068c2e987ca08e9c22f8b4e9ce83d813e58b0f4647",
       "wordCount": 54,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3"
@@ -1117,6 +1533,7 @@
       "heading": "AI production cost and models",
       "part": 1,
       "text": "AI production cost and model information for the Saral article “Using AI to Read Documents”. Overall run — total recorded cost: USD 0.04903584; wall time: 76099 ms (76.099 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 8448 ms (8.448 seconds); recorded cost: USD 0.00351848; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 932 ms (0.932 seconds); cost status: reported; recorded cost: USD 0.0002654; provider: OpenAI; input tokens: 468; output tokens: 479; total tokens: 947; cached tokens: 0; reasoning tokens: 82; latency: 1697 ms (1.697 seconds); generation time: 7180 ms (7.18 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 949 ms (0.949 seconds); cost status: reported; recorded cost: USD 0.00325308; provider: CoreWeave; input tokens: 468; output tokens: 1298; total tokens: 1766; cached tokens: 0; reasoning tokens: 1014; latency: 584 ms (0.584 seconds); generation time: 7862 ms (7.862 seconds). Stage: content evaluation. status: completed; wall time: 5749 ms (5.749 seconds); recorded cost: USD 0.0102162; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 2182 ms (2.182 seconds); cost status: reported; recorded cost: USD 0.0102162; provider: Modal; input tokens: 1185; output tokens: 534; total",
+      "contentHash": "b99ba090c81b8ef98ca73e7bab21d4674d9f0fe0b4a49971c6360c102e49a2e3",
       "wordCount": 220,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
@@ -1204,6 +1621,7 @@
       "heading": "AI production cost and models",
       "part": 2,
       "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 2182 ms (2.182 seconds); cost status: reported; recorded cost: USD 0.0102162; provider: Modal; input tokens: 1185; output tokens: 534; total tokens: 1719; cached tokens: 64; reasoning tokens: 526; latency: 1654 ms (1.654 seconds); generation time: 5117 ms (5.117 seconds). Stage: tag generation. status: completed; wall time: 1145 ms (1.145 seconds); recorded cost: USD 0.00063438; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 508 ms (0.508 seconds); cost status: reported; recorded cost: USD 0.00063438; provider: CoreWeave; input tokens: 729; output tokens: 76; total tokens: 805; cached tokens: 0; reasoning tokens: 54; latency: 584 ms (0.584 seconds); generation time: 1065 ms (1.065 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3357 ms (3.357 seconds); recorded cost: USD 0.03383225; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3180 ms (3.18 seconds); cost status: reported; recorded cost: USD 0.03383225; input tokens: 929; output tokens: 1120; total tokens: 2049. Stage: translation bn. status: completed; wall time: 43286 ms (43.286 seconds); recorded cost: USD 0.00083453; cost status:",
+      "contentHash": "2c14b98a9464b1e31b5db6c15e0a60fd60a65c58e15c7346dba02e1a2438ec26",
       "wordCount": 220,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
@@ -1291,6 +1709,7 @@
       "heading": "AI production cost and models",
       "part": 3,
       "text": "recorded cost: USD 0.03383225; input tokens: 929; output tokens: 1120; total tokens: 2049. Stage: translation bn. status: completed; wall time: 43286 ms (43.286 seconds); recorded cost: USD 0.00083453; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 2547 ms (2.547 seconds); cost status: reported; recorded cost: USD 0.00083453; provider: Baidu; input tokens: 1201; output tokens: 5939; total tokens: 7140; cached tokens: 0; reasoning tokens: 3547; latency: 6723 ms (6.723 seconds); generation time: 43149 ms (43.149 seconds). Stage: translation hi. status: completed; wall time: 57379 ms (57.379 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1932 ms (1.932 seconds); cost status: unavailable.",
+      "contentHash": "4b0d197532bc67902fd9874b71ee9d0bcda17a4e7f22d71ac8f9f53ee9977f60",
       "wordCount": 135,
       "sourcePath": "using-ai-to-read-documents.md",
       "sourceHash": "f54c4e4e5d2e00488ce1066f19f8b4a8bb2d35840431fb002671bfebaa4d4de3",
@@ -1378,6 +1797,7 @@
       "heading": "Using AI to Translate Languages",
       "part": 1,
       "text": "Learn how smart computer programs can change your words into another language so you can talk to more people.\n\nHave you ever wanted to talk to someone who speaks a different language? Maybe you have a doctor or a neighbor who does not understand your words. Now, computers can help you talk to them easily.",
+      "contentHash": "94e70b50a2c7b52a942c5ae9744510198cad86e62cc26762b6c9c630b99e7932",
       "wordCount": 55,
       "sourcePath": "using-ai-to-translate-languages.md",
       "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
@@ -1392,6 +1812,7 @@
       "heading": "What is Computer Translation?",
       "part": 1,
       "text": "Think of your phone or computer as a very smart friend who knows many languages. When you speak or type words, this friend quickly tells you what those words mean in another language. In the past, computers were not very good at this and made silly mistakes. Today, they are very smart and can change whole sentences so they make sense.",
+      "contentHash": "385d538446b21a3413f475ec487d6e28d4a8b75b0a36c0a03178f0783ae0438d",
       "wordCount": 61,
       "sourcePath": "using-ai-to-translate-languages.md",
       "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
@@ -1406,6 +1827,7 @@
       "heading": "How Can You Use It?",
       "part": 1,
       "text": "You can use your phone to change languages in a few simple ways: 1. Talking to people: You can speak into your phone in your language. The phone will then speak the same words out loud in the other language. The other person can reply, and your phone will change their words back to your language. 2. Reading signs or papers: If you get a letter in a language you do not know, you can take a picture of it with your phone. The phone will change the words in the picture to your language so you can read it. 3. Shopping online: If a website is in a different language, the computer can change the whole page to your language so you can understand what you are buying.",
+      "contentHash": "4103e7bdf4b9473a5bc66832a341957735b52202bf3e61a6bdaef213e0cb1bd5",
       "wordCount": 129,
       "sourcePath": "using-ai-to-translate-languages.md",
       "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
@@ -1420,6 +1842,7 @@
       "heading": "Where to Find This Tool",
       "part": 1,
       "text": "One of the most famous tools for this is called Google Translate. It is free to use. You just need an internet connection on your phone or computer. You can also download apps on your phone that do the same thing. Using these tools makes the world smaller. You do not need to feel scared or left out when you see or hear words you do not know. Your phone can be your helpful translator friend!",
+      "contentHash": "523aac53d125e316de1c06024ddf624e06d8d814e16e43ee0bcbe8ea0a2a5f34",
       "wordCount": 76,
       "sourcePath": "using-ai-to-translate-languages.md",
       "sourceHash": "365bab27f6c24416af1d3b88ea3c891dc08efa96f3b9c110c67a047d50a4a0d0"
@@ -1434,6 +1857,7 @@
       "heading": "Using AI to write messages — How to use it",
       "part": 1,
       "text": "You will learn how to ask artificial intelligence to help write clear messages and check them before sending.\n\nArtificial intelligence can help you write a message. It is like a writing helper on your phone or computer.\n\n1. Open an artificial intelligence writing tool. 2. Tell it what you want to say. 3. Say who the message is for and what feeling you want. For example: > Write a short, friendly message to my doctor. Say that I cannot come to my appointment tomorrow and ask for a new date. The tool may write: > Hello Doctor, I cannot come to my appointment tomorrow. Could I please have a new date? Thank you.",
+      "contentHash": "38c2665b02d133a57e0b202a894903fb0cdb7ea65e0295021e2076dc9c8ff220",
       "wordCount": 113,
       "sourcePath": "using-ai-to-write-messages.md",
       "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
@@ -1448,6 +1872,7 @@
       "heading": "Check the message",
       "part": 1,
       "text": "Before sending: - Read the whole message. - Make sure the details are correct. - Change any words that do not sound like you. - Check the person’s name and date. - Send it only when you are happy with it.",
+      "contentHash": "4f7e9a1a65422942e56abe69821c8c5d011e766fbaa50a139621c23867cb5404",
       "wordCount": 41,
       "sourcePath": "using-ai-to-write-messages.md",
       "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
@@ -1462,6 +1887,7 @@
       "heading": "Keep private things safe",
       "part": 1,
       "text": "Do not type private information into a writing tool, such as: - Passwords - Bank details - Identity numbers - Private medical information Artificial intelligence can make mistakes. You are the person who must check the message before sending it.",
+      "contentHash": "4018f96638b12d6266673c8d5d6650446a0940858df04744894da87a3668d6a4",
       "wordCount": 40,
       "sourcePath": "using-ai-to-write-messages.md",
       "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
