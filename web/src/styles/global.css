@@ -15,7 +15,7 @@ a { color:inherit; } button,select { font:inherit; } img { max-width:100%; }
 :root[data-theme="dark"] .brand img { filter:brightness(1.55) saturate(.8); }
 .site-header nav { display:flex;gap:24px; }
 .site-header nav a { font-weight:600;text-decoration:none;padding:10px 2px; }
-.site-header nav a.experimental-link { align-items:center;display:inline-flex;gap:5px; }
+.site-header nav a.experimental-link { align-items:center;display:inline-flex;gap:5px; color: var(--green-dark); background-color: var(--green-soft);}
 .site-header nav a:hover { color:var(--green);text-decoration:underline;text-underline-offset:5px; }
 .language-list { display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;overflow:hidden; }
 .language-list a { min-height:42px;border:0;border-right:1px solid var(--line);background:var(--surface);color:var(--muted);padding:7px 10px;cursor:pointer;font-size:.86rem;font-weight:600;display:grid;place-items:center;text-decoration:none; }
