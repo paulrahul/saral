@@ -30,7 +30,7 @@ GitHub repository
                  ▼
 Vercel project: Saral Chat (Root Directory: rag)
 ├── FastAPI POST /ask
-├── Gradio interface at /chat
+├── Static HTML/CSS/JavaScript interface at /chat/
 ├── OpenRouter query embedding
 ├── exact cosine retrieval against the bundled index
 └── OpenRouter answer generation
@@ -45,11 +45,16 @@ rag/
 ├── index.py                 # Vercel ASGI entrypoint
 ├── app/
 │   ├── embeddings.py         # OpenRouter document/query embeddings
-│   ├── main.py               # FastAPI and mounted Gradio app
-│   ├── ui.py                 # Experimental Gradio interface
+│   ├── main.py               # FastAPI API and UI routes
+│   ├── ui.py                 # Static page routes and public branding config
 │   ├── rag.py                # Interface-independent RAG service
 │   ├── retrieval.py          # Exact cosine retrieval
 │   └── llm.py                # OpenRouter answer generation
+├── public/
+│   ├── chat/index.html       # Accessible English chat page
+│   ├── chat.css              # Saral sand-and-green styling
+│   ├── chat.js               # Display-only history and POST /ask requests
+│   └── vendor/               # Pinned Marked + DOMPurify and licenses
 ├── scripts/
 │   └── ingest.py             # Local ingestion entrypoint
 ├── data/
@@ -79,7 +84,7 @@ The runtime always uses the model recorded in the manifest for question embeddin
 
 ## Runtime Request Flow
 
-1. The user submits a bounded English question through Gradio or `POST /ask`.
+1. The browser submits the current English question to `POST /ask`; prior messages are not sent.
 2. Deterministic topic and cost questions are answered directly from indexed metadata when possible.
 3. Other questions are embedded through OpenRouter using the model in the manifest.
 4. The service performs exact cosine similarity against the bundled vectors and selects at most three relevant chunks.
@@ -104,7 +109,7 @@ OPENROUTER_API_KEY=...
 SARAL_CHAT_MODEL=deepseek/deepseek-v4-flash-0731
 SARAL_ALLOWED_ORIGINS=https://saralai-seven.vercel.app
 SARAL_LOGO_URL=https://saralai-seven.vercel.app/saral-logo.png
-GRADIO_ANALYTICS_ENABLED=false
+SARAL_SITE_URL=https://saralai-seven.vercel.app
 ```
 
 For retrieval-only smoke testing, set `SARAL_CHAT_RETRIEVAL_ONLY=true`. This avoids the answer-generation call but still creates a small OpenRouter embedding request for non-deterministic questions.
@@ -115,6 +120,44 @@ Validate a deployment at:
 /health
 /chat/
 ```
+
+### Custom chat UI
+
+The chat page uses plain HTML, CSS, and JavaScript. There is no frontend build
+step and no Gradio dependency. Vercel serves `public/**` assets from its CDN;
+FastAPI supplies the `/ask` API, `/chat/` page fallback, and `/chat-config`.
+Local Uvicorn serves the same static assets through a development fallback.
+Only the public logo URL and main-site URL are exposed in `/chat-config`.
+API keys remain server-side.
+
+Answers are parsed by locally bundled Marked and sanitized by DOMPurify before
+being displayed. Source links are constructed with DOM text methods, and links
+accept only HTTP/HTTPS URLs. User questions are rendered as plain text. No chat
+history is stored in browser storage or sent with subsequent questions; the
+page displays at most ten messages and a refresh clears them.
+
+The page handles empty questions, pending requests, HTTP errors, and request
+timeouts. It does not automatically retry paid requests. Clearing a pending
+conversation aborts the browser fetch and ignores late responses; it cannot
+guarantee cancellation of model work already running on the server.
+
+For manual local checking, from the repository root run:
+
+```bash
+.venv/bin/python -m uvicorn rag.app.main:app --reload --port 8000
+```
+
+Open `http://127.0.0.1:8000/chat/`. The usual OpenRouter environment settings
+still apply. A catalogue request such as `list all topics` exercises the page
+and API without a model call. A lesson question exercises retrieval and answer
+generation, and incurs the usual API costs. Check multiline input, source
+links, clear conversation, mobile layout, and keyboard navigation manually.
+
+Deploy by committing and pushing the changes to the existing chatbot Vercel
+project's tracked branch. Keep its root directory as `rag` and entrypoint as
+`index.py`. No new project or index regeneration is needed. The obsolete
+`GRADIO_ANALYTICS_ENABLED` variable may be removed from Vercel, but leaving it
+set is harmless.
 
 ## Automated ingestion
 

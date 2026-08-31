@@ -1,11 +1,10 @@
-"""FastAPI host for Saral's experimental chatbot and mounted Gradio UI."""
+"""FastAPI host for Saral's experimental chatbot and static chat UI."""
 
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from typing import Annotated, Any
 
-import gradio as gr
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -14,7 +13,7 @@ from pydantic import BaseModel, Field
 from .llm import OpenRouterAnswerGenerator
 from .rag import NO_RELEVANT_LESSON, RagResult, RagService
 from .settings import Settings
-from .ui import SARAL_CSS, create_ui
+from .ui import register_ui
 
 
 MAX_REQUEST_BYTES = 4_096
@@ -38,7 +37,7 @@ class AskResponse(BaseModel):
 
 
 class RetrievalOnlyAnswerGenerator:
-    """Safe, no-cost local mode for verifying the HTTP and Gradio layers."""
+    """Skip answer generation; semantic queries still use paid embeddings."""
 
     async def generate(self, _question: str, chunks) -> str:
         excerpts = "\n\n".join(f"**{chunk.article_title}**\n{chunk.text}" for chunk in chunks)
@@ -95,7 +94,7 @@ def create_app(settings: Settings | None = None, *, service: RagService | None =
 
     @app.get("/", include_in_schema=False)
     async def root() -> RedirectResponse:
-        return RedirectResponse(url="/chat")
+        return RedirectResponse(url="/chat/")
 
     @app.get("/health")
     async def health(request: Request) -> dict[str, Any]:
@@ -121,22 +120,8 @@ def create_app(settings: Settings | None = None, *, service: RagService | None =
         except Exception as error:
             raise HTTPException(status_code=502, detail="Saral could not prepare an answer right now.") from error
 
-    ui = create_ui_proxy(app, logo_url=settings.logo_url, site_url=settings.site_url)
-    return gr.mount_gradio_app(app, ui, path="/chat", show_error=False, css=SARAL_CSS)
-
-
-def create_ui_proxy(app: FastAPI, *, logo_url: str, site_url: str):
-    """Defer service access until each Gradio event, after FastAPI startup."""
-
-    class AppAnswerGenerator:
-        async def generate(self, question: str, chunks):
-            return await app.state.generator.generate(question, chunks)
-
-    class AppService:
-        async def ask(self, question: str, _generator, *, limit: int):
-            return await app.state.service.ask(question, app.state.generator, limit=limit)
-
-    return create_ui(AppService(), AppAnswerGenerator(), logo_url=logo_url, site_url=site_url)
+    register_ui(app, logo_url=settings.logo_url, site_url=settings.site_url)
+    return app
 
 
 app = create_app()

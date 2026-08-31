@@ -22,7 +22,7 @@ class AnswerGenerator(Protocol):
 
 @dataclass(frozen=True)
 class RagResult:
-    """A response that the later FastAPI and Gradio layers can present unchanged."""
+    """A response that the API and presentation layers can present unchanged."""
 
     relevant: bool
     answer: str | None

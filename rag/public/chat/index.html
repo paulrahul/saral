@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#dce5dc">
+    <meta name="description" content="Ask questions about Saral's lessons. An experimental, English-only chatbot for everyday technology.">
+    <title>Ask Saral</title>
+    <link rel="stylesheet" href="/chat.css?v=1">
+    <script defer src="/vendor/marked-18.0.7.umd.js"></script>
+    <script defer src="/vendor/purify-3.4.14.min.js"></script>
+    <script defer src="/chat.js?v=1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#question">Skip to your question</a>
+    <main class="chat-shell">
+      <header class="chat-header">
+        <img id="saral-logo" src="https://saralai-seven.vercel.app/saral-logo.png" alt="Saral" width="640" height="181">
+        <div>
+          <h1>Ask Saral</h1>
+          <p>Technology made simple, so no one is left behind.</p>
+        </div>
+      </header>
+      <aside class="scope-note" aria-labelledby="scope-heading">
+        <strong id="scope-heading">What this chatbot knows:</strong>
+        It can answer only questions covered by lessons published on Saral.
+        It cannot answer general questions outside Saral's content.
+        Conversations are state-less i.e. conversational history is not remembered by the system.
+      </aside>
+      <nav class="back-nav" aria-label="Return to main website">
+        <a id="back-link" href="https://saralai-seven.vercel.app">← Back to Saral</a>
+      </nav>
+      <section class="conversation" aria-labelledby="conversation-heading">
+        <div class="conversation-header">
+          <h2 id="conversation-heading">Conversation</h2>
+          <span>English · Experimental</span>
+        </div>
+        <div id="messages" class="messages" role="log" aria-label="Conversation messages" aria-live="polite" aria-relevant="additions" tabindex="0">
+          <div id="empty-state" class="empty-state">
+            <p>Ask a question about any content published on Saral.</p>
+            <p class="muted">For example: How can I stay safe when using AI?</p>
+          </div>
+        </div>
+      </section>
+      <form id="chat-form">
+        <div class="question-field">
+          <label for="question">Your question</label>
+          <textarea id="question" name="question" rows="3" maxlength="1000" required placeholder="For example: How can I stay safe when using AI?" aria-describedby="question-help" disabled></textarea>
+        </div>
+        <button id="send-button" class="primary-button" type="submit" disabled>Ask Saral</button>
+        <p id="question-help" class="question-help">Up to 1,000 characters. Enter to send; Shift + Enter for a new line.</p>
+      </form>
+      <div class="conversation-actions">
+        <button id="clear-button" class="secondary-button" type="button" disabled>Clear conversation</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </div>
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+      <noscript><p class="error-message">Please enable JavaScript to use the chatbot. You can still read lessons on <a href="https://saralai-seven.vercel.app">Saral</a>.</p></noscript>
+      <footer>
+        <p>Experimental and English-only. Please do not share personal or sensitive information.</p>
+        <p><a href="https://paulrahul.github.io/#contact" target="_blank" rel="noopener noreferrer">Contact the creator of this site</a></p>
+      </footer>
+    </main>
+  </body>
+</html>

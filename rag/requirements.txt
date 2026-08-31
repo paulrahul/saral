@@ -1,8 +1,7 @@
-# Used only by the experimental chatbot ingestion and later runtime container.
+# Dependencies for local ingestion and the Vercel FastAPI chatbot.
 numpy>=1.26,<3
 PyYAML>=6,<7
 openai>=2,<3
 fastapi>=0.115,<1
 uvicorn[standard]>=0.30,<1
-gradio>=5,<7
 python-dotenv>=1,<2
