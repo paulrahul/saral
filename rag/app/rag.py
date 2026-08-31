@@ -243,8 +243,16 @@ def _print_result(result: RagResult, *, include_text: bool = True) -> None:
 
 async def _generate_answer(service: RagService, question: str, model: str, limit: int) -> RagResult:
     from .llm import OpenRouterAnswerGenerator
+    from .settings import Settings
 
-    generator = OpenRouterAnswerGenerator(model)
+    # Load the same environment-driven generation options as the HTTP app.
+    # The model still comes explicitly from --model, not a hidden CLI default.
+    settings = Settings.from_environment()
+    generator = OpenRouterAnswerGenerator(
+        model,
+        max_tokens=settings.chat_max_tokens,
+        reasoning=settings.chat_reasoning,
+    )
     try:
         return await service.ask(question, generator, limit=limit)
     finally:

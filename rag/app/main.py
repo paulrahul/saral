@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from contextlib import asynccontextmanager
 from typing import Annotated, Any
 
@@ -17,6 +18,7 @@ from .ui import register_ui
 
 
 MAX_REQUEST_BYTES = 4_096
+logger = logging.getLogger(__name__)
 
 
 class AskRequest(BaseModel):
@@ -66,7 +68,11 @@ def create_app(settings: Settings | None = None, *, service: RagService | None =
         if settings.retrieval_only:
             generator = RetrievalOnlyAnswerGenerator()
         else:
-            generator = OpenRouterAnswerGenerator(settings.model or "")
+            generator = OpenRouterAnswerGenerator(
+                settings.model or "",
+                max_tokens=settings.chat_max_tokens,
+                reasoning=settings.chat_reasoning,
+            )
         app.state.service = active_service
         app.state.generator = generator
         try:
@@ -118,6 +124,7 @@ def create_app(settings: Settings | None = None, *, service: RagService | None =
         except ValueError as error:
             raise HTTPException(status_code=422, detail=str(error)) from error
         except Exception as error:
+            logger.exception("Saral /ask failed (error_type=%s)", type(error).__name__)
             raise HTTPException(status_code=502, detail="Saral could not prepare an answer right now.") from error
 
     register_ui(app, logo_url=settings.logo_url, site_url=settings.site_url)

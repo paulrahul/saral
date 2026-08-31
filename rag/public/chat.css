@@ -74,9 +74,8 @@ textarea:read-only { background: var(--surface); }
 .secondary-button:hover:not(:disabled) { background: var(--green-soft); }
 .question-help { grid-column: 1 / -1; font-size: .8rem; color: var(--muted); }
 .conversation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-#status { display: flex; align-items: center; gap: 8px; color: var(--green); font-size: .9rem; }
-#status.is-busy::before {
-  content: "";
+.message-pending .message-body { display: flex; align-items: center; gap: 10px; color: var(--green); }
+.message-spinner {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
@@ -87,7 +86,7 @@ textarea:read-only { background: var(--surface); }
 }
 @keyframes saral-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  #status.is-busy::before { animation: none; }
+  .message-spinner { animation: none; }
 }
 .error-message { margin-top: 12px; padding: 12px; border: 1px solid #a15c32; border-radius: 8px; color: #743008; background: #f3e1ce; }
 footer { margin-top: 22px; text-align: center; color: var(--muted); font-size: .85rem; }

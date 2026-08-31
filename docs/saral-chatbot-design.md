@@ -114,6 +114,31 @@ SARAL_SITE_URL=https://saralai-seven.vercel.app
 
 For retrieval-only smoke testing, set `SARAL_CHAT_RETRIEVAL_ONLY=true`. This avoids the answer-generation call but still creates a small OpenRouter embedding request for non-deterministic questions.
 
+Optional answer-generation settings (shared by the HTTP service and CLI):
+
+```dotenv
+SARAL_CHAT_MAX_TOKENS=1000
+SARAL_CHAT_REASONING=off
+```
+
+These are the defaults; neither variable is required. `SARAL_CHAT_MAX_TOKENS`
+accepts 1–8192 and provides headroom for a final answer while the prompt asks
+for at most about 200 words. Reasoning may consume part of the output budget
+when enabled by a provider. `SARAL_CHAT_REASONING=off` sends
+`reasoning.enabled=false` to OpenRouter. If the selected model requires
+reasoning or its provider rejects this option, set `SARAL_CHAT_REASONING=default`
+to omit the override and use the model/provider defaults. This is different
+from merely excluding reasoning text from the response.
+
+For an empty answer, the server logs the response ID, requested/returned model,
+provider when available, finish reason, token usage, and whether reasoning was
+present. It does not log the question, article excerpts, answer, or reasoning
+text in that diagnostic. `/ask` also logs the underlying exception traceback
+before returning the generic 502 message to the browser. A `length` finish
+reason together with a depleted output budget is evidence of token exhaustion;
+an empty answer alone does not establish the cause. The browser timeout remains
+90 seconds, and no empty-answer retry is added.
+
 Validate a deployment at:
 
 ```text

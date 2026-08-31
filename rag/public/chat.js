@@ -8,8 +8,6 @@
   const clear = document.querySelector("#clear-button");
   const messages = document.querySelector("#messages");
   const emptyState = document.querySelector("#empty-state");
-  const status = document.querySelector("#status");
-  const errorMessage = document.querySelector("#error-message");
   const MAX_MESSAGES = 10;
   let activeRequest = null;
 
@@ -100,20 +98,28 @@
     if (followLatest) {
       messages.scrollTop += message.getBoundingClientRect().top - messages.getBoundingClientRect().top - 12;
     }
+    return message;
+  }
+
+  function addPendingMessage() {
+    const message = addMessage("assistant", "Looking through Saral's lessons…");
+    message.classList.add("message-pending");
+    const body = message.querySelector(".message-body");
+    const spinner = document.createElement("span");
+    spinner.className = "message-spinner";
+    spinner.setAttribute("aria-hidden", "true");
+    const text = document.createElement("span");
+    text.textContent = "Looking through Saral's lessons…";
+    body.replaceChildren(spinner, text);
+    return message;
   }
 
   function syncControls() {
     const busy = activeRequest !== null;
-    status.classList.toggle("is-busy", busy);
     question.readOnly = busy;
     send.disabled = busy || !question.value.trim();
     send.textContent = busy ? "Please wait…" : "Ask Saral";
     clear.disabled = !busy && !question.value && !messages.querySelector(".message");
-  }
-
-  function showError(text) {
-    errorMessage.textContent = text;
-    errorMessage.hidden = false;
   }
 
   question.addEventListener("input", syncControls);
@@ -129,16 +135,15 @@
     const text = question.value.trim();
     if (activeRequest || !text) return;
     if (text.length > 1000) {
-      showError("Please keep your question to 1,000 characters or fewer.");
+      addMessage("assistant", "Please keep your question to 1,000 characters or fewer.");
       return;
     }
-    errorMessage.hidden = true;
     const request = { controller: new AbortController(), timedOut: false };
     activeRequest = request;
     question.value = "";
     addMessage("user", text);
+    request.pendingMessage = addPendingMessage();
     syncControls();
-    status.textContent = "Looking through Saral's lessons…";
     const timeout = window.setTimeout(() => {
       request.timedOut = true;
       request.controller.abort();
@@ -164,8 +169,8 @@
         throw new Error("Saral returned an unexpected response. Please try again later.");
       }
       if (activeRequest !== request) return;
+      request.pendingMessage.remove();
       addMessage("assistant", result.answer, result.sources);
-      status.textContent = "Answer ready.";
     } catch (error) {
       if (activeRequest !== request) return;
       const detail = request.timedOut
@@ -173,9 +178,9 @@
         : error instanceof TypeError
           ? "Could not connect to Saral. Check your connection and try again."
           : error.message || "Something went wrong. Please try again later.";
-      showError(detail);
+      request.pendingMessage.remove();
+      addMessage("assistant", detail);
       question.value = text;
-      status.textContent = "No answer received.";
     } finally {
       window.clearTimeout(timeout);
       if (activeRequest === request) {
@@ -187,15 +192,10 @@
   });
 
   clear.addEventListener("click", () => {
-    const wasPending = activeRequest !== null;
     activeRequest?.controller.abort();
     activeRequest = null;
     messages.replaceChildren(emptyState);
     question.value = "";
-    errorMessage.hidden = true;
-    status.textContent = wasPending
-      ? "Conversation cleared. The previous request may still finish on the server."
-      : "Conversation cleared.";
     syncControls();
     question.focus();
   });

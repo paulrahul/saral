@@ -15,6 +15,15 @@ DEFAULT_ALLOWED_ORIGINS = (
 )
 DEFAULT_LOGO_URL = "https://saralai-seven.vercel.app/saral-logo.png"
 DEFAULT_SITE_URL = "https://saralai-seven.vercel.app"
+DEFAULT_CHAT_MAX_TOKENS = 1_000
+DEFAULT_CHAT_REASONING = "off"
+
+
+def validate_answer_options(max_tokens: int, reasoning: str) -> None:
+    if not 1 <= max_tokens <= 8_192:
+        raise ValueError("SARAL_CHAT_MAX_TOKENS must be between 1 and 8192.")
+    if reasoning not in {"off", "default"}:
+        raise ValueError("SARAL_CHAT_REASONING must be 'off' or 'default'.")
 
 
 def _as_bool(value: str | None) -> bool:
@@ -31,6 +40,8 @@ class Settings:
     allowed_origins: tuple[str, ...]
     logo_url: str = DEFAULT_LOGO_URL
     site_url: str = DEFAULT_SITE_URL
+    chat_max_tokens: int = DEFAULT_CHAT_MAX_TOKENS
+    chat_reasoning: str = DEFAULT_CHAT_REASONING
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -48,9 +59,12 @@ class Settings:
             else DEFAULT_ALLOWED_ORIGINS,
             logo_url=os.getenv("SARAL_LOGO_URL", DEFAULT_LOGO_URL),
             site_url=os.getenv("SARAL_SITE_URL", DEFAULT_SITE_URL).rstrip("/"),
+            chat_max_tokens=int(os.getenv("SARAL_CHAT_MAX_TOKENS", str(DEFAULT_CHAT_MAX_TOKENS))),
+            chat_reasoning=os.getenv("SARAL_CHAT_REASONING", DEFAULT_CHAT_REASONING).strip().lower(),
         )
 
     def validate(self) -> None:
+        validate_answer_options(self.chat_max_tokens, self.chat_reasoning)
         if not -1.0 <= self.relevance_threshold <= 1.0:
             raise ValueError("SARAL_CHAT_RELEVANCE_THRESHOLD must be between -1 and 1.")
         if not 1 <= self.top_k <= 5:
