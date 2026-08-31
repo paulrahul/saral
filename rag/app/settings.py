@@ -16,7 +16,7 @@ DEFAULT_ALLOWED_ORIGINS = (
 DEFAULT_LOGO_URL = "https://saralai-seven.vercel.app/saral-logo.png"
 DEFAULT_SITE_URL = "https://saralai-seven.vercel.app"
 DEFAULT_CHAT_MAX_TOKENS = 1_000
-DEFAULT_CHAT_REASONING = "off"
+DEFAULT_CHAT_REASONING = "default"
 
 
 def validate_answer_options(max_tokens: int, reasoning: str) -> None:

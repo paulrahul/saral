@@ -8,13 +8,20 @@ import os
 from collections.abc import Sequence
 
 import httpx
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, BadRequestError
 
 from .retrieval import RetrievedChunk
 from .settings import DEFAULT_CHAT_MAX_TOKENS, DEFAULT_CHAT_REASONING, validate_answer_options
 
 
 logger = logging.getLogger(__name__)
+
+
+def _reasoning_is_mandatory(error: BadRequestError) -> bool:
+    """Recognize OpenRouter's rejection of a disabled-reasoning request."""
+
+    message = str(error).lower()
+    return "reasoning is mandatory" in message and "cannot be disabled" in message
 
 
 class OpenRouterAnswerGenerator:
@@ -52,29 +59,40 @@ class OpenRouterAnswerGenerator:
             f"[Source {number}: {chunk.article_title} — {chunk.heading}]\n{chunk.text}"
             for number, chunk in enumerate(chunks, start=1)
         )
-        response = await self._client.chat.completions.create(
-            model=self.model,
-            temperature=0.2,
-            max_tokens=self.max_tokens,
-            # 'default' leaves model/provider defaults untouched, including
-            # models with mandatory reasoning. 'off' requests no reasoning
-            # on providers that support disabling it, not merely hiding it.
-            extra_body={"reasoning": {"enabled": False}} if self.reasoning == "off" else None,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are Saral's experimental English lesson assistant. Answer only from the supplied "
-                        "Saral lesson excerpts. Be clear, kind, and concise for a non-technical reader. "
-                        "Aim for no more than 200 words, and use fewer when a short answer is enough. "
-                        "Do not invent facts, cite sources in prose, or give medical, legal, or financial advice. "
-                        "When asked which lessons fit a person or need, list the relevant supplied lesson titles first. "
-                        "If the excerpts do not answer the question, say so plainly."
-                    ),
-                },
-                {"role": "user", "content": f"Question: {question}\n\nLesson excerpts:\n{context}"},
-            ],
-        )
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are Saral's experimental English lesson assistant. Answer only from the supplied "
+                    "Saral lesson excerpts. Be clear, kind, and concise for a non-technical reader. "
+                    "Aim for no more than 200 words, and use fewer when a short answer is enough. "
+                    "Do not invent facts, cite sources in prose, or give medical, legal, or financial advice. "
+                    "When asked which lessons fit a person or need, list the relevant supplied lesson titles first. "
+                    "If the excerpts do not answer the question, say so plainly."
+                ),
+            },
+            {"role": "user", "content": f"Question: {question}\n\nLesson excerpts:\n{context}"},
+        ]
+        try:
+            response = await self._client.chat.completions.create(
+                model=self.model,
+                temperature=0.2,
+                max_tokens=self.max_tokens,
+                # 'default' leaves model/provider defaults untouched. 'off'
+                # requests no reasoning where the selected model permits it.
+                extra_body={"reasoning": {"enabled": False}} if self.reasoning == "off" else None,
+                messages=messages,
+            )
+        except BadRequestError as error:
+            if self.reasoning != "off" or not _reasoning_is_mandatory(error):
+                raise
+            logger.info("Answer model requires reasoning; retrying without the disabled-reasoning override.")
+            response = await self._client.chat.completions.create(
+                model=self.model,
+                temperature=0.2,
+                max_tokens=self.max_tokens,
+                messages=messages,
+            )
         choice = response.choices[0] if response.choices else None
         message = choice.message if choice else None
         answer = message.content if message else None

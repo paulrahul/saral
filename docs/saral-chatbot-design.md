@@ -118,17 +118,18 @@ Optional answer-generation settings (shared by the HTTP service and CLI):
 
 ```dotenv
 SARAL_CHAT_MAX_TOKENS=1000
-SARAL_CHAT_REASONING=off
+SARAL_CHAT_REASONING=default
 ```
 
 These are the defaults; neither variable is required. `SARAL_CHAT_MAX_TOKENS`
 accepts 1–8192 and provides headroom for a final answer while the prompt asks
 for at most about 200 words. Reasoning may consume part of the output budget
-when enabled by a provider. `SARAL_CHAT_REASONING=off` sends
-`reasoning.enabled=false` to OpenRouter. If the selected model requires
-reasoning or its provider rejects this option, set `SARAL_CHAT_REASONING=default`
-to omit the override and use the model/provider defaults. This is different
-from merely excluding reasoning text from the response.
+when enabled by a provider. The default setting leaves the model/provider's
+reasoning behavior untouched. `SARAL_CHAT_REASONING=off` can be used with a
+model that permits reasoning to be disabled; it sends `reasoning.enabled=false`
+to OpenRouter. If a selected model instead requires reasoning, Saral retries
+that request once without the override. This is different from merely
+excluding reasoning text from the response.
 
 For an empty answer, the server logs the response ID, requested/returned model,
 provider when available, finish reason, token usage, and whether reasoning was
