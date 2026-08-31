@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 DEFAULT_HTTP_REFERER = "https://saralai-seven.vercel.app"
-DEFAULT_APP_TITLE = "Saral Chat"
+DEFAULT_APP_TITLE = "Saral Chat Embedder"
 
 
 class OpenRouterEmbeddingClient:
