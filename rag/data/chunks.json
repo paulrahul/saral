@@ -1891,6 +1891,315 @@
       "wordCount": 40,
       "sourcePath": "using-ai-to-write-messages.md",
       "sourceHash": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    },
+    {
+      "id": "what-ai-costs-to-use:1",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "What AI costs to use — Some tools are free",
+      "part": 1,
+      "text": "Learn about the money, internet, and personal information that may be needed to use artificial intelligence tools.\n\nArtificial intelligence tools can help answer questions, write messages, make pictures, and more.\n\nYou may use some tools without paying money. But they may still need: - An internet connection - A phone, tablet, or computer - Electricity to charge your device - Your email address to make an account “Free” can also mean the company may show you adverts or collect information about how you use the tool.",
+      "contentHash": "e6bc7c4ace7a8b905a1b758d824ecea2df0c9899b8a68e24ac1de1334749fe6b",
+      "wordCount": 86,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6"
+    },
+    {
+      "id": "what-ai-costs-to-use:2",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Some tools need payment",
+      "part": 1,
+      "text": "Some tools have a monthly or yearly price. Others charge each time you use a special feature, such as: - Making many pictures - Changing voices - Reading long documents - Using a faster service - Removing adverts Always check the price before starting a free trial. A free trial may begin charging you later.",
+      "contentHash": "7a07650276f570e8a0b33bc6f7053848dbb955705600754650ebc25c8c2f6d01",
+      "wordCount": 55,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6"
+    },
+    {
+      "id": "what-ai-costs-to-use:3",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "You may pay with your information — Check before spending money",
+      "part": 1,
+      "text": "Some tools ask for your name, email address, photos, or questions. Read carefully before sharing private information. Do not share: - Passwords - Bank details - Identity numbers - Private medical information - Someone else’s personal information\n\nAsk yourself: 1. Do I really need this tool? 2. Is there a free choice? 3. What will I pay each month? 4. Will payment start automatically? 5. Can I cancel easily? Use a trusted adult or family member for help if you are unsure. Never give payment details to a website you do not trust.",
+      "contentHash": "c828d4aaa1b54ed558345388d033df114d4dcaf44873e51c1f7c3286aa75f241",
+      "wordCount": 93,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6"
+    },
+    {
+      "id": "what-ai-costs-to-use:cost:1",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “What AI costs to use”. Overall run — total recorded cost: USD 0.05605685; wall time: 245458 ms (245.458 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 5792 ms (5.792 seconds); recorded cost: USD 0.0039412; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 950 ms (0.95 seconds); cost status: reported; recorded cost: USD 0.0005932; provider: OpenAI; input tokens: 466; output tokens: 523; total tokens: 989; cached tokens: 0; reasoning tokens: 94; latency: 2040 ms (2.04 seconds); generation time: 5172 ms (5.172 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1018 ms (1.018 seconds); cost status: reported; recorded cost: USD 0.003348; provider: Mistral; input tokens: 466; output tokens: 704; total tokens: 1170; cached tokens: 0; reasoning tokens: 214; latency: 487 ms (0.487 seconds); generation time: 3936 ms (3.936 seconds). Stage: content evaluation. status: completed; wall time: 24107 ms (24.107 seconds); recorded cost: USD 0.0149006; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 958 ms (0.958 seconds); cost status: reported; recorded cost: USD 0.0149006; provider: Sail Research; input tokens: 1460; output tokens: 1018;",
+      "contentHash": "c204c7870932afe1d1422e63bb21dc806ea65311ef6f7ea6c476446d4d940767",
+      "wordCount": 220,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6",
+      "totalCostUsd": 0.05605685,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0039412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0149006,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0026376,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03384175,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.0007357,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "what-ai-costs-to-use:cost:2",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 958 ms (0.958 seconds); cost status: reported; recorded cost: USD 0.0149006; provider: Sail Research; input tokens: 1460; output tokens: 1018; total tokens: 2478; cached tokens: 0; reasoning tokens: 719; latency: 905 ms (0.905 seconds); generation time: 24052 ms (24.052 seconds). Stage: tag generation. status: completed; wall time: 2074 ms (2.074 seconds); recorded cost: USD 0.0026376; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 514 ms (0.514 seconds); cost status: reported; recorded cost: USD 0.0026376; provider: Mistral; input tokens: 798; output tokens: 408; total tokens: 1206; cached tokens: 0; reasoning tokens: 381; latency: 462 ms (0.462 seconds); generation time: 1979 ms (1.979 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3995 ms (3.995 seconds); recorded cost: USD 0.03384175; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3825 ms (3.825 seconds); cost status: reported; recorded cost: USD 0.03384175; input tokens: 967; output tokens: 1120; total tokens: 2087. Stage: translation bn. status: completed; wall time: 18451 ms (18.451 seconds); recorded cost: USD 0.0007357; cost",
+      "contentHash": "06289684d2f964d3e6a23265ad85a1bf78da311136e81bbf6742bf3b978955d1",
+      "wordCount": 220,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6",
+      "totalCostUsd": 0.05605685,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0039412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0149006,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0026376,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03384175,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.0007357,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "what-ai-costs-to-use:cost:3",
+      "articleSlug": "what-ai-costs-to-use",
+      "articleTitle": "What AI costs to use",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/what-ai-costs-to-use/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "reported; recorded cost: USD 0.03384175; input tokens: 967; output tokens: 1120; total tokens: 2087. Stage: translation bn. status: completed; wall time: 18451 ms (18.451 seconds); recorded cost: USD 0.0007357; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1457 ms (1.457 seconds); cost status: reported; recorded cost: USD 0.0007357; provider: Novita; input tokens: 1269; output tokens: 3332; total tokens: 4601; cached tokens: 0; reasoning tokens: 1408; latency: 1409 ms (1.409 seconds); generation time: 18330 ms (18.33 seconds). Stage: translation hi. status: completed; wall time: 209474 ms (209.474 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1979 ms (1.979 seconds); cost status: unavailable.",
+      "contentHash": "3384ccc0ed67ea34524f9ce7dee8bdc602f005c9e39e3588a971d733d72fd537",
+      "wordCount": 136,
+      "sourcePath": "what-ai-costs-to-use.md",
+      "sourceHash": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6",
+      "totalCostUsd": 0.05605685,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0039412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0149006,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0026376,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03384175,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.0007357,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
     }
   ]
 }

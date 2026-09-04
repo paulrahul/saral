@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-08-25T19:26:50.520912+00:00",
+  "createdAt": "2026-09-04T17:32:21.576776+00:00",
   "language": "en",
-  "articleCount": 9,
-  "chunkCount": 53,
-  "lessonChunkCount": 38,
-  "costChunkCount": 15,
+  "articleCount": 10,
+  "chunkCount": 59,
+  "lessonChunkCount": 41,
+  "costChunkCount": 18,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -17,9 +17,9 @@
     "status": "created",
     "dimensions": 1536,
     "reusedChunks": 53,
-    "embeddedChunks": 0,
+    "embeddedChunks": 6,
     "removedChunks": 0,
-    "requestCount": 0
+    "requestCount": 1
   },
   "sources": [
     {
@@ -66,6 +66,11 @@
       "slug": "using-ai-to-write-messages",
       "path": "using-ai-to-write-messages.md",
       "sha256": "0ccc92b5dcad1efefe07f91efdaca0d6e3c50c0c3c112755d20ff512a9bb1367"
+    },
+    {
+      "slug": "what-ai-costs-to-use",
+      "path": "what-ai-costs-to-use.md",
+      "sha256": "c1501b0373d108f3b94473764506c1f0e275274aae9cb6d5412ea5d3842445b6"
     }
   ]
 }
