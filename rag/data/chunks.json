@@ -741,6 +741,351 @@
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
     },
     {
+      "id": "how-ai-learns-from-data:1",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How AI Learns From Data",
+      "part": 1,
+      "text": "Learn how computer programs look at lots of pictures or words and find patterns so they can answer questions and help people.\n\nYou may hear people talk about Artificial Intelligence, or AI. AI is a computer program that can seem to think a little like a person. But how does it learn?",
+      "contentHash": "574b1e2109c42d490815043f3d23037c33e59ac2ec73e886c7819b297220e336",
+      "wordCount": 52,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
+    },
+    {
+      "id": "how-ai-learns-from-data:2",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "1. AI Is Like a Student",
+      "part": 1,
+      "text": "Imagine a child learning what a cat is. You show them many pictures of cats. You point and say, \"This is a cat.\" After seeing many examples, the child learns to spot a cat on their own. AI learns in a very similar way. We do not tell it every rule. We show it many examples.",
+      "contentHash": "96fb6897f325985bc010bb2dda1df5634115beb5adca479ad1949b3e0b2eee56",
+      "wordCount": 56,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
+    },
+    {
+      "id": "how-ai-learns-from-data:3",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "2. What Is Data? — 3. Finding Patterns",
+      "part": 1,
+      "text": "Data is just collected information. It can be: - Pictures - Words - Numbers - Sounds If we want an AI to know cats, we give it thousands of cat pictures. The pictures are the data.\n\nThe AI looks at all the examples. It looks for patterns. For cats, it might notice: - Pointy ears - Whiskers - A tail It remembers these patterns. This process is called machine learning.",
+      "contentHash": "b08b1d54ad7657eb3f3fdab6ddd8dad6773a328796f5e9e7ecb505dcb31d6e62",
+      "wordCount": 70,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
+    },
+    {
+      "id": "how-ai-learns-from-data:4",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "4. Practice Makes Better — 5. Then It Can Help Us",
+      "part": 1,
+      "text": "The AI practises again and again. It tries to guess, \"Is this a cat?\" If it is wrong, it adjusts its thinking. Over time, it gets better, just like a person practising a new skill.\n\nAfter learning, the AI can help us. It can: - Sort our photos - Help a doctor spot illness in an X-ray - Suggest a book we might like",
+      "contentHash": "02887b612ee32d88e6934bf547de5bf5725f17d3c71e5e718b325d1a4c99d087",
+      "wordCount": 64,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
+    },
+    {
+      "id": "how-ai-learns-from-data:5",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Important to Remember",
+      "part": 1,
+      "text": "AI is not magic. It is a tool that learns from the information we give it. If the information is bad or unfair, the AI can make mistakes. That is why people must watch over it and use it carefully.",
+      "contentHash": "29c16e25635c05c62f586168e10cd5cf613198f9811fa9c5a842b8f2851a6b90",
+      "wordCount": 40,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
+    },
+    {
+      "id": "how-ai-learns-from-data:cost:1",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “How AI Learns From Data”. Overall run — total recorded cost: USD 0.06121137; wall time: 73588 ms (73.588 seconds); request count: 8; cost status: partial. Stage: content generation. status: completed; wall time: 4428 ms (4.428 seconds); recorded cost: USD 0.003104; cost status: reported; request count: 2. content generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1001 ms (1.001 seconds); cost status: reported; recorded cost: USD 0.0025838; provider: Mistral; input tokens: 467; output tokens: 487; total tokens: 954; cached tokens: 0; reasoning tokens: 22; latency: 355 ms (0.355 seconds); generation time: 2586 ms (2.586 seconds). content generation call 2 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1002 ms (1.002 seconds); cost status: reported; recorded cost: USD 0.0005202; provider: OpenAI; input tokens: 467; output tokens: 491; total tokens: 958; cached tokens: 0; reasoning tokens: 58; latency: 1675 ms (1.675 seconds); generation time: 3867 ms (3.867 seconds). Stage: content evaluation. status: completed; wall time: 25754 ms (25.754 seconds); recorded cost: USD 0.017565; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1607 ms (1.607 seconds); cost status: reported; recorded cost: USD 0.017565; provider: Phala; input tokens: 1399; output tokens: 1043; total",
+      "contentHash": "ad660506dabc6d9cec19c14a2d27705cb1fc0073818252a159eb679ec059b959",
+      "wordCount": 220,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578",
+      "totalCostUsd": 0.06121137,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.003104,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.017565,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0035704,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.00284076,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03387075,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00026046,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-ai-learns-from-data:cost:2",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1607 ms (1.607 seconds); cost status: reported; recorded cost: USD 0.017565; provider: Phala; input tokens: 1399; output tokens: 1043; total tokens: 2442; cached tokens: 0; reasoning tokens: 881; latency: 1592 ms (1.592 seconds); generation time: 25680 ms (25.68 seconds). Stage: tag generation. status: completed; wall time: 2641 ms (2.641 seconds); recorded cost: USD 0.0035704; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 427 ms (0.427 seconds); cost status: reported; recorded cost: USD 0.0035704; provider: Together; input tokens: 858; output tokens: 578; total tokens: 1436; cached tokens: 0; reasoning tokens: 550; latency: 230 ms (0.23 seconds); generation time: 2489 ms (2.489 seconds). Stage: tag evaluation. status: completed; wall time: 1579 ms (1.579 seconds); recorded cost: USD 0.00284076; cost status: reported; request count: 1. tag evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 856 ms (0.856 seconds); cost status: reported; recorded cost: USD 0.00284076; provider: Sail Research; input tokens: 641; output tokens: 96; total tokens: 737; cached tokens: 0; reasoning tokens: 89; latency: 772 ms (0.772 seconds); generation time: 1418 ms (1.418 seconds). Stage: image generation. status: completed; wall time: 3374 ms (3.374 seconds); recorded cost: USD 0.03387075; cost status: reported; request count:",
+      "contentHash": "7d5e2bd9fe52e5e29e618493d820161dae5442c651490921adefef3bc55c9422",
+      "wordCount": 220,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578",
+      "totalCostUsd": 0.06121137,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.003104,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.017565,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0035704,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.00284076,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03387075,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00026046,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-ai-learns-from-data:cost:3",
+      "articleSlug": "how-ai-learns-from-data",
+      "articleTitle": "How AI Learns From Data",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/how-ai-learns-from-data/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "772 ms (0.772 seconds); generation time: 1418 ms (1.418 seconds). Stage: image generation. status: completed; wall time: 3374 ms (3.374 seconds); recorded cost: USD 0.03387075; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3205 ms (3.205 seconds); cost status: reported; recorded cost: USD 0.03387075; input tokens: 1083; output tokens: 1120; total tokens: 2203. Stage: translation bn. status: completed; wall time: 24575 ms (24.575 seconds); recorded cost: USD 0.00026046; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 252 ms (0.252 seconds); cost status: reported; recorded cost: USD 0.00026046; provider: DeepInfra; input tokens: 1324; output tokens: 1642; total tokens: 2966; cached tokens: 0; reasoning tokens: 0; latency: 743 ms (0.743 seconds); generation time: 24407 ms (24.407 seconds). Stage: translation hi. status: completed; wall time: 35796 ms (35.796 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 3606 ms (3.606 seconds); cost status: unavailable.",
+      "contentHash": "a63a5280851e261daf2176ef7c805cb303138d27235d93a5803ad924de2d7a2d",
+      "wordCount": 190,
+      "sourcePath": "how-ai-learns-from-data.md",
+      "sourceHash": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578",
+      "totalCostUsd": 0.06121137,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.003104,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.017565,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0035704,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.00284076,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03387075,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00026046,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
       "id": "how-phones-use-ai:1",
       "articleSlug": "how-phones-use-ai",
       "articleTitle": "How phones use AI",

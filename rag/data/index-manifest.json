@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-09-04T17:32:21.576776+00:00",
+  "createdAt": "2026-09-11T08:19:31.972200+00:00",
   "language": "en",
-  "articleCount": 10,
-  "chunkCount": 59,
-  "lessonChunkCount": 41,
-  "costChunkCount": 18,
+  "articleCount": 11,
+  "chunkCount": 67,
+  "lessonChunkCount": 46,
+  "costChunkCount": 21,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,8 +16,8 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 53,
-    "embeddedChunks": 6,
+    "reusedChunks": 59,
+    "embeddedChunks": 8,
     "removedChunks": 0,
     "requestCount": 1
   },
@@ -36,6 +36,11 @@
       "slug": "free-ai-tools-for-beginners",
       "path": "free-ai-tools-for-beginners.md",
       "sha256": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "slug": "how-ai-learns-from-data",
+      "path": "how-ai-learns-from-data.md",
+      "sha256": "70a3d11dadb3b1e9a26e60915f0a42751bbd7af4c1b73b6b8ca81b87333bf578"
     },
     {
       "slug": "how-phones-use-ai",
