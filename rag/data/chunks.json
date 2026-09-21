@@ -696,6 +696,345 @@
       ]
     },
     {
+      "id": "finding-information-with-ai:1",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Finding information with AI — What is AI?",
+      "part": 1,
+      "text": "Learn how smart computer programs can answer your questions and help you find information easily, just like asking a helpful neighbor.\n\nAI stands for Artificial Intelligence. It means computer programs that can understand questions and give answers, almost like talking to a person. You can learn more about it here: Artificial Intelligence - Simple Wikipedia. Think of AI like a very smart helper who knows about many things and can talk to you.",
+      "contentHash": "87b6fa8d5302340eb74c5de2c050ffae7bff04e99975121039c709c50eaca604",
+      "wordCount": 73,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
+    },
+    {
+      "id": "finding-information-with-ai:2",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How is it Different from Google?",
+      "part": 1,
+      "text": "When you use Google to search, you get a list of websites. You must open them and read to find your answer. With AI, you ask a question in plain words, and the AI writes you an answer directly. You do not need to open many websites.",
+      "contentHash": "b457c217eebca1e0bb2bb799240d09c68f23d1baf238592a64752c4cb3081d55",
+      "wordCount": 47,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
+    },
+    {
+      "id": "finding-information-with-ai:3",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Examples of AI Helpers — How to Ask AI a Question",
+      "part": 1,
+      "text": "Some popular AI helpers are: - Google Assistant on your phone - Siri on Apple phones - ChatGPT on the internet These tools are mostly free to use.\n\n1. Open the AI app or website. 2. Type your question in the box, or speak if it has a voice option. 3. Press send or enter. 4. Read the answer it gives you.",
+      "contentHash": "f3fb74b772d123a25a83bbd1d18b5dab097610ae5d4d02a95db17e91621d0ed4",
+      "wordCount": 62,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
+    },
+    {
+      "id": "finding-information-with-ai:4",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "What You Can Ask — Important Things to Remember",
+      "part": 1,
+      "text": "You can ask AI many things, like: - \"How do I cook rice?\" - \"What is the weather today?\" - \"How do I send a photo on WhatsApp?\" - \"What buses go to the hospital?\"\n\n- AI is helpful, but it can sometimes be wrong. Always check important information. - Do not share personal secrets, like passwords or bank details, with AI. - AI is a tool to help you, but you are still in charge.",
+      "contentHash": "c7e01bbe23538bc644f01a85d130bb6f0a2fd184e13ffc130294851aa5f34288",
+      "wordCount": 76,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
+    },
+    {
+      "id": "finding-information-with-ai:5",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Summary",
+      "part": 1,
+      "text": "AI is like a smart friend on your phone or computer. You ask, and it answers. It can save you time and help you learn new things every day.",
+      "contentHash": "959995425337b3cfb02e9b157162fb46cc483ef2c9863c9f2a0796cdeb37dc7a",
+      "wordCount": 29,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
+    },
+    {
+      "id": "finding-information-with-ai:cost:1",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Finding information with AI”. Overall run — total recorded cost: USD 0.05631523; wall time: 137286 ms (137.286 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 14370 ms (14.37 seconds); recorded cost: USD 0.0043642; cost status: reported; request count: 2. content generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1058 ms (1.058 seconds); cost status: reported; recorded cost: USD 0.00383; provider: Wafer; input tokens: 468; output tokens: 828; total tokens: 1296; cached tokens: 0; reasoning tokens: 304; latency: 437 ms (0.437 seconds); generation time: 13824 ms (13.824 seconds). content generation call 2 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1059 ms (1.059 seconds); cost status: reported; recorded cost: USD 0.0005342; provider: OpenAI; input tokens: 468; output tokens: 497; total tokens: 965; cached tokens: 0; reasoning tokens: 71; latency: 2132 ms (2.132 seconds); generation time: 5429 ms (5.429 seconds). Stage: content evaluation. status: completed; wall time: 15943 ms (15.943 seconds); recorded cost: USD 0.0162273; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 835 ms (0.835 seconds); cost status: reported; recorded cost: USD 0.0162273; provider: Together; input tokens: 1416; output tokens: 965; total tokens:",
+      "contentHash": "d89e0d2a61c732813eb78a08bddb507fefd7d29414fa8f6dffe8b80df16f6cfa",
+      "wordCount": 220,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05",
+      "totalCostUsd": 0.05631523,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0043642,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0162273,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0008214,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03386675,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00103558,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding-information-with-ai:cost:2",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 835 ms (0.835 seconds); cost status: reported; recorded cost: USD 0.0162273; provider: Together; input tokens: 1416; output tokens: 965; total tokens: 2381; cached tokens: 21; reasoning tokens: 800; latency: 704 ms (0.704 seconds); generation time: 15871 ms (15.871 seconds). Stage: tag generation. status: completed; wall time: 1688 ms (1.688 seconds); recorded cost: USD 0.0008214; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 643 ms (0.643 seconds); cost status: reported; recorded cost: USD 0.0008214; provider: CoreWeave; input tokens: 870; output tokens: 115; total tokens: 985; cached tokens: 0; reasoning tokens: 93; latency: 582 ms (0.582 seconds); generation time: 1517 ms (1.517 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3765 ms (3.765 seconds); recorded cost: USD 0.03386675; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3600 ms (3.6 seconds); cost status: reported; recorded cost: USD 0.03386675; input tokens: 1067; output tokens: 1120; total tokens: 2187. Stage: translation bn. status: completed; wall time: 34017 ms (34.017 seconds); recorded cost: USD 0.00103558; cost status: reported;",
+      "contentHash": "7b262612e74d0d7d5bd6c955e59e9498101f8f0bf22ef8b9071657b984f3a401",
+      "wordCount": 220,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05",
+      "totalCostUsd": 0.05631523,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0043642,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0162273,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0008214,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03386675,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00103558,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finding-information-with-ai:cost:3",
+      "articleSlug": "finding-information-with-ai",
+      "articleTitle": "Finding information with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/finding-information-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "cost: USD 0.03386675; input tokens: 1067; output tokens: 1120; total tokens: 2187. Stage: translation bn. status: completed; wall time: 34017 ms (34.017 seconds); recorded cost: USD 0.00103558; cost status: reported; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1125 ms (1.125 seconds); cost status: reported; recorded cost: USD 0.00103558; provider: AtlasCloud; input tokens: 1339; output tokens: 4807; total tokens: 6146; cached tokens: 0; reasoning tokens: 2278; latency: 1064 ms (1.064 seconds); generation time: 33935 ms (33.935 seconds). Stage: translation hi. status: completed; wall time: 101500 ms (101.5 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 4088 ms (4.088 seconds); cost status: unavailable.",
+      "contentHash": "9b3bbd6f8eba74e7dc355e52a54d79cdaa870d8ecd22390703fea7fefc0389d1",
+      "wordCount": 134,
+      "sourcePath": "finding-information-with-ai.md",
+      "sourceHash": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05",
+      "totalCostUsd": 0.05631523,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0043642,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0162273,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0008214,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.03386675,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0.00103558,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
       "id": "free-ai-tools-for-beginners:1",
       "articleSlug": "free-ai-tools-for-beginners",
       "articleTitle": "Free AI tools for beginners",

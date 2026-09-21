@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-09-11T08:19:31.972200+00:00",
+  "createdAt": "2026-09-21T13:12:11.607412+00:00",
   "language": "en",
-  "articleCount": 11,
-  "chunkCount": 67,
-  "lessonChunkCount": 46,
-  "costChunkCount": 21,
+  "articleCount": 12,
+  "chunkCount": 75,
+  "lessonChunkCount": 51,
+  "costChunkCount": 24,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,7 +16,7 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 59,
+    "reusedChunks": 67,
     "embeddedChunks": 8,
     "removedChunks": 0,
     "requestCount": 1
@@ -31,6 +31,11 @@
       "slug": "ai-detecting-online-scams",
       "path": "ai-detecting-online-scams.md",
       "sha256": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "slug": "finding-information-with-ai",
+      "path": "finding-information-with-ai.md",
+      "sha256": "dff4050bd63c16e01107ef71c91afc378f21aeca3af80911c2efb6497b1e2b05"
     },
     {
       "slug": "free-ai-tools-for-beginners",
