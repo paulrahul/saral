@@ -696,6 +696,375 @@
       ]
     },
     {
+      "id": "creating-pictures-with-ai:1",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Creating pictures with AI — What Does It Mean to Create Pictures with AI?",
+      "part": 1,
+      "text": "Learn how computer programs can make pictures from words you type, just like asking a friend to draw something for you.\n\nImagine you have a friend who is very good at drawing. When you tell your friend \"draw me a cat sitting on a chair,\" your friend makes that picture for you. Creating pictures with AI (Artificial Intelligence) is similar. Instead of asking a friend, you type words into a computer program, and the program makes a picture based on your words. You can ask for anything: \"a sunset over the ocean,\" \"a dog playing in the snow,\" or \"a birthday cake with candles.\" The computer will create a picture that matches what you described.",
+      "contentHash": "81fd0c068a46cf1047f97faf4615b2956e2ebe10483a2676f5e4c7637023e24e",
+      "wordCount": 115,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:2",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "How Does It Work?",
+      "part": 1,
+      "text": "These computer programs have looked at millions of pictures on the internet. They learned what things look like. When you type words, the program uses what it learned to create a new picture that matches your words. You don't need to know how to draw. You just need to be able to describe what you want in words.",
+      "contentHash": "dcafc4329376ea6673401278ba2b749ccb13caf2679ef9151682f44a6764ad84",
+      "wordCount": 58,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:3",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Tools You Can Use",
+      "part": 1,
+      "text": "Here are some simple tools where you can try making pictures: 1. Microsoft Designer - Free tool that makes pictures from your words 2. Craiyon - A free website where you type words and it makes pictures 3. Canva - Has a feature to create pictures from words (you can learn more about Canva here)",
+      "contentHash": "0098463a99ac9e74d022fedad4e60b947b37d1e227594560ebc17039566ac6a4",
+      "wordCount": 55,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:4",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Simple Steps to Make a Picture",
+      "part": 1,
+      "text": "1. Go to one of the websites above 2. Find the box where you type words 3. Type what you want to see, like \"a red flower in a garden\" 4. Click the button that says \"Create\" or \"Generate\" 5. Wait a few seconds 6. Your picture will appear on the screen 7. You can save it to your computer or phone",
+      "contentHash": "5274cc6803fa43f123babee22b344ed421e698330807ae51902ad285f0980561",
+      "wordCount": 62,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:5",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Why Is This Useful?",
+      "part": 1,
+      "text": "- You can make pictures for greeting cards - You can create images for your social media (like Facebook) - You can make pictures for your family messages - You can create art even if you cannot draw - You can make pictures for projects or presentations",
+      "contentHash": "54b96388e3d04382db7425e299d1756f78b76bd4f625677b3bc31d33f41a6f54",
+      "wordCount": 47,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:6",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Things to Remember",
+      "part": 1,
+      "text": "- The pictures are made by a computer, so they might not be perfect - Sometimes the picture might look strange or not exactly what you wanted - You can try again with different words - The pictures are free to use for personal purposes",
+      "contentHash": "ae2455b5ad74972f9038b4c000fcef011c84e480e935ffb33e3a6d9ec6192bf1",
+      "wordCount": 45,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:7",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Try It Yourself",
+      "part": 1,
+      "text": "Start with simple words like \"a happy dog\" or \"a tree with green leaves.\" As you get comfortable, you can try more detailed descriptions like \"a small brown dog sitting on a red chair in a sunny room.\" Remember, practice makes it easier. The more you try, the better you will get at telling the computer exactly what kind of picture you want.",
+      "contentHash": "28b25e992046c25d220bf3a30ce77009068135719693c041646262cdfbb751e3",
+      "wordCount": 63,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
+    },
+    {
+      "id": "creating-pictures-with-ai:cost:1",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Creating pictures with AI”. Overall run — total recorded cost: USD 0.05330059; wall time: 96267 ms (96.267 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 8804 ms (8.804 seconds); recorded cost: USD 0.0029211; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1017 ms (1.017 seconds); cost status: reported; recorded cost: USD 0.0006098; provider: OpenAI; input tokens: 468; output tokens: 527; total tokens: 995; cached tokens: 0; reasoning tokens: 65; latency: 2019 ms (2.019 seconds); generation time: 5250 ms (5.25 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1097 ms (1.097 seconds); cost status: reported; recorded cost: USD 0.0023113; provider: DigitalOcean; input tokens: 468; output tokens: 1038; total tokens: 1506; cached tokens: 0; reasoning tokens: 288; latency: 593 ms (0.593 seconds); generation time: 8262 ms (8.262 seconds). Stage: content evaluation. status: completed; wall time: 9930 ms (9.93 seconds); recorded cost: USD 0.01154716; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 707 ms (0.707 seconds); cost status: reported; recorded cost: USD 0.01154716; provider: Wafer; input tokens: 1689; output tokens: 646; total tokens:",
+      "contentHash": "b131b52abb7b857134f7c158679780ab9576738087b565e2924d283d590e69ed",
+      "wordCount": 220,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0",
+      "totalCostUsd": 0.05330059,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0029211,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01154716,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0039414,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0339185,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00097243,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "creating-pictures-with-ai:cost:2",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 707 ms (0.707 seconds); cost status: reported; recorded cost: USD 0.01154716; provider: Wafer; input tokens: 1689; output tokens: 646; total tokens: 2335; cached tokens: 64; reasoning tokens: 545; latency: 561 ms (0.561 seconds); generation time: 9822 ms (9.822 seconds). Stage: tag generation. status: completed; wall time: 3273 ms (3.273 seconds); recorded cost: USD 0.0039414; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 401 ms (0.401 seconds); cost status: reported; recorded cost: USD 0.0039414; provider: Mistral; input tokens: 1108; output tokens: 624; total tokens: 1732; cached tokens: 0; reasoning tokens: 592; latency: 317 ms (0.317 seconds); generation time: 3153 ms (3.153 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3586 ms (3.586 seconds); recorded cost: USD 0.0339185; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3405 ms (3.405 seconds); cost status: reported; recorded cost: USD 0.0339185; input tokens: 1274; output tokens: 1120; total tokens: 2394. Stage: translation bn. status: completed; wall time: 70658 ms (70.658 seconds); recorded cost: USD 0; cost status: partial;",
+      "contentHash": "a8c5d708aea0297ff4a2b9205385e67c070914d542f40be9e46222c19062ae69",
+      "wordCount": 220,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0",
+      "totalCostUsd": 0.05330059,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0029211,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01154716,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0039414,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0339185,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00097243,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "creating-pictures-with-ai:cost:3",
+      "articleSlug": "creating-pictures-with-ai",
+      "articleTitle": "Creating pictures with AI",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/creating-pictures-with-ai/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "cost: USD 0.0339185; input tokens: 1274; output tokens: 1120; total tokens: 2394. Stage: translation bn. status: completed; wall time: 70658 ms (70.658 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1219 ms (1.219 seconds); cost status: unavailable. Stage: translation hi. status: completed; wall time: 44028 ms (44.028 seconds); recorded cost: USD 0.00097243; cost status: reported; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1832 ms (1.832 seconds); cost status: reported; recorded cost: USD 0.00097243; provider: GMICloud; input tokens: 1575; output tokens: 5995; total tokens: 7570; cached tokens: 0; reasoning tokens: 3033; latency: 1704 ms (1.704 seconds); generation time: 43882 ms (43.882 seconds).",
+      "contentHash": "88ab72e7e3ce91bacef178cb4728a7e06bc5a0b72770c480773f6be80432f8b0",
+      "wordCount": 134,
+      "sourcePath": "creating-pictures-with-ai.md",
+      "sourceHash": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0",
+      "totalCostUsd": 0.05330059,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0029211,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.01154716,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.0039414,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0339185,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00097243,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
       "id": "finding-information-with-ai:1",
       "articleSlug": "finding-information-with-ai",
       "articleTitle": "Finding information with AI",

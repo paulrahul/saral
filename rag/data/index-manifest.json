@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-09-21T13:12:11.607412+00:00",
+  "createdAt": "2026-09-26T07:57:28.929440+00:00",
   "language": "en",
-  "articleCount": 12,
-  "chunkCount": 75,
-  "lessonChunkCount": 51,
-  "costChunkCount": 24,
+  "articleCount": 13,
+  "chunkCount": 85,
+  "lessonChunkCount": 58,
+  "costChunkCount": 27,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,8 +16,8 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 67,
-    "embeddedChunks": 8,
+    "reusedChunks": 75,
+    "embeddedChunks": 10,
     "removedChunks": 0,
     "requestCount": 1
   },
@@ -31,6 +31,11 @@
       "slug": "ai-detecting-online-scams",
       "path": "ai-detecting-online-scams.md",
       "sha256": "0877058f9d6a3ce7e6b5e58198936e35f6f42c3f013ad9500cc03d0ed2f745b3"
+    },
+    {
+      "slug": "creating-pictures-with-ai",
+      "path": "creating-pictures-with-ai.md",
+      "sha256": "a0cc4d083e352eff7f1f1c18423beebbc313fdb8c0b8cff2dce95f6778c2d0d0"
     },
     {
       "slug": "finding-information-with-ai",
