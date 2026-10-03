@@ -1449,6 +1449,315 @@
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
     },
     {
+      "id": "giving-ai-clear-instructions:1",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Giving AI clear instructions — A simple way to ask",
+      "part": 1,
+      "text": "You will learn how to give an artificial intelligence tool clear instructions so it can give more useful answers.\n\nArtificial intelligence is a computer helper that follows your instructions. Clear instructions help it understand what you want.\n\nTell it: 1. What you want 2. Who it is for 3. How you want the answer 4. Any important details",
+      "contentHash": "f4b69a389026bd113c13a5b93ca9c16e7b81134e022ead3a46e239912327b53d",
+      "wordCount": 58,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4"
+    },
+    {
+      "id": "giving-ai-clear-instructions:2",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Example — You can also give an example",
+      "part": 1,
+      "text": "Instead of saying: > Write a letter. Say: > Write a short, polite letter to my landlord. Tell them that the kitchen tap is leaking. Use simple words. The second instruction gives more helpful details.\n\n> Write a shopping list like this: > Bread, milk, rice, and apples. > Make a list for a family of four.",
+      "contentHash": "2955043e38c6e65fc0d4c07ca545d1b5a60912e32513ac553b8a37726cabed2f",
+      "wordCount": 57,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4"
+    },
+    {
+      "id": "giving-ai-clear-instructions:3",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Ask it to change the answer — Remember",
+      "part": 1,
+      "text": "You can say: - “Make it shorter.” - “Use easier words.” - “Explain it step by step.” - “Give me three examples.” - “Translate it into Hindi.” - “Read it like a friendly teacher.”\n\nThe computer may sometimes make mistakes. Do not share private information such as: - Passwords - Bank details - Identity card numbers - Private medical information Check important answers with a trusted person or a reliable source.",
+      "contentHash": "9f521c3e15c2fd35ae965fe1dc98052fdc13fab6f489490376010969ce10780f",
+      "wordCount": 71,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4"
+    },
+    {
+      "id": "giving-ai-clear-instructions:cost:1",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Giving AI clear instructions”. Overall run — total recorded cost: USD 0.06270906; wall time: 55675 ms (55.675 seconds); request count: 7; cost status: partial. Stage: content generation. status: completed; wall time: 5396 ms (5.396 seconds); recorded cost: USD 0.0065412; cost status: reported; request count: 2. content generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 882 ms (0.882 seconds); cost status: reported; recorded cost: USD 0.0059734; provider: Together; input tokens: 468; output tokens: 1317; total tokens: 1785; cached tokens: 0; reasoning tokens: 841; latency: 266 ms (0.266 seconds); generation time: 4846 ms (4.846 seconds). content generation call 2 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 934 ms (0.934 seconds); cost status: reported; recorded cost: USD 0.0005678; provider: OpenAI; input tokens: 468; output tokens: 358; total tokens: 826; cached tokens: 0; reasoning tokens: 107; latency: 1858 ms (1.858 seconds); generation time: 3940 ms (3.94 seconds). Stage: content evaluation. status: completed; wall time: 23655 ms (23.655 seconds); recorded cost: USD 0.0214245; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1016 ms (1.016 seconds); cost status: reported; recorded cost: USD 0.0214245; provider: Together; input tokens: 1361; output tokens: 1621; total tokens:",
+      "contentHash": "290ed6380b8ae9828e695809781d8d90294d520dfb0ab48e1b48a764d4ea7c71",
+      "wordCount": 220,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4",
+      "totalCostUsd": 0.06270906,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0065412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0214245,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00090736,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.033836,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "giving-ai-clear-instructions:cost:2",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1016 ms (1.016 seconds); cost status: reported; recorded cost: USD 0.0214245; provider: Together; input tokens: 1361; output tokens: 1621; total tokens: 2982; cached tokens: 0; reasoning tokens: 1177; latency: 1003 ms (1.003 seconds); generation time: 23605 ms (23.605 seconds). Stage: tag generation. status: completed; wall time: 1013 ms (1.013 seconds); recorded cost: USD 0.00090736; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 400 ms (0.4 seconds); cost status: reported; recorded cost: USD 0.00090736; provider: Wafer; input tokens: 756; output tokens: 195; total tokens: 951; cached tokens: 0; reasoning tokens: 142; latency: 286 ms (0.286 seconds); generation time: 953 ms (0.953 seconds). Stage: tag evaluation. status: skipped; wall time: 0 ms (0 seconds); recorded cost: USD 0; cost status: reported; request count: 0. Stage: image generation. status: completed; wall time: 3798 ms (3.798 seconds); recorded cost: USD 0.033836; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3619 ms (3.619 seconds); cost status: reported; recorded cost: USD 0.033836; input tokens: 944; output tokens: 1120; total tokens: 2064. Stage: translation bn. status: completed; wall time: 21802 ms (21.802 seconds); recorded cost: USD 0; cost status: partial;",
+      "contentHash": "d95da834fb88fad9103c2ece68005754b8603ff9625ffdcd2d38353186b59423",
+      "wordCount": 220,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4",
+      "totalCostUsd": 0.06270906,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0065412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0214245,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00090736,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.033836,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "giving-ai-clear-instructions:cost:3",
+      "articleSlug": "giving-ai-clear-instructions",
+      "articleTitle": "Giving AI clear instructions",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/giving-ai-clear-instructions/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "cost: USD 0.033836; input tokens: 944; output tokens: 1120; total tokens: 2064. Stage: translation bn. status: completed; wall time: 21802 ms (21.802 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 3366 ms (3.366 seconds); cost status: unavailable. Stage: translation hi. status: completed; wall time: 21290 ms (21.29 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 1217 ms (1.217 seconds); cost status: unavailable.",
+      "contentHash": "891e4fb240b4269b5730f55e40280f38f4b30f2c6d34b1ceccf2b71e5a69964b",
+      "wordCount": 102,
+      "sourcePath": "giving-ai-clear-instructions.md",
+      "sourceHash": "439ab494d887a1c70a64010a368259e5d03afd8a8d59e0805f34fce2cee6beb4",
+      "totalCostUsd": 0.06270906,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.0065412,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0214245,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00090736,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "skipped",
+          "costUsd": 0,
+          "costStatus": "reported",
+          "models": []
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.033836,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
       "id": "how-ai-learns-from-data:1",
       "articleSlug": "how-ai-learns-from-data",
       "articleTitle": "How AI Learns From Data",
