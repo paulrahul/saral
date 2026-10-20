@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-10-20T21:40:52.313289+00:00",
+  "createdAt": "2026-10-20T21:43:59.217695+00:00",
   "language": "en",
-  "articleCount": 16,
-  "chunkCount": 108,
-  "lessonChunkCount": 72,
-  "costChunkCount": 36,
+  "articleCount": 17,
+  "chunkCount": 117,
+  "lessonChunkCount": 78,
+  "costChunkCount": 39,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,8 +16,8 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 98,
-    "embeddedChunks": 10,
+    "reusedChunks": 108,
+    "embeddedChunks": 9,
     "removedChunks": 0,
     "requestCount": 1
   },
@@ -71,6 +71,11 @@
       "slug": "how-to-check-ai-answers",
       "path": "how-to-check-ai-answers.md",
       "sha256": "a0e2f8d4f80441d18f89c4309d1ea37e936702011e20c116bf4cf5a6c2238d40"
+    },
+    {
+      "slug": "learning-something-new-with-ai",
+      "path": "learning-something-new-with-ai.md",
+      "sha256": "84fcc0614c304442f4b6a28bfe59e071a5fc9055a2dc5d936fea530ecc747fe8"
     },
     {
       "slug": "staying-safe-when-using-ai",
