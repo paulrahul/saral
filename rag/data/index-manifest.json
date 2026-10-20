@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-10-03T11:46:03.177998+00:00",
+  "createdAt": "2026-10-20T21:35:41.298125+00:00",
   "language": "en",
-  "articleCount": 14,
-  "chunkCount": 91,
-  "lessonChunkCount": 61,
-  "costChunkCount": 30,
+  "articleCount": 15,
+  "chunkCount": 98,
+  "lessonChunkCount": 65,
+  "costChunkCount": 33,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,8 +16,8 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 85,
-    "embeddedChunks": 6,
+    "reusedChunks": 91,
+    "embeddedChunks": 7,
     "removedChunks": 0,
     "requestCount": 1
   },
@@ -46,6 +46,11 @@
       "slug": "free-ai-tools-for-beginners",
       "path": "free-ai-tools-for-beginners.md",
       "sha256": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
+    },
+    {
+      "slug": "getting-help-with-online-forms",
+      "path": "getting-help-with-online-forms.md",
+      "sha256": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34"
     },
     {
       "slug": "giving-ai-clear-instructions",

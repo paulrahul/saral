@@ -1449,6 +1449,336 @@
       "sourceHash": "24cc555677bd0fd86e14041f0113436b94f2709601b94077de7d3f011901cf73"
     },
     {
+      "id": "getting-help-with-online-forms:1",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Getting help with online forms",
+      "part": 1,
+      "text": "Sometimes, you need to fill out a form on the internet. This is just like a paper form you fill out with a pen, but you type on your computer or phone screen. Online forms are used\n\nSometimes, you need to fill out a form on the internet. This is just like a paper form you fill out with a pen, but you type on your computer or phone screen. Online forms are used for things like making a doctor's appointment, asking for government help, or buying something. If you get stuck while looking at a form on a screen, do not worry. Here is how you can get help:",
+      "contentHash": "16effef62fd4106162e1086cb793e9c60f4a3f00523ed68b6ba5b2a9b378c07d",
+      "wordCount": 110,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34"
+    },
+    {
+      "id": "getting-help-with-online-forms:2",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Ask Someone You Trust",
+      "part": 1,
+      "text": "The best way to get help is to ask a family member, a good friend, or a neighbor you trust. You can also ask a worker at your local library or community center. They can sit next to you and point to the screen to show you what to do.",
+      "contentHash": "aaeac21930aba2f3eb2a8f5171de470026e81e09f0f4d21ea1a1490474d03a47",
+      "wordCount": 50,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34"
+    },
+    {
+      "id": "getting-help-with-online-forms:3",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Look for Help on the Website",
+      "part": 1,
+      "text": "Most websites have a way to get help built right in. Look around the edges of the screen for words like: Help FAQ (which stands for \"Frequently Asked Questions\") Contact Us Clicking on these words will usually show you a phone number to call or a message box where you can type your problem to the website owners.",
+      "contentHash": "83da5c0f5d849f3892fb50b7960ff4a094a9db36d5378fe009e181e22778a4ea",
+      "wordCount": 58,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34"
+    },
+    {
+      "id": "getting-help-with-online-forms:4",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/",
+      "language": "en",
+      "chunkType": "lesson",
+      "heading": "Be Safe When Asking for Help",
+      "part": 1,
+      "text": "Only share your personal details (like your bank numbers, date of birth, or passwords) with people you know and trust, or with the official website itself. Never give your personal information to someone who calls you on the phone out of nowhere and says they will help you fill out a form. Bad people sometimes pretend to be helpers to steal your money. Always go to the website yourself or ask a family member to help you find it.",
+      "contentHash": "6fa57f2dc407eb8d565a6b3eb04b1df87c9b69f4d6c42722dd9a4b1fa2c85c1b",
+      "wordCount": 79,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34"
+    },
+    {
+      "id": "getting-help-with-online-forms:cost:1",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 1,
+      "text": "AI production cost and model information for the Saral article “Getting help with online forms”. Overall run — total recorded cost: USD 0.05185026; wall time: 56317 ms (56.317 seconds); request count: 8; cost status: partial. Stage: content generation. status: completed; wall time: 5123 ms (5.123 seconds); recorded cost: USD 0.00320886; cost status: reported; request count: 2. content generation call 1 — model name: OpenAI: GPT-5.6 Luna; model: openai/gpt-5.6-luna; request wall time: 1018 ms (1.018 seconds); cost status: reported; recorded cost: USD 0.0004888; provider: OpenAI; input tokens: 469; output tokens: 428; total tokens: 897; cached tokens: 0; reasoning tokens: 45; latency: 1680 ms (1.68 seconds); generation time: 3638 ms (3.638 seconds). content generation call 2 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 1019 ms (1.019 seconds); cost status: reported; recorded cost: USD 0.00272006; provider: CoreWeave; input tokens: 469; output tokens: 1076; total tokens: 1545; cached tokens: 0; reasoning tokens: 690; latency: 458 ms (0.458 seconds); generation time: 4589 ms (4.589 seconds). Stage: content evaluation. status: completed; wall time: 13508 ms (13.508 seconds); recorded cost: USD 0.0086784; cost status: reported; request count: 1. content evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1159 ms (1.159 seconds); cost status: reported; recorded cost: USD 0.0086784; provider: Sail Research; input tokens: 1269; output tokens: 1540;",
+      "contentHash": "008cf15803b5a02425c51b63a47f88ebec86667f43a40d9fbf2798425906cef5",
+      "wordCount": 220,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34",
+      "totalCostUsd": 0.05185026,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00320886,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0086784,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00399847,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.0015523,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0338405,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00057173,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "getting-help-with-online-forms:cost:2",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 2,
+      "text": "model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1159 ms (1.159 seconds); cost status: reported; recorded cost: USD 0.0086784; provider: Sail Research; input tokens: 1269; output tokens: 1540; total tokens: 2809; cached tokens: 0; reasoning tokens: 1296; latency: 1110 ms (1.11 seconds); generation time: 13348 ms (13.348 seconds). Stage: tag generation. status: completed; wall time: 3494 ms (3.494 seconds); recorded cost: USD 0.00399847; cost status: reported; request count: 1. tag generation call 1 — model name: Z.ai: GLM 5.2; model: z-ai/glm-5.2; request wall time: 506 ms (0.506 seconds); cost status: reported; recorded cost: USD 0.00399847; provider: Wafer; input tokens: 774; output tokens: 612; total tokens: 1386; cached tokens: 0; reasoning tokens: 546; latency: 318 ms (0.318 seconds); generation time: 3445 ms (3.445 seconds). Stage: tag evaluation. status: completed; wall time: 2241 ms (2.241 seconds); recorded cost: USD 0.0015523; cost status: reported; request count: 1. tag evaluation call 1 — model name: MoonshotAI: Kimi K3; model: moonshotai/kimi-k3; request wall time: 1047 ms (1.047 seconds); cost status: reported; recorded cost: USD 0.0015523; provider: Sail Research; input tokens: 645; output tokens: 139; total tokens: 784; cached tokens: 0; reasoning tokens: 124; latency: 1006 ms (1.006 seconds); generation time: 1992 ms (1.992 seconds). Stage: image generation. status: completed; wall time: 3851 ms (3.851 seconds); recorded cost: USD 0.0338405; cost status: reported; request",
+      "contentHash": "d51e22fcc5b863a35bdad59bb2c1d7b4ce5faef2bb5edb13a4a038480f360d9b",
+      "wordCount": 220,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34",
+      "totalCostUsd": 0.05185026,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00320886,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0086784,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00399847,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.0015523,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0338405,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00057173,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "getting-help-with-online-forms:cost:3",
+      "articleSlug": "getting-help-with-online-forms",
+      "articleTitle": "Getting help with online forms",
+      "articleUrl": "https://saralai-seven.vercel.app/articles/getting-help-with-online-forms/#ai-production-cost",
+      "language": "en",
+      "chunkType": "generation-cost",
+      "heading": "AI production cost and models",
+      "part": 3,
+      "text": "latency: 1006 ms (1.006 seconds); generation time: 1992 ms (1.992 seconds). Stage: image generation. status: completed; wall time: 3851 ms (3.851 seconds); recorded cost: USD 0.0338405; cost status: reported; request count: 1. image generation call 1 — model name: Google: Nano Banana 2 Lite; model: google/gemini-3.1-flash-lite-image; request wall time: 3697 ms (3.697 seconds); cost status: reported; recorded cost: USD 0.0338405; input tokens: 962; output tokens: 1120; total tokens: 2082. Stage: translation bn. status: completed; wall time: 18260 ms (18.26 seconds); recorded cost: USD 0; cost status: partial; request count: 1. translation bn call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 565 ms (0.565 seconds); cost status: unavailable. Stage: translation hi. status: completed; wall time: 28089 ms (28.089 seconds); recorded cost: USD 0.00057173; cost status: reported; request count: 1. translation hi call 1 — model name: DeepSeek: DeepSeek V4 Flash 0423; model: deepseek/deepseek-v4-flash; request wall time: 746 ms (0.746 seconds); cost status: reported; recorded cost: USD 0.00057173; provider: Baidu; input tokens: 1241; output tokens: 3554; total tokens: 4795; cached tokens: 512; reasoning tokens: 1830; latency: 624 ms (0.624 seconds); generation time: 27903 ms (27.903 seconds).",
+      "contentHash": "6a08b924821d152b7585e19147be680ce826da01dd0d874ec4170413df456580",
+      "wordCount": 191,
+      "sourcePath": "getting-help-with-online-forms.md",
+      "sourceHash": "59199e2de208e0f70172804b226fba39719a141d8dafa584e3112d048de9ab34",
+      "totalCostUsd": 0.05185026,
+      "costStatus": "partial",
+      "models": [
+        "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)",
+        "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)",
+        "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)",
+        "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+        "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+      ],
+      "stageSummaries": [
+        {
+          "key": "content_generation",
+          "status": "completed",
+          "costUsd": 0.00320886,
+          "costStatus": "reported",
+          "models": [
+            "OpenAI: GPT-5.6 Luna (openai/gpt-5.6-luna)",
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "content_evaluation",
+          "status": "completed",
+          "costUsd": 0.0086784,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "tag_generation",
+          "status": "completed",
+          "costUsd": 0.00399847,
+          "costStatus": "reported",
+          "models": [
+            "Z.ai: GLM 5.2 (z-ai/glm-5.2)"
+          ]
+        },
+        {
+          "key": "tag_evaluation",
+          "status": "completed",
+          "costUsd": 0.0015523,
+          "costStatus": "reported",
+          "models": [
+            "MoonshotAI: Kimi K3 (moonshotai/kimi-k3)"
+          ]
+        },
+        {
+          "key": "image_generation",
+          "status": "completed",
+          "costUsd": 0.0338405,
+          "costStatus": "reported",
+          "models": [
+            "Google: Nano Banana 2 Lite (google/gemini-3.1-flash-lite-image)"
+          ]
+        },
+        {
+          "key": "translation_bn",
+          "status": "completed",
+          "costUsd": 0,
+          "costStatus": "partial",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        },
+        {
+          "key": "translation_hi",
+          "status": "completed",
+          "costUsd": 0.00057173,
+          "costStatus": "reported",
+          "models": [
+            "DeepSeek: DeepSeek V4 Flash 0423 (deepseek/deepseek-v4-flash)"
+          ]
+        }
+      ]
+    },
+    {
       "id": "giving-ai-clear-instructions:1",
       "articleSlug": "giving-ai-clear-instructions",
       "articleTitle": "Giving AI clear instructions",
