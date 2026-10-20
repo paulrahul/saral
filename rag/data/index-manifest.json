@@ -1,11 +1,11 @@
 {
   "schemaVersion": 3,
-  "createdAt": "2026-10-20T21:35:41.298125+00:00",
+  "createdAt": "2026-10-20T21:40:52.313289+00:00",
   "language": "en",
-  "articleCount": 15,
-  "chunkCount": 98,
-  "lessonChunkCount": 65,
-  "costChunkCount": 33,
+  "articleCount": 16,
+  "chunkCount": 108,
+  "lessonChunkCount": 72,
+  "costChunkCount": 36,
   "chunking": {
     "maxWords": 220,
     "minWords": 40,
@@ -16,8 +16,8 @@
     "normalized": true,
     "status": "created",
     "dimensions": 1536,
-    "reusedChunks": 91,
-    "embeddedChunks": 7,
+    "reusedChunks": 98,
+    "embeddedChunks": 10,
     "removedChunks": 0,
     "requestCount": 1
   },
@@ -76,6 +76,11 @@
       "slug": "staying-safe-when-using-ai",
       "path": "staying-safe-when-using-ai.md",
       "sha256": "0b2f7ca808ece475d9819d68d326dc888c9a7f221f8161b778fc74d84c8a8ac1"
+    },
+    {
+      "slug": "understanding-difficult-letters",
+      "path": "understanding-difficult-letters.md",
+      "sha256": "eef86d7024835bec4c3ba8d704c8a5179723b1a9f1885d15e2325365a787bb63"
     },
     {
       "slug": "using-ai-to-read-documents",
