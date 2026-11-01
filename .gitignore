@@ -11,3 +11,5 @@ __pycache__
 /llm/generated/
 
 /tools/.rerun-backup/
+
+.DS_Store
