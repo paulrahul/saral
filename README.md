@@ -4,6 +4,10 @@ Saral is a multilingual learning site that explains everyday technology and AI
 in simple language. It is designed primarily for elderly people, people with
 disabilities, and readers who are not confident with technology.
 
+Live site: https://saralai-seven.vercel.app
+
+Built with Python, the OpenAI Agents SDK, OpenRouter, FastAPI, and Astro.
+
 The repository contains four connected parts:
 
 - an AI-assisted article-generation pipeline;
@@ -122,7 +126,7 @@ cd web
 npm ci
 ```
 
-## Run the EasyTutor agent - generate topics or articles
+## Run the content agent - generate topics or articles
 
 Generate or refresh the ranked topic queue:
 
@@ -280,3 +284,11 @@ OpenRouter query-embedding request.
 
 Chatbot architecture, configuration, and deployment details are documented in
 [`docs/saral-chatbot-design.md`](docs/saral-chatbot-design.md).
+
+## Roadmap
+
+Planned work is listed in [`ROADMAP.md`](ROADMAP.md).
+
+## License
+
+Released under the [MIT License](LICENSE).
