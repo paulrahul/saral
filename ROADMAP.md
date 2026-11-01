@@ -8,6 +8,7 @@ Priorities run from P1 (highest) to P3.
 - P1: Dynamic article layout and style based on the article's content (all articles currently share one layout)
 - P1: AI help bot in each article
 - P3: A way for readers to suggest new topics
+- P1: Come up with a newer visual look
 
 ## Bugs and reliability
 
